@@ -1,0 +1,32 @@
+public class Department {
+    string name;
+    int size;
+    Course[ ] courses;
+    scanner courseScanner;
+    
+public Department () {
+        name = ‘’;
+        size = 0;
+        courses = NULL;
+    }
+    
+    public Department (string n, int i, scanner s) {
+        name = n;
+        size = i;
+        courses = new Course[i];
+        courseScanner = s; 
+    }
+    public void initCourse () {
+        for (int i = 0; i < size; i ++) {
+            int cSize;
+            string cName;
+
+cSize = courseScanner.getCSize (i);
+cName = courseScanner.getCName(i);
+            
+courses[i] = new Course (cName, cSize, courseScanner);
+
+        }
+
+    }
+}
