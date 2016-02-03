@@ -13,7 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    //Git test
     public static final String path = "testText.txt";   //Text file name
 
     private WordScanner wordScanner;                    //Object that will read text file
