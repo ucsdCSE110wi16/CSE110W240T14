@@ -7,14 +7,30 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".homeScreen"
             android:label="@string/title_activity_home_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
+            />
         <activity
             android:name=".settingsPage"
-            android:label="@string/title_activity_settings_page"></activity>
+            android:label="@string/title_activity_settings_page">
+
+        </activity>
+        <activity
+            android:name=".PageTemplate"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".HomePage"
+            android:label="@string/app_name">
+        </activity>
+
     </application>
 
 </manifest>
