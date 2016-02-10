@@ -9,13 +9,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.cse110ucsdt14.notey.PageTemplate"
-    tools:showIn="@layout/activity_page_template">
+    tools:context="com.cse110ucsdt14.notey.HomePage"
+    tools:showIn="@layout/home_page_template">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="This is the home page. Replace with actual home page stuff."
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
