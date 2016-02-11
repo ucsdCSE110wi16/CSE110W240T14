@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DopeShit</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="title_activity_settings_page">SettingsPage</string>
+    <string name="title_activity_week_lecture_selection">WeekLectureSelection</string>
+</resources>
