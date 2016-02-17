@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -32,16 +33,17 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void openMyClasses (View view) {
+
         startActivity(new Intent(this, MyClasses.class));
     }
 
     /*public void openMyNotes (View view) {
         startActivity(new Intent(this, MyNotes.class));
-    }
+    }*/
 
     public void openAllClasses (View view) {
         startActivity(new Intent(this, AllClasses.class));
-    }*/
+    }
 
 
 }
