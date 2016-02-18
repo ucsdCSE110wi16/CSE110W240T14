@@ -14,7 +14,7 @@ public class Professor_Activity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_course_);
+            setContentView(R.layout.activity_professor);
 
             Course current = Course_Activity.courseList.get(Course_Activity.selectedCourse);
 

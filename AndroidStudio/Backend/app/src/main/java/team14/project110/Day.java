@@ -1,5 +1,6 @@
 package team14.project110;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,14 +9,19 @@ import java.util.List;
  */
 public class Day {
 
-    List<Note> notes = new ArrayList<Note>(); //List of courses within department
+    List<Note> notes;
 
-    public void addNotes(){
-
+    public Day(){
+        notes = new ArrayList<Note>(); //List of courses within department
     }
 
-    public void removeNotes(){
-
+    //Add note to day
+    public void addNotes(File file){
+        Note addedNote = new Note(file);
+        notes.add(addedNote);
     }
+
+ //   public void removeNotes(Note note){
+  //  }
 
 }
