@@ -27,7 +27,7 @@ public class Course {
     }
 
     //Add course to list of courses belonging to this department
-    private void addProfessor(String name, int day) {
+    public void addProfessor(String name, int day) {
         //Check if course had already been added
         if (professors.contains(name)) {
             return;

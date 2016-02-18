@@ -9,13 +9,9 @@ import java.util.List;
  */
 public class Professor {
 
-    String name;    //Department name
+    String name;    //Professor name
     Week[] weeks = new Week[11]; //List of weeks within the course
 
-    //Default constructor
-    public Professor(){
-        name = "";
-    }
     //Constructor with parameters
     public Professor(String n, int days){
         name = n;
@@ -27,22 +23,11 @@ public class Professor {
         return name;
     }
 
+    //Initiate weeks
     public void initWeeks(int numDays){
         for(int i = 0; i < weeks.length; i++){
-            weeks[i].initDays(numDays);
+            Week thisWeek = new Week(numDays);
+            weeks[i] = thisWeek;
         }
     }
-
-    /*
-    //Add course to list of courses belonging to this department
-    private void addWeek(String name){
-        //Check if course had already been added
-        if(weeks.contains(name)){
-            return;
-        }
-        else {
-            Week c = new Week(name);
-            Week.add(c);
-        }
-    }*/
 }

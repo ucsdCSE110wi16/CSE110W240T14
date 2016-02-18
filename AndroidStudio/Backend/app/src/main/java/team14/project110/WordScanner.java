@@ -56,7 +56,7 @@ public class WordScanner {
         //Loop through individual lines of list
         for(String currString : lines) {
 
-            words = currString.split(" ");  //Separate words that are in the same line(Need to change to / or some other symbol)
+            words = currString.split("/");  //Separate words that are in the same line(Need to change to / or some other symbol)
             //Loop through individual words in a line
             for (String word : words) {
                 //Check what department to add to (by checking first word)

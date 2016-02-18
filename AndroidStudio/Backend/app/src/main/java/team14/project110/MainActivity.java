@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         wordScanner = new WordScanner(this);    //Construct wordScanner object
         wordScanner.parseList(path);            //Go through words in lines and sort according to dept and course
 
+
         createList();                           //Create ui list of departments shown on phone
 
         registerClickCallback();                //Respond to click on list of departments
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     //This will list departments on the screen
     void createList(){
         depart = wordScanner.departments;   //List of departments
-
+        (((depart.get(0)).courses).get(0)).addProfessor("TestProf", 3);
         //Adapter that controls what is shown by UI list
         ArrayAdapter departmentArrayAdapter = new ArrayAdapter
                 (this, android.R.layout.simple_list_item_1, depart);

@@ -28,7 +28,7 @@ public class Course_Activity extends AppCompatActivity {
 
         createCourseList();
 
-        // registerClickCallback(); //(not added yet)
+        registerClickCallback();
     }
     //Create the list of courses that is displayed on the screen
     void createCourseList(){
@@ -39,7 +39,7 @@ public class Course_Activity extends AppCompatActivity {
         ListView deptList = (ListView) findViewById(R.id.listView2);
         deptList.setAdapter(courseArrayAdapter);
     }
-/*
+
     private void registerClickCallback(){
 
         //List shown on screen
@@ -60,5 +60,5 @@ public class Course_Activity extends AppCompatActivity {
 
             }
         });
-    }*/
+    }
 }
