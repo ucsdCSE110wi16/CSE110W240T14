@@ -3,7 +3,9 @@ public class Department {
     int size;
     Course[ ] courses;
     scanner courseScanner;
-    
+    //Steven was here.
+
+
 public Department () {
         name = ‘’;
         size = 0;
