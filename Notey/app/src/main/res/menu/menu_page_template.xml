@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.cse110ucsdt14.notey.PageTemplate">
+    <item
+        android:id="@+id/action_settings"
+        android:title="Settings"
+        android:icon="@drawable/ic_action_settings"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_menu"
+        android:title="Menu"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/my_notes"
+                android:title="My Notes" />
+            <item
+                android:id="@+id/my_classes"
+                android:title="My Classes" />
+            <item
+                android:id="@+id/all_classes"
+                android:title="All Classes" />
+        </menu>
+
+    </item>
+</menu>
