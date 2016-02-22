@@ -76,13 +76,13 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
 
     private void loadData() {
         ArrayList<ClassInfo> listOfClasses = new ArrayList<ClassInfo>();
-        ClassInfo UCSD_class = new ClassInfo("CSE 110", "Software Engineering", "Kesden", 10);
+        ClassInfo UCSD_class = new ClassInfo("CSE 110", "Software Engineering", "Kesden", 2);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("CSE 105", "Automata Theory", "Shacham", 10);
+        UCSD_class = new ClassInfo("CSE 105", "Automata Theory", "Shacham", 2);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("CSE 100", "Advanced Data Struture", "Gary", 10);
+        UCSD_class = new ClassInfo("CSE 100", "Advanced Data Struture", "Gary", 3);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("CSE 130", "Programming Languages", "Ord", 10);
+        UCSD_class = new ClassInfo("CSE 130", "Programming Languages", "Ord", 2);
         listOfClasses.add(UCSD_class);
 
 
@@ -90,22 +90,22 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         classList.add(UCSD_classList);
 
         listOfClasses = new ArrayList<ClassInfo>();
-        UCSD_class = new ClassInfo("PHIL 101", "Aristotle", "Johnson", 10);
+        UCSD_class = new ClassInfo("PHIL 101", "Aristotle", "Johnson", 2);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("PHIL 102", "Hellenistic Philosophy", "Johnson", 10);
+        UCSD_class = new ClassInfo("PHIL 102", "Hellenistic Philosophy", "Johnson", 3);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("PHIL 120", "Symbolic Logic", "Rickless", 10);
+        UCSD_class = new ClassInfo("PHIL 120", "Symbolic Logic", "Rickless", 3);
         listOfClasses.add(UCSD_class);
 
         UCSD_classList = new ClassList("Philosophy", listOfClasses);
         classList.add(UCSD_classList);
 
         listOfClasses = new ArrayList<ClassInfo>();
-        UCSD_class = new ClassInfo("MGT 16", "Personal Ethics", "Campbell", 10);
+        UCSD_class = new ClassInfo("MGT 16", "Personal Ethics", "Campbell", 2);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("MGT 162", "Negotiation", "Baca-Motes", 10);
+        UCSD_class = new ClassInfo("MGT 162", "Negotiation", "Baca-Motes", 1);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("MGT 181", "Enterprise Finance", "Gerans", 10);
+        UCSD_class = new ClassInfo("MGT 181", "Enterprise Finance", "Gerans", 2);
         listOfClasses.add(UCSD_class);
 
         UCSD_classList = new ClassList("Rady Management", listOfClasses);
