@@ -33,7 +33,8 @@
             android:layout_weight=".19"
             android:textSize="35sp"
             android:textColor="#fdfd96"
-            android:background="#AAC5E2" />
+            android:background="#AAC5E2"
+            android:onClick="openUploadPage"/>
 
         <Button
             android:layout_width="match_parent"

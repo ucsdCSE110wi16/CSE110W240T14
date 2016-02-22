@@ -37,6 +37,10 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(new Intent(this, MyClasses.class));
     }
 
+    public void openUploadPage (View view) {
+        startActivity(new Intent(this, uploadPage.class));
+    }
+
     /*public void openMyNotes (View view) {
         startActivity(new Intent(this, MyNotes.class));
     }*/
