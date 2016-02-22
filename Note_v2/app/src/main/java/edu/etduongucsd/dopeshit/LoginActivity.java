@@ -21,7 +21,7 @@ import java.io.FileOutputStream;
 
 public class LoginActivity extends Activity  {
     Button b1,b2;
-    EditText ed1,ed2;
+    EditText username,password;
 
     TextView tx1;
     int counter = 3;
@@ -29,22 +29,22 @@ public class LoginActivity extends Activity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         b1=(Button)findViewById(R.id.button);
-        ed1=(EditText)findViewById(R.id.editText);
-        ed2=(EditText)findViewById(R.id.editText2);
+        username=(EditText)findViewById(R.id.email);
+        password=(EditText)findViewById(R.id.password);
 
         b2=(Button)findViewById(R.id.button2);
-        tx1=(TextView)findViewById(R.id.textView3);
-        tx1.setVisibility(View.GONE);
+        //tx1=(TextView)findViewById(R.id.textView3);
+        username.setVisibility(View.GONE);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ed1.getText().toString().equals("admin") &&
+                if(username.getText().toString().equals("admin") &&
 
-                        ed2.getText().toString().equals("admin")) {
+                        password.getText().toString().equals("admin")) {
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
                 }
                 else{

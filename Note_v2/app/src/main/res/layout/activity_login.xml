@@ -4,35 +4,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:background = "@drawable/note.jpg"
+    android:background="@drawable/note"
     >
-
-    <TextView android:text="Login" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textview"
-        android:textSize="35dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Note"
-        android:id="@+id/textView"
-        android:layout_below="@+id/textview"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ff7aff24"
-        android:textSize="35dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:hint="Enter Name"
+        android:id="@+id/email"
+        android:hint="Enter UCSD email"
         android:focusable="true"
         android:textColorHighlight="#ff7eff15"
         android:textColorHint="#ffff25e6"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="210dp"
         android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -43,7 +26,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:src="@drawable/note.jpg"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
@@ -52,12 +34,12 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
+        android:id="@+id/password"
+        android:layout_below="@+id/email"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
+        android:layout_alignRight="@+id/email"
+        android:layout_alignEnd="@+id/email"
         android:textColorHint="#ffff299f"
         android:hint="Password" />
 
@@ -66,17 +48,13 @@
         android:layout_height="wrap_content"
         android:text="login"
         android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/textview"
-        android:layout_toStartOf="@+id/textview" />
+        android:layout_alignParentBottom="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:id="@+id/button2"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/textview"
-        android:layout_toEndOf="@+id/textview" />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
