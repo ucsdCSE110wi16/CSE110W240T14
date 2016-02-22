@@ -17,8 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="(Example) CSE 110"
-        android:id="@+id/textView3"
+        android:text="CSE 110"
+        android:id="@+id/classPageTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -26,14 +26,17 @@
         android:layout_alignParentStart="true"
         android:textAlignment="center"
         android:textColor="#fdfd96"
-        android:textSize="28sp"
+        android:textSize="24sp"
         android:background="#AAC5E2" />
 
     <ExpandableListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/expWeekList"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/classPageTitle"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:divider="#72a6f9"
+        android:dividerHeight="1dp"
+        android:indicatorLeft="?android:attr/expandableListPreferredChildIndicatorLeft"/>
 </RelativeLayout>
