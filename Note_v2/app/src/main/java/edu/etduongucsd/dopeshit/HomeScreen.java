@@ -17,8 +17,20 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
+        /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
+         * it will return to the home screen.
+         */
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeScreen.this, SettingsPage.class));
+            }
+        });
+
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "Sweet Pea_2.ttf");
         Button myNotesBut = (Button) findViewById(R.id.myNotesButton);
         Button myClassesBut = (Button) findViewById(R.id.myClassesButton);

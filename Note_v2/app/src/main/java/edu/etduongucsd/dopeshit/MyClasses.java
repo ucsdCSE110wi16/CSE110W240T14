@@ -1,10 +1,13 @@
 package edu.etduongucsd.dopeshit;
 
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
@@ -26,6 +29,26 @@ public class MyClasses extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_classes);
+
+        /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
+         * it will return to the home screen.
+         */
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyClasses.this, HomeScreen.class));
+            }
+        });
+        toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyClasses.this, SettingsPage.class));
+            }
+        });
+
         //android.support.v7.app.ActionBar ab = getSupportActionBar();
         //ab.setLogo(R.drawable.lettern);
         //ab.setDisplayUseLogoEnabled(true);
