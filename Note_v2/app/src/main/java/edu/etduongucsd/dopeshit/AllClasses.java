@@ -2,6 +2,7 @@ package edu.etduongucsd.dopeshit;
 
         import android.app.SearchManager;
         import android.content.Context;
+        import android.content.Intent;
         import android.os.Bundle;
         import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
@@ -25,8 +26,25 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_classes);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
+        /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
+         * it will return to the home screen.
+         */
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AllClasses.this, HomeScreen.class));
+            }
+        });
+        toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AllClasses.this, SettingsPage.class));
+            }
+        });
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         search = (SearchView) findViewById(R.id.allClassesSearch);
@@ -58,13 +76,13 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
 
     private void loadData() {
         ArrayList<ClassInfo> listOfClasses = new ArrayList<ClassInfo>();
-        ClassInfo UCSD_class = new ClassInfo("CSE 110", "Software Engineering", "Kesden");
+        ClassInfo UCSD_class = new ClassInfo("CSE 110", "Software Engineering", "Kesden", 10);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("CSE 105", "Automata Theory", "Shacham");
+        UCSD_class = new ClassInfo("CSE 105", "Automata Theory", "Shacham", 10);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("CSE 100", "Advanced Data Struture", "Gary");
+        UCSD_class = new ClassInfo("CSE 100", "Advanced Data Struture", "Gary", 10);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("CSE 130", "Programming Languages", "Ord");
+        UCSD_class = new ClassInfo("CSE 130", "Programming Languages", "Ord", 10);
         listOfClasses.add(UCSD_class);
 
 
@@ -72,22 +90,22 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         classList.add(UCSD_classList);
 
         listOfClasses = new ArrayList<ClassInfo>();
-        UCSD_class = new ClassInfo("PHIL 101", "Aristotle", "Johnson");
+        UCSD_class = new ClassInfo("PHIL 101", "Aristotle", "Johnson", 10);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("PHIL 102", "Hellenistic Philosophy", "Johnson");
+        UCSD_class = new ClassInfo("PHIL 102", "Hellenistic Philosophy", "Johnson", 10);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("PHIL 120", "Symbolic Logic", "Rickless");
+        UCSD_class = new ClassInfo("PHIL 120", "Symbolic Logic", "Rickless", 10);
         listOfClasses.add(UCSD_class);
 
         UCSD_classList = new ClassList("Philosophy", listOfClasses);
         classList.add(UCSD_classList);
 
         listOfClasses = new ArrayList<ClassInfo>();
-        UCSD_class = new ClassInfo("MGT 16", "Personal Ethics", "Campbell");
+        UCSD_class = new ClassInfo("MGT 16", "Personal Ethics", "Campbell", 10);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("MGT 162", "Negotiation", "Baca-Motes");
+        UCSD_class = new ClassInfo("MGT 162", "Negotiation", "Baca-Motes", 10);
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("MGT 181", "Enterprise Finance", "Gerans");
+        UCSD_class = new ClassInfo("MGT 181", "Enterprise Finance", "Gerans", 10);
         listOfClasses.add(UCSD_class);
 
         UCSD_classList = new ClassList("Rady Management", listOfClasses);
