@@ -5,4 +5,50 @@
     <string name="title_activity_settings_page">SettingsPage</string>
     <string name="title_activity_week_lecture_selection">WeekLectureSelection</string>
     <string name="title_activity_all_classes">AllClasses</string>
+    <string name="title_activity_upload_page">uploadPage</string>
+    
+    <string-array name="classUploadList">
+        <item>CSE 100</item>
+        <item>CSE 101</item>
+        <item>CSE 105</item>
+        <item>CSE 110</item>
+        <item>CSE 130</item>
+        <item>PHIL 101</item>
+        <item>PHIL 102</item>
+        <item>PHIL 120</item>
+        <item>MGT 16</item>
+        <item>MGT 162</item>
+        <item>MGT 181</item>
+    </string-array>
+
+    <string-array name="profUploadList">
+        <item>Baca-Motes</item>
+        <item>Campbell</item>
+        <item>Gary</item>
+        <item>Gerans</item>
+        <item>Johnson</item>
+        <item>Kesden</item>
+        <item>Ord</item>
+        <item>Rickless</item>
+        <item>Shacham</item>
+    </string-array>
+
+    <string-array name="weekUploadList">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="lectureNumUploadList">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>

@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.etduongucsd.dopeshit.AllClasses"
-    tools:showIn="@layout/activity_all_classes">
+    tools:showIn="@layout/activity_all_classes"
+    android:background="#C8E3FF">
 
     <SearchView
         android:id="@+id/allClassesSearch"

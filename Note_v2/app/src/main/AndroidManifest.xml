@@ -34,7 +34,16 @@
             android:name=".AllClasses"
             android:label="@string/title_activity_all_classes"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".uploadPage"
+            android:label="@string/title_activity_upload_page"
+            android:parentActivityName=".HomeScreen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.etduongucsd.dopeshit.HomeScreen" />
+        </activity>
     </application>
 
 </manifest>

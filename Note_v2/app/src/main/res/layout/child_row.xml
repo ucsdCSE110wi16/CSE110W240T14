@@ -21,7 +21,8 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/classCode"
         android:text="Computer Science and Engineering"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#fdfd96"/>
 
     <TextView
         android:id="@+id/classProfessor"
