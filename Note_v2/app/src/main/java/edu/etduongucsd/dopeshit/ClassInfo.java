@@ -8,12 +8,14 @@ public class ClassInfo {
     private String code = "";
     private String className = "";
     private String professor = "";
+    private int numLecPerWeek;
 
-    public ClassInfo(String code, String className, String professor) {
+    public ClassInfo(String code, String className, String professor, int numLecPerWeek) {
         super();
         this.code = code;
         this.className = className;
         this.professor = professor;
+        this.numLecPerWeek = numLecPerWeek;
     }
 
     public String getCode() {
@@ -39,4 +41,8 @@ public class ClassInfo {
     public void setProfessor(String professor) {
         this.professor = professor;
     }
+
+    public int getNumLecPerWeek() { return numLecPerWeek; }
+
+    public void setNumLecPerWeek(int numLecsPerWeek) {this.numLecPerWeek = numLecPerWeek;}
 }
