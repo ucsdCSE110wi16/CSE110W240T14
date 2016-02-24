@@ -9,20 +9,43 @@ import java.io.File;
  */
 public class Note {
     int flag;       //Flags a set of notes has received.
-    String pictureLink;
+    Byte[] noteImage;
     int noteNum;
-    Professor professor;
+    String dataBaseRef;
 
     public Note(){};
 
     //Notes constructor
-    public Note(String url, Professor prof) {
+    public Note(Byte[] bytes, int numberOfNotes, String parentFireBaseRef) {
         flag = 0;
-        pictureLink = url;
-        professor = prof;
-        noteNum = professor.numberOfNotes;
-        professor.numberOfNotes++;
+        noteImage = bytes;
+        noteNum = numberOfNotes;
+        dataBaseRef = parentFireBaseRef;
+    //    addNoteToFirebase();
     }
+
+
+    public int getFlag(){
+        return flag;
+    }
+
+    public Byte[] getNoteImage(){
+        return noteImage;
+    }
+
+    public int getNoteNum(){
+        return noteNum;
+    }
+
+    public void addNoteToFirebase(){
+        Firebase ref = new Firebase(dataBaseRef);
+      //  ref.child("Note "+noteNum).setValue(Base64.encodeToString(noteImage, Base64.DEFAULT));
+    }
+
+    public void convertToImage(Byte[] bytesOfImage){
+
+    }
+
     //Toggle Flag
     public void incrFlag() {
         if( flag == 1 ) {
@@ -31,20 +54,6 @@ public class Note {
         else {
             flag = 1;
         }
-    }
-
-    public int getFlag(){
-        return flag;
-    }
-
-    public String getNoteFile(){
-        return pictureLink;
-    }
-
-    public void addNote(int weekIndex, int dayIndex){
-        Firebase ref = new Firebase("https://note110.firebaseio.com/Departments/"+professor.thisCourse.departName+"/"
-                +professor.thisCourse.toString()+"/"+professor.toString()+"/Week "+weekIndex+"/Day "+dayIndex+"/Notes/");
-        ref.child("Note "+noteNum).setValue(pictureLink);
     }
 
 }

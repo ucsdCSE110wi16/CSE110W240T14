@@ -10,25 +10,31 @@ import java.util.List;
  */
 public class Course {
     String name;
-    String departName;
-    List<Professor> professors = new ArrayList<Professor>(); //List of courses within department
+ //   String departName;
+    String dataBaseRef;
+    List<Professor> professors;  //List of courses within department
 
     //Default constructor
-    public Course() {
-        name = "";
-    }
-    //Constructor with course name
+    public Course() {}
 
-    public Course(String n) {
+    //Constructor with course name
+    public Course(String n, String parentFirebaseRef) {
         name = n;
+        dataBaseRef = parentFirebaseRef;
+        professors = new ArrayList<Professor>();
+    //    addCourseToFirebase();
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDepartName(){
-        return departName;
+    public String getDataBaseRef(){
+        return dataBaseRef;
+    }
+
+    public List<Professor> getProfessors(){
+        return professors;
     }
 
     @Override
@@ -36,20 +42,26 @@ public class Course {
         return getName();
     }
 
-    public List<Professor> getProfessors(){
-        return professors;
+    public void addCourseToFirebase(){
+        Firebase ref = new Firebase(dataBaseRef);
+        ref.child(getName()).setValue(0);
     }
 
     //Add course to list of courses belonging to this department
-    public void addProfessor(String name, int day) {
+    public void addProfessor(String profName) {
         //Check if course had already been added
-     /*   if (professors.contains(name)) {
+        if (professors.contains(profName)) {
             return;
         } else {
-        */
-     //   Professor c = new Professor(name, day);
-
-          //  professors.add(c);
-       // }
+            Professor c = new Professor(profName, dataBaseRef+name+"/");
+            professors.add(c);
+            c.addProfToFirebase();
+        }
     }
+
+    /*
+    public String getDepartName(){
+        return departName;
+    }
+*/
 }

@@ -1,5 +1,7 @@
 package team14.project110;
 
+import com.firebase.client.Firebase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,20 +11,30 @@ import java.util.List;
 public class Department {
 
     String name;    //Department name
-    List<Course> courses = new ArrayList<Course>(); //List of courses within department
+    List<Course> courses; //List of courses within department
+    String dataBaseRef;
 
     //Default constructor
-    public Department(){
-        name = "";
-    }
+    public Department(){}
 
     //Constructor with parameters
     public Department(String n){
         name = n;
+        courses = new ArrayList<Course>();
+        dataBaseRef = "https://note110.firebaseio.com/Departments/";
+       // addDepartmentToFirebase();
     }
 
     public String getName(){
         return name;
+    }
+
+    public List<Course> getCourses(){
+        return courses;
+    }
+
+    public String getDataBaseRef(){
+        return dataBaseRef;
     }
 
     @Override
@@ -30,18 +42,20 @@ public class Department {
         return getName();
     }
 
-    public List<Course> getCourses(){
-        return courses;
+    public void addDepartmentToFirebase(){
+        Firebase ref = new Firebase(dataBaseRef);
+        ref.child(getName()).setValue(0);
     }
 
     //Add course to list of courses belonging to this department
-    private void addCourse(String name){
+    public void addCourse(String courseName){
         //Check if course had already been added
-        if(courses.contains(name)){
+        if(courses.contains(courseName)){
             return;
         }
         else {
-            Course c = new Course(name);
+            Course c = new Course(courseName, dataBaseRef+name+"/");
+            c.addCourseToFirebase();
             courses.add(c);
         }
     }

@@ -12,23 +12,38 @@ import java.util.List;
 public class Professor {
 
     String name;    //Professor name
-    Week[] weeks = new Week[11]; //List of weeks within the course
-    int numberOfNotes;
-    Course thisCourse;
+    String dataBaseRef;
+    List<Lecture> lectures; //List of weeks within the course
+    int numberOfLectures;
+//    Course thisCourse;
 
     public Professor(){};
 
     //Constructor with parameters
-    public Professor(String n, int days, Course course){
-        name = n;
-        initWeeks(days);
-        numberOfNotes = 0;
-        thisCourse = course;
-        addProf(thisCourse);
+    public Professor(String profName, String parentFirebaseRef){
+        name = profName;
+        dataBaseRef = parentFirebaseRef;
+        lectures = new ArrayList<Lecture>();
+        numberOfLectures = 0; //Need to use in firebase
+       // addProfToFirebase();
+      //  thisCourse = course;
+      //  addProf(thisCourse);
     }
 
     public String getName(){
         return name;
+    }
+
+    public String getDataBaseRef(){
+        return dataBaseRef;
+    }
+
+    public List<Lecture> getLectures(){
+        return lectures;
+    }
+
+    public int getNumberOfLectures(){
+        return  numberOfLectures;
     }
 
     @Override
@@ -36,25 +51,15 @@ public class Professor {
         return getName();
     }
 
-    public Week[] getWeeks(){
-        return weeks;
+    public void addProfToFirebase(){
+        Firebase ref = new Firebase(dataBaseRef);
+        ref.child(getName()).setValue(0);
     }
 
-    //Initiate weeks
-    public void initWeeks(int numDays){
-        for(int i = 0; i < weeks.length; i++){
-            Week thisWeek = new Week(numDays);
-            weeks[i] = thisWeek;
-        }
-    }
-
-    public void addProf(Course course){
-        Firebase ref = new Firebase("https://note110.firebaseio.com/Departments/"+course.departName+"/"+course.toString()+"/");
-        for(int i = 0; i < weeks.length; i++){
-            ref.child(getName()).child("Week " + (i + 1)).setValue(0);
-            for(int j = 0; j < weeks[i].days.length; j++){
-                ref.child(getName()).child("Week "+(i+1)).child("Day "+(j+1)).child("Notes").setValue(0);
-            }
-        }
+    public void addLecture(){
+        Lecture c = new Lecture(dataBaseRef+name+"/", numberOfLectures);
+        lectures.add(c);
+        numberOfLectures++;
+        c.addLectureToFirebase();
     }
 }

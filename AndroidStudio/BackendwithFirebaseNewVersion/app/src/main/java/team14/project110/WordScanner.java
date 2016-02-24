@@ -65,7 +65,7 @@ public class WordScanner {
                     addDepartment(word);
                 }
                 else{
-                    addCourse(word);
+                    thisDept.addCourse(word);
                 }
             }
         }
@@ -81,10 +81,11 @@ public class WordScanner {
         else {
             Department d = new Department(name);    //Create new department object
             thisDept = d;                           //Save reference to department
+            thisDept.addDepartmentToFirebase();
             departments.add(d);                     //Add this department to list of departments
         }
     }
-    //Add course to course list belonging to current department
+  /*  //Add course to course list belonging to current department
     private void addCourse(String name){
         //If course had been added do nothing. (Will need to save name later when adding profs and others)
         if(thisDept.courses.contains(name)){
@@ -96,5 +97,5 @@ public class WordScanner {
             c.departName = thisDept.toString();
             thisDept.courses.add(c);        //Add course to course list belonging to current department
         }
-    }
+    }*/
 }
