@@ -19,7 +19,8 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
     private SearchView search;
     private MyListAdapter listAdapter;
     private ExpandableListView myList;
-    ArrayList<ClassList> classList = new ArrayList<ClassList>();
+    ArrayList<ClassList> courseList = new ArrayList<ClassList>();
+    ArrayList<ClassInfo> listOfClasses = new ArrayList<ClassInfo>();
 
 
     @Override
@@ -70,46 +71,72 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         loadData();
 
         myList = (ExpandableListView) findViewById(R.id.allClassesExpList);
-        listAdapter = new MyListAdapter(AllClasses.this, classList);
+        listAdapter = new MyListAdapter(AllClasses.this, courseList);
         myList.setAdapter(listAdapter);
+    }
+
+    /* To display the classes we have to first create the a ClassInfo object using
+       the courseName and profName. Then we add those to the listOfClasses. We need to
+       add all the classes of the department to this list and then create a ClassList object
+       using the depName and listOfClasses. And then we add this object to the top list courseList.
+     */
+
+    private void loadAllData() {
+
+        /* Call loadData_classes for each courseName/profName pairing for a single department */
+
+        /* Then call loadData_dep with depName and listOfClasses */
+
+
+    }
+
+    private void loadData_dep(String depName, ArrayList<ClassInfo> class_list) {
+        ClassList ucsdlist = new ClassList(depName, class_list);
+        courseList.add(ucsdlist);
+    }
+
+    private void loadData_classes(String courseName, String profName) {
+        //ArrayList<ClassInfo> class_list = new ArrayList<ClassInfo>();
+        ClassInfo UCSD_class = new ClassInfo(courseName, profName);
+        listOfClasses.add(UCSD_class);
     }
 
     private void loadData() {
         ArrayList<ClassInfo> listOfClasses = new ArrayList<ClassInfo>();
-        ClassInfo UCSD_class = new ClassInfo("CSE 110", "Software Engineering", "Kesden", 2);
+        ClassInfo UCSD_class = new ClassInfo("CSE 110", "Software Engineering", "Kesden");
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("CSE 105", "Automata Theory", "Shacham", 2);
+        UCSD_class = new ClassInfo("CSE 105", "Automata Theory", "Shacham");
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("CSE 100", "Advanced Data Struture", "Gary", 3);
+        UCSD_class = new ClassInfo("CSE 100", "Advanced Data Struture", "Gary");
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("CSE 130", "Programming Languages", "Ord", 2);
+        UCSD_class = new ClassInfo("CSE 130", "Programming Languages", "Ord");
         listOfClasses.add(UCSD_class);
 
 
         ClassList UCSD_classList = new ClassList("Computer Science and Engineering", listOfClasses);
-        classList.add(UCSD_classList);
+        courseList.add(UCSD_classList);
 
         listOfClasses = new ArrayList<ClassInfo>();
-        UCSD_class = new ClassInfo("PHIL 101", "Aristotle", "Johnson", 2);
+        UCSD_class = new ClassInfo("PHIL 101", "Aristotle", "Johnson");
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("PHIL 102", "Hellenistic Philosophy", "Johnson", 3);
+        UCSD_class = new ClassInfo("PHIL 102", "Hellenistic Philosophy", "Johnson");
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("PHIL 120", "Symbolic Logic", "Rickless", 3);
+        UCSD_class = new ClassInfo("PHIL 120", "Symbolic Logic", "Rickless");
         listOfClasses.add(UCSD_class);
 
         UCSD_classList = new ClassList("Philosophy", listOfClasses);
-        classList.add(UCSD_classList);
+        courseList.add(UCSD_classList);
 
         listOfClasses = new ArrayList<ClassInfo>();
-        UCSD_class = new ClassInfo("MGT 16", "Personal Ethics", "Campbell", 2);
+        UCSD_class = new ClassInfo("MGT 16", "Personal Ethics", "Campbell");
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("MGT 162", "Negotiation", "Baca-Motes", 1);
+        UCSD_class = new ClassInfo("MGT 162", "Negotiation", "Baca-Motes");
         listOfClasses.add(UCSD_class);
-        UCSD_class = new ClassInfo("MGT 181", "Enterprise Finance", "Gerans", 2);
+        UCSD_class = new ClassInfo("MGT 181", "Enterprise Finance", "Gerans");
         listOfClasses.add(UCSD_class);
 
         UCSD_classList = new ClassList("Rady Management", listOfClasses);
-        classList.add(UCSD_classList);
+        courseList.add(UCSD_classList);
 
 
 
