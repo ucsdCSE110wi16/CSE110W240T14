@@ -19,11 +19,28 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class MyClasses extends AppCompatActivity {
 
     private static ListView list_view;
-    private static String[] MYCLASSES = new String[] {"CSE 100",
-                                                      "CSE 101", "CSE 105", "CSE 110", "CSE 140", "GARY"};
+
+    private static List<String> MYCLASSES = new ArrayList<String>();
+
+    //private static String[] MYCLASSES = new String[] {"CSE 100",
+    //                                                  "CSE 101", "CSE 105", "CSE 110", "CSE 140", "GARY"};
+
+    public void addToMyClasses (String className) {
+        MYCLASSES.add(className);
+        Collections.sort(MYCLASSES, String.CASE_INSENSITIVE_ORDER);
+    }
+
+    public void delFromMyClasses (String className) {
+        MYCLASSES.remove(className);
+        Collections.sort(MYCLASSES, String.CASE_INSENSITIVE_ORDER);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +52,7 @@ public class MyClasses extends AppCompatActivity {
          */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +75,14 @@ public class MyClasses extends AppCompatActivity {
         TextView myClassesTitle = (TextView) findViewById(R.id.myClassesTitle);
         myClassesTitle.setTypeface(myTypeface);
 
+        addToMyClasses("CSE 100");
+        addToMyClasses("CSE 105");
+        addToMyClasses("CSE 101");
+        addToMyClasses("CSE 110");
+        addToMyClasses("CSE 130");
+        addToMyClasses("CSE GARY");
+        delFromMyClasses("CSE GARY");
+
         myClassesView();
     }
 
@@ -69,7 +94,7 @@ public class MyClasses extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String value = (String) list_view.getItemAtPosition(position);
+                        String value = (String) list_view.getItemAtPosition(position) ;
                         Toast.makeText(MyClasses.this, "Class: " + value, Toast.LENGTH_LONG).show();
 
                     }
@@ -78,7 +103,7 @@ public class MyClasses extends AppCompatActivity {
     }
 
     public void openClassNotes(View view) {
-        startActivity(new Intent(this, WeekLectureSelection.class));
+        startActivity(new Intent(this, LectureList.class));
     }
 
     @Override

@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 public class ClassList {
 
-    private String name;
-    private ArrayList<ClassInfo> classList = new ArrayList<ClassInfo>();
+    public String name;
+    public ArrayList<ClassInfo> classList = new ArrayList<ClassInfo>();
 
     public ClassList(String name, ArrayList<ClassInfo> classList) {
         super();

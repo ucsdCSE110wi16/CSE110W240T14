@@ -8,14 +8,21 @@ public class ClassInfo {
     private String code = "";
     private String className = "";
     private String professor = "";
-    private int numLecPerWeek;
+    //private int numLecPerWeek;
 
-    public ClassInfo(String code, String className, String professor, int numLecPerWeek) {
+    public ClassInfo(String code, String className, String professor) {
         super();
         this.code = code;
         this.className = className;
         this.professor = professor;
-        this.numLecPerWeek = numLecPerWeek;
+        //this.numLecPerWeek = numLecPerWeek;
+    }
+
+    public ClassInfo(String className, String professor) {
+        super();
+        this.code = "";
+        this.className = className;
+        this.professor = professor;
     }
 
     public String getCode() {
@@ -42,7 +49,7 @@ public class ClassInfo {
         this.professor = professor;
     }
 
-    public int getNumLecPerWeek() { return numLecPerWeek; }
+    //public int getNumLecPerWeek() { return numLecPerWeek; }
 
-    public void setNumLecPerWeek(int numLecsPerWeek) {this.numLecPerWeek = numLecPerWeek;}
+    //public void setNumLecPerWeek(int numLecsPerWeek) {this.numLecPerWeek = numLecPerWeek;}
 }
