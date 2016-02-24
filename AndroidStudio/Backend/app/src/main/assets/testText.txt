@@ -1,0 +1,14 @@
+Accounting/a/b/c
+Anthropology/b/c/z
+Bioengineering/c/d/t
+History/d/e/x
+Humanities/e/f/w
+Linguistics/f/g/v
+Music/g/h/u
+Neurosciences/h/i/t
+Pharmacology/i/j/s
+Philosophy/j/k/q
+Physics/k/l/q
+Psychiatry/l/m/p
+Psychology/m/n/o
+Computer Science/a/b/c
