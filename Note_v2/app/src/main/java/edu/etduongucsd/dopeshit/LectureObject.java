@@ -9,12 +9,20 @@ public class LectureObject {
 
     public String name;
     public int lecNum;
-    public ArrayList<NoteObject> lecList = new ArrayList<NoteObject>();
+    public ArrayList<NoteObject> lecList;
 
     public LectureObject(int lecNum, ArrayList<NoteObject> lecList) {
         super();
         this.lecNum = lecNum;
         this.lecList = lecList;
+        this.name = "Lecture " + lecNum;
+    }
+
+
+    public LectureObject(int lecNum) {
+        super();
+        this.lecNum = lecNum;
+        this.lecList = new ArrayList<NoteObject>();
         this.name = "Lecture " + lecNum;
     }
 
