@@ -15,7 +15,6 @@ public class Professor {
     String dataBaseRef;
     List<Lecture> lectures; //List of weeks within the course
     int numberOfLectures;
-//    Course thisCourse;
 
     public Professor(){};
 
@@ -25,9 +24,6 @@ public class Professor {
         dataBaseRef = parentFirebaseRef;
         lectures = new ArrayList<Lecture>();
         numberOfLectures = 0; //Need to use in firebase
-       // addProfToFirebase();
-      //  thisCourse = course;
-      //  addProf(thisCourse);
     }
 
     public String getName(){

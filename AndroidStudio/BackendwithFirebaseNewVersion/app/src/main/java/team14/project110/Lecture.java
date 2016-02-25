@@ -1,8 +1,13 @@
 package team14.project110;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,13 +22,13 @@ public class Lecture {
     int lectureNum;
     List<Note> notes;
     int numberOfNotes;
+    Bitmap pictureNote;
 
     public Lecture(String parentFirebaseRef, int numberOfLectures){
         dataBaseRef = parentFirebaseRef;
         lectureNum = numberOfLectures;
         notes = new ArrayList<Note>(); //List of courses within department
         numberOfNotes = 0;
-        //addLectureToFirebase();
     }
 
     public String getDataBaseRef(){
@@ -55,24 +60,31 @@ public class Lecture {
         addedNote.addNoteToFirebase();
     }
 
-    public Bitmap convertToBitmap(String imageFile) {
+    public Bitmap convertToNoteBitmap(String imageFile) {
         byte[] imageAsBytes = Base64.decode(imageFile, Base64.DEFAULT);
         pictureNote = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+        return pictureNote;
     }
 
     public void displayNotes(){
-        Firebase ref = dataBaseRef+"Lecture "+lectureNum+"/";
+
+        Firebase ref = new Firebase(dataBaseRef+"Lecture "+lectureNum+"/");
+
         //  addListenerForSingleValueEvent
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                            for (DataSnapshot snapshot : snapshot.getChildren()) {
-                                Note note = new Note(convertToBitmap(snapshot.getValue()), numberOfNotes, dataBaseRef+"Lecture "+lectureNum+"/");
-                                notes.add(note);
-                            }
-                        }
-                    }
+                for (DataSnapshot noteSnapshot : snapshot.getChildren()) {
+                    Bitmap bmp;
+                    bmp = convertToNoteBitmap((String) noteSnapshot.getValue());
+                    Note note = new Note( bmp, numberOfNotes, dataBaseRef + "Lecture " + lectureNum + "/");
+                    notes.add(note);
                 }
             }
+
+            //    @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
     }
 }

@@ -22,7 +22,6 @@ public class Department {
         name = n;
         courses = new ArrayList<Course>();
         dataBaseRef = "https://note110.firebaseio.com/Departments/";
-       // addDepartmentToFirebase();
     }
 
     public String getName(){
@@ -49,14 +48,22 @@ public class Department {
 
     //Add course to list of courses belonging to this department
     public void addCourse(String courseName){
-        //Check if course had already been added
-        if(courses.contains(courseName)){
-            return;
+        boolean found = false;
+        for(Course tempCourse : courses){
+            if(tempCourse.name.equals(courseName)){
+                found = true;
+            }
         }
-        else {
+        if(!found){
             Course c = new Course(courseName, dataBaseRef+name+"/");
             c.addCourseToFirebase();
             courses.add(c);
         }
+     /*   //Check if course had already been added
+        if(!courses.contains(courseName)){
+            Course c = new Course(courseName, dataBaseRef+name+"/");
+            c.addCourseToFirebase();
+            courses.add(c);
+        }*/
     }
 }
