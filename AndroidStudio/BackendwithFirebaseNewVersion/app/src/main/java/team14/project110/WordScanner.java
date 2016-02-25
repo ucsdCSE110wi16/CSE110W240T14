@@ -61,7 +61,7 @@ public class WordScanner {
             for (String word : words) {
                 //Check what department to add to (by checking first word)
                 //If not department add as a course(need to add professors, weeks, ...)
-                if(words[0] == word){
+                if(words[0].equals(word)){
                     addDepartment(word);
                 }
                 else{
@@ -72,7 +72,19 @@ public class WordScanner {
     }
     //Add department to department list and save name of current department being added to
     private void addDepartment(String name){
-        //If department had been added already save name.
+        boolean found = false;
+        for(Department tempDepartment : departments){
+            if(tempDepartment.name.equals(name)){
+                found = true;
+            }
+        }
+        if(!found){
+            Department d = new Department(name);    //Create new department object
+            thisDept = d;                           //Save reference to department
+            thisDept.addDepartmentToFirebase();
+            departments.add(d);                     //Add this department to list of departments
+        }
+    /*    //If department had been added already save name.
         if(departments.contains(name)){
             int index = departments.indexOf(name);  //Found index of department
             thisDept = departments.get(index);      //Saving reference to department
@@ -83,19 +95,6 @@ public class WordScanner {
             thisDept = d;                           //Save reference to department
             thisDept.addDepartmentToFirebase();
             departments.add(d);                     //Add this department to list of departments
-        }
+        }*/
     }
-  /*  //Add course to course list belonging to current department
-    private void addCourse(String name){
-        //If course had been added do nothing. (Will need to save name later when adding profs and others)
-        if(thisDept.courses.contains(name)){
-            return;
-        }
-        //If course had not been added yet. (Will need to save reference here too)
-        else {
-            Course c = new Course(name);    //Create new course object
-            c.departName = thisDept.toString();
-            thisDept.courses.add(c);        //Add course to course list belonging to current department
-        }
-    }*/
 }

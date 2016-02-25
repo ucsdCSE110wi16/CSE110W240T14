@@ -1,7 +1,11 @@
 package team14.project110;
 
+import android.graphics.Bitmap;
+import android.util.Base64;
+
 import com.firebase.client.Firebase;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 /**
@@ -12,6 +16,7 @@ public class Note {
     int noteNum;
     String dataBaseRef;
     Bitmap pictureNote;
+    String imageFile;
 
     public Note(){};
 
@@ -21,7 +26,6 @@ public class Note {
         pictureNote = bmp;
         noteNum = numberOfNotes;
         dataBaseRef = parentFireBaseRef;
-    //    addNoteToFirebase();
     }
 
 
@@ -39,19 +43,18 @@ public class Note {
 
     public void addNoteToFirebase(){
         Firebase ref = new Firebase(dataBaseRef);
-        ref.child("Note "+noteNum).setValue(storeBitmap(pictureNote));
+        storeBitmap(pictureNote);
+        ref.child("Note "+noteNum).setValue(imageFile);
     }
 
 
     public void storeBitmap(Bitmap bmp){
         ByteArrayOutputStream bYte = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, bYte);
-        bmp.recycly();
+        bmp.recycle();
         byte[] byteArray = bYte.toByteArray();
-        String imageFile = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        imageFile = Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
-
-
 
     //Toggle Flag
     public void incrFlag() {

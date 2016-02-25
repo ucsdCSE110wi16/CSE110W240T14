@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class Course {
     String name;
- //   String departName;
     String dataBaseRef;
     List<Professor> professors;  //List of courses within department
 
@@ -22,7 +21,6 @@ public class Course {
         name = n;
         dataBaseRef = parentFirebaseRef;
         professors = new ArrayList<Professor>();
-    //    addCourseToFirebase();
     }
 
     public String getName() {
@@ -49,19 +47,22 @@ public class Course {
 
     //Add course to list of courses belonging to this department
     public void addProfessor(String profName) {
-        //Check if course had already been added
-        if (professors.contains(profName)) {
-            return;
-        } else {
+        boolean found = false;
+        for(Professor tempProf : professors){
+            if(tempProf.name.equals(profName)){
+                found = true;
+            }
+        }
+        if(!found){
             Professor c = new Professor(profName, dataBaseRef+name+"/");
             professors.add(c);
             c.addProfToFirebase();
         }
+    /*    //Check if course had already been added
+        if (!professors.contains(profName)) {
+            Professor c = new Professor(profName, dataBaseRef+name+"/");
+            professors.add(c);
+            c.addProfToFirebase();
+        }*/
     }
-
-    /*
-    public String getDepartName(){
-        return departName;
-    }
-*/
 }
