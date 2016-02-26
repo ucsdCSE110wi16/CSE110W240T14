@@ -8,44 +8,41 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by ERIC on 2/25/2016.
+ * Created by ERIC on 2/26/2016.
  */
-public class NoteListAdapter extends ArrayAdapter<Note> {
+public class ProfListAdapter extends ArrayAdapter<Professor> {
 
     private Context context;
     private int resource;
-    private ArrayList<Note> noteList;
+    private ArrayList<Professor> profList;
 
-    public NoteListAdapter(Context context, int resource, ArrayList<Note> objects) {
+    public ProfListAdapter(Context context, int resource, ArrayList<Professor> objects) {
         super(context, resource, objects);
         this.context = context;
-        this.noteList = objects;
+        this.profList = objects;
     }
 
     public int getGroupCount(int pos) {
-        return noteList.size();
+        return profList.size();
     }
 
     public Object getGroup(int groupPos) {
-        return noteList.get(groupPos);
+        return profList.get(groupPos);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Note not = (Note) getGroup(position);
+        Professor prof = (Professor) getGroup(position);
         if(convertView == null) {
             LayoutInflater layInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layInflater.inflate(R.layout.note_list, null);
+            convertView = layInflater.inflate(R.layout.proflist, null);
         }
 
-        TextView forClass = (TextView) convertView.findViewById(R.id.noteListHead);
-        //TextView forMyNote = (TextView) convertView.findViewById(R.id.myNotesHead);
-        int noteNum = not.getNoteNum();
-        forClass.setText(("Note " + noteNum).trim());
-        //forMyNote.setText(("Note " + noteNum).trim());
+        TextView profNameField = (TextView) convertView.findViewById(R.id.profListHead);
+        String profName = prof.getName();
+        profNameField.setText((profName.trim()));
 
         return convertView;
 

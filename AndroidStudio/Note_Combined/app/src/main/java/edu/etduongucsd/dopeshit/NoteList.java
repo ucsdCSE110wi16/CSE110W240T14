@@ -28,7 +28,7 @@ public class NoteList extends AppCompatActivity {
 
         /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
          * it will return to the home screen.
-         */
+         *
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -44,6 +44,7 @@ public class NoteList extends AppCompatActivity {
                 startActivity(new Intent(NoteList.this, SettingsPage.class));
             }
         });
+        */
 
         Note note1 = new Note(1, 0);
         Note note2 = new Note(2, 0);

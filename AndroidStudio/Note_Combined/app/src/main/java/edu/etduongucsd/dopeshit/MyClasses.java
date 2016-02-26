@@ -31,7 +31,7 @@ public class MyClasses extends AppCompatActivity {
     public static ClassInfo classSel;
     public static ArrayList<ClassInfo> MYCLASSES = new ArrayList<ClassInfo>();
 
-    //Intent moveToLecList = new Intent(this, LectureList.class);
+
 
     //TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
 
@@ -85,14 +85,14 @@ public class MyClasses extends AppCompatActivity {
         TextView myClassesTitle = (TextView) findViewById(R.id.myClassesTitle);
         myClassesTitle.setTypeface(myTypeface);
 
-        //ClassInfo example = new ClassInfo("CSE 110", "Kesden");
+        ClassInfo example = new ClassInfo("CSE 110", "Kesden");
         //ClassInfo example3 = new ClassInfo("CSE 113", "Kesden");
         //ClassInfo example4 = new ClassInfo("CSE 114", "Kesden");
-        ClassInfo example2 = new ClassInfo("CSE 112", "Kesden");
-        ClassInfo example5 = new ClassInfo("CSE 115", "Kesden");
-        ClassInfo example1 = new ClassInfo("CSE 111", "Kesden");
+        ClassInfo example2 = new ClassInfo("CSE 105", "Shacham");
+        ClassInfo example5 = new ClassInfo("CSE 100", "Diba");
+        ClassInfo example1 = new ClassInfo("CSE 131", "Ord");
 
-        //addToMyClasses(example);
+        addToMyClasses(example);
         addToMyClasses(example1);
         addToMyClasses(example2);
         //addToMyClasses(example3);
@@ -112,13 +112,14 @@ public class MyClasses extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
                         classSel = (ClassInfo) list_view.getItemAtPosition(position);
                         String classSelected = classSel.getClassName();
                         //lecHeading.setText(classSelected);
                         LectureList.lecList = classSel.classLectures; //Set LectureList's array of Lecs to selected class' lecList
                         int numLecs = classSel.getNumLec();
                         Toast.makeText(MyClasses.this, "Class: " + classSelected + " has " + numLecs + " lectures.", Toast.LENGTH_LONG).show();
-                        //openLectureList(view);
+                        openLectureList(view);
                         //openLectureList();
                     }
                 }
@@ -126,7 +127,8 @@ public class MyClasses extends AppCompatActivity {
     }
 
     public void openLectureList(View view) {
-        //startActivity(moveToLecList);
+        Intent moveToLecList = new Intent(this, LectureList.class);
+        startActivity(moveToLecList);
     }
 
     public void openClassNotes(View view) {

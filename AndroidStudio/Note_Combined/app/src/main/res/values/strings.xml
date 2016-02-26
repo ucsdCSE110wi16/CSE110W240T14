@@ -68,4 +68,5 @@
     </string>
     <string name="title_activity_note_list">NoteList</string>
     <string name="title_activity_my_notes">MyNotes</string>
+    <string name="title_activity_prof_list">ProfList</string>
 </resources>
