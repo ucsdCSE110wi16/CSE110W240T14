@@ -42,8 +42,10 @@ public class NoteListAdapter extends ArrayAdapter<Note> {
         }
 
         TextView forClass = (TextView) convertView.findViewById(R.id.noteListHead);
+        TextView forMyNote = (TextView) convertView.findViewById(R.id.myNotesHead);
         int noteNum = not.getNoteNum();
         forClass.setText(("Note " + noteNum).trim());
+        forMyNote.setText(("Note " + noteNum).trim());
 
         return convertView;
 
