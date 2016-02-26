@@ -26,6 +26,7 @@ public class LectureList extends AppCompatActivity {
     public static ArrayList<Lecture> lecList = new ArrayList<Lecture>();
 
     public static Lecture lecSelected;
+    public static int lecNum;
 
     //TextView noteTitle = (TextView) findViewById(R.id.noteListTitle);
 
@@ -62,6 +63,9 @@ public class LectureList extends AppCompatActivity {
         addToLecList(lec2);
         addToLecList(lec3);
 
+        TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
+        lecHeading.setText(MyClasses.lectureHeading);
+
         displayLecList();
 
     }
@@ -91,7 +95,7 @@ public class LectureList extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //TextView noteTitle = (TextView) findViewById(R.id.noteListTitle);
                         lecSelected = (Lecture) lecListView.getItemAtPosition(position);
-                        int lecNum = lecSelected.getLectureNum();
+                        lecNum = lecSelected.getLectureNum();
                         int numNotes = lecSelected.getNumberOfNotes();
                         //noteTitle.setText("Lecture " + lecNum);
                         Toast.makeText(LectureList.this, "Lecture " + lecNum + " has " + numNotes + " notes.", Toast.LENGTH_LONG).show();
