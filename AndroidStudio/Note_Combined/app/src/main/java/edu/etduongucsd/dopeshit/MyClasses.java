@@ -31,6 +31,11 @@ public class MyClasses extends AppCompatActivity {
     public static ClassInfo classSel;
     public static ArrayList<ClassInfo> MYCLASSES = new ArrayList<ClassInfo>();
 
+    //Intent moveToLecList = new Intent(this, LectureList.class);
+
+    //TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
+
+
     //private static String[] MYCLASSES = new String[] {"CSE 100",
     //                                                  "CSE 101", "CSE 105", "CSE 110", "CSE 140", "GARY"};
 
@@ -109,17 +114,19 @@ public class MyClasses extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         classSel = (ClassInfo) list_view.getItemAtPosition(position);
                         String classSelected = classSel.getClassName();
+                        //lecHeading.setText(classSelected);
                         LectureList.lecList = classSel.classLectures; //Set LectureList's array of Lecs to selected class' lecList
-                        int numNotes = classSel.getNumLec();
-                        Toast.makeText(MyClasses.this, "Class: " + classSelected + " has " + numNotes + " lectures.", Toast.LENGTH_LONG).show();
+                        int numLecs = classSel.getNumLec();
+                        Toast.makeText(MyClasses.this, "Class: " + classSelected + " has " + numLecs + " lectures.", Toast.LENGTH_LONG).show();
+                        //openLectureList(view);
                         //openLectureList();
                     }
                 }
         );
     }
 
-    public void openLectureList() {
-        startActivity(new Intent(this, LectureList.class));
+    public void openLectureList(View view) {
+        //startActivity(moveToLecList);
     }
 
     public void openClassNotes(View view) {
