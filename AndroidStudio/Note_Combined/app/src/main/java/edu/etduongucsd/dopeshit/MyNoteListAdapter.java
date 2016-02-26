@@ -8,29 +8,28 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by ERIC on 2/25/2016.
+ * Created by ERIC on 2/26/2016.
  */
-public class NoteListAdapter extends ArrayAdapter<Note> {
+public class MyNoteListAdapter extends ArrayAdapter<Note> {
 
     private Context context;
     private int resource;
-    private ArrayList<Note> noteList;
+    private ArrayList<Note> myNoteList;
 
-    public NoteListAdapter(Context context, int resource, ArrayList<Note> objects) {
+    public MyNoteListAdapter(Context context, int resource, ArrayList<Note> objects) {
         super(context, resource, objects);
         this.context = context;
-        this.noteList = objects;
+        this.myNoteList = objects;
     }
 
     public int getGroupCount(int pos) {
-        return noteList.size();
+        return myNoteList.size();
     }
 
     public Object getGroup(int groupPos) {
-        return noteList.get(groupPos);
+        return myNoteList.get(groupPos);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -38,14 +37,14 @@ public class NoteListAdapter extends ArrayAdapter<Note> {
         Note not = (Note) getGroup(position);
         if(convertView == null) {
             LayoutInflater layInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layInflater.inflate(R.layout.note_list, null);
+            convertView = layInflater.inflate(R.layout.mynotes_layout, null);
         }
 
-        TextView forClass = (TextView) convertView.findViewById(R.id.noteListHead);
-        //TextView forMyNote = (TextView) convertView.findViewById(R.id.myNotesHead);
+        //TextView forClass = (TextView) convertView.findViewById(R.id.noteListHead);
+        TextView forMyNote = (TextView) convertView.findViewById(R.id.myNotesHead);
         int noteNum = not.getNoteNum();
-        forClass.setText(("Note " + noteNum).trim());
-        //forMyNote.setText(("Note " + noteNum).trim());
+        //forClass.setText(("Note " + noteNum).trim());
+        forMyNote.setText(("Note " + noteNum).trim());
 
         return convertView;
 
