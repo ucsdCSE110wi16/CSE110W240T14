@@ -67,4 +67,5 @@
         completions."
     </string>
     <string name="title_activity_note_list">NoteList</string>
+    <string name="title_activity_my_notes">MyNotes</string>
 </resources>

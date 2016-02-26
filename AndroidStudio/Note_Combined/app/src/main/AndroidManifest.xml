@@ -61,6 +61,10 @@
         <activity
             android:name=".NoteList"
             android:label="@string/title_activity_note_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MyNotes"
+            android:label="@string/title_activity_my_notes"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
