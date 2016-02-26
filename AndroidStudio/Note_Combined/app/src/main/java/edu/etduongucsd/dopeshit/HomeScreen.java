@@ -101,7 +101,7 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void openMyNotes (View view) {
-     //   startActivity(new Intent(this, MyNotes.class));
+        startActivity(new Intent(this, MyNotes.class));
     }
 
     public void openAllClasses (View view) {

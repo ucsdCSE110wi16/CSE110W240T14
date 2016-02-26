@@ -12,4 +12,35 @@
     tools:context="edu.etduongucsd.dopeshit.MyNotes"
     tools:showIn="@layout/activity_my_notes">
 
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/myNotesList"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#C8E3FF"
+        android:divider="#72a6f9"
+        android:dividerHeight="1dp"
+        android:drawSelectorOnTop="false"
+        android:footerDividersEnabled="true"
+        android:textFilterEnabled="false"
+        android:paddingTop="50dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="My Notes"
+        android:id="@+id/myNotesTitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/myClassesList"
+        android:layout_alignEnd="@+id/myClassesList"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:textColor="#fdfd96"
+        android:background="#AAC5E2" />
+
 </RelativeLayout>
