@@ -31,7 +31,8 @@ public class MyClasses extends AppCompatActivity {
     public static ClassInfo classSel;
     public static ArrayList<ClassInfo> MYCLASSES = new ArrayList<ClassInfo>();
 
-
+    public static String lectureHeading;
+    public static String classProf;
 
     //TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
 
@@ -114,11 +115,12 @@ public class MyClasses extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
                         classSel = (ClassInfo) list_view.getItemAtPosition(position);
-                        String classSelected = classSel.getClassName();
+                        lectureHeading = classSel.getClassName();
+                        classProf = classSel.getProfessor();
                         //lecHeading.setText(classSelected);
                         LectureList.lecList = classSel.classLectures; //Set LectureList's array of Lecs to selected class' lecList
                         int numLecs = classSel.getNumLec();
-                        Toast.makeText(MyClasses.this, "Class: " + classSelected + " has " + numLecs + " lectures.", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(MyClasses.this, "Class: " + classSelected + " has " + numLecs + " lectures.", Toast.LENGTH_LONG).show();
                         openLectureList(view);
                         //openLectureList();
                     }

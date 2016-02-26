@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.etduongucsd.dopeshit.MyNotes"
-    tools:showIn="@layout/activity_my_notes">
+    tools:showIn="@layout/activity_my_notes"
+    android:background="#C8E3FF">
 
     <ListView
         android:layout_width="fill_parent"
