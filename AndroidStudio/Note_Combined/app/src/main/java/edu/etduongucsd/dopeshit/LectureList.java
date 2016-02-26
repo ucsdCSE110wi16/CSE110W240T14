@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class LectureList extends AppCompatActivity {
     public static ArrayList<Lecture> lecList = new ArrayList<Lecture>();
 
     public static Lecture lecSelected;
+
+    TextView noteTitle = (TextView) findViewById(R.id.noteListTitle);
 
 
     @Override
@@ -87,6 +90,11 @@ public class LectureList extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         lecSelected = (Lecture) lecListView.getItemAtPosition(position);
+                        int lecNum = lecSelected.getLectureNum();
+                        int numNotes = lecSelected.getNumberOfNotes();
+                        noteTitle.setText("Lecture " + lecNum);
+                        Toast.makeText(LectureList.this, "Lecture " + lecNum + " has " + numNotes + " notes.", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(LectureList.this, NoteList.class));
 
 
                     }
