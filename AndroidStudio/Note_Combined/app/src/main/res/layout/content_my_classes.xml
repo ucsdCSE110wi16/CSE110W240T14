@@ -24,7 +24,8 @@
         android:drawSelectorOnTop="false"
         android:footerDividersEnabled="true"
         android:textFilterEnabled="false"
-        android:paddingTop="40dp" />
+        android:paddingTop="50dp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
