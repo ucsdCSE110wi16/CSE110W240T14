@@ -9,21 +9,13 @@ public class LectureObject {
 
     public String name;
     public int lecNum;
-    public ArrayList<Note> lecList;
+    public ArrayList<NoteObject> lecList = new ArrayList<NoteObject>();
 
-    public LectureObject(int lecNum, ArrayList<Note> lecList) {
+    public LectureObject(int lecNum, ArrayList<NoteObject> lecList) {
         super();
         this.lecNum = lecNum;
         this.lecList = lecList;
         this.name = "Lecture " + lecNum;
-    }
-
-    public void addNoteToLec(Note newNote) {
-        this.lecList.add(newNote);
-    }
-
-    public void delNoteFromLec(Note delNote) {
-        this.lecList.remove(delNote);
     }
 
     public String getName() {
@@ -42,11 +34,11 @@ public class LectureObject {
         this.lecNum = num;
     }
 
-    public ArrayList<Note> getLecList() {
+    public ArrayList<NoteObject> getLecList() {
         return lecList;
     }
 
-    public void setLecList(ArrayList<Note> lecList) {
+    public void setLecList(ArrayList<NoteObject> lecList) {
         this.lecList = lecList;
     }
 }

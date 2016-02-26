@@ -10,8 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.etduongucsd.dopeshit.LectureList"
-    tools:showIn="@layout/activity_lecture_list"
-    android:background="#C8E3FF">
+    tools:showIn="@layout/activity_lecture_list">
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +31,6 @@
         android:divider="#72a6f9"
         android:dividerHeight="1dp"
         android:drawSelectorOnTop="false"
-        android:footerDividersEnabled="true"
-        />
+        android:footerDividersEnabled="true"/>
 
 </RelativeLayout>
