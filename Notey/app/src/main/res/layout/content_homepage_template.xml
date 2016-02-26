@@ -10,14 +10,65 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.cse110ucsdt14.notey.HomePage"
-    tools:showIn="@layout/home_page_template">
+    tools:showIn="@layout/home_page_template"
+    android:background="#9696fd">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is the home page. Replace with actual home page stuff."
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="76dp" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B4CFEC"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="My Notes"
+            android:id="@+id/myNotesButton"
+            android:layout_weight="0.30"
+            android:textAlignment="center"
+            android:textColor="#fcfc64"
+            android:textSize="37sp"
+            android:visibility="visible"
+            android:elegantTextHeight="false"
+            android:enabled="false"
+            android:clickable="false"
+            android:background="#B4CFEC"
+            android:textStyle="normal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Classes"
+            android:id="@+id/myClassesButton"
+            android:layout_weight=".30"
+            android:textAlignment="center"
+            android:textColor="#fcfc64"
+            android:textSize="37sp"
+            android:visibility="visible"
+            android:elegantTextHeight="false"
+            android:enabled="false"
+            android:clickable="false"
+            android:background="#B4CFEC"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="normal" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="All Classes"
+            android:id="@+id/allClassesButton"
+            android:layout_weight="0.30"
+            android:textStyle="normal"
+            android:textAlignment="center"
+            android:textColor="#fcfc64"
+            android:textSize="37sp"
+            android:visibility="visible"
+            android:elegantTextHeight="false"
+            android:enabled="false"
+            android:clickable="false"
+            android:background="#B4CFEC"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
 </RelativeLayout>
