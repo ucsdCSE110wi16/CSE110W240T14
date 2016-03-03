@@ -75,7 +75,7 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         myList = (ExpandableListView) findViewById(R.id.allClassesExpList);
         listAdapter = new MyListAdapter(AllClasses.this, courseList);
         myList.setAdapter(listAdapter);
-        myList.setOnItemClickListener(
+        /*myList.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -88,7 +88,7 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
 
                     }
                 }
-        );
+        );*/
     }
 
     /* To display the classes we have to first create the a ClassInfo object using

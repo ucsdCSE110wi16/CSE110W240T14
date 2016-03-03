@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +29,7 @@ public class NoteList extends AppCompatActivity {
 
         /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
          * it will return to the home screen.
-         */
+         *
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
@@ -44,6 +45,7 @@ public class NoteList extends AppCompatActivity {
                 startActivity(new Intent(NoteList.this, SettingsPage.class));
             }
         });
+        */
 
         Note note1 = new Note(1, 0);
         Note note2 = new Note(2, 0);
@@ -54,6 +56,14 @@ public class NoteList extends AppCompatActivity {
         addToNoteList(note2);
         addToNoteList(note3);
         addToNoteList(note4);
+
+        TextView noteHead = (TextView) findViewById(R.id.noteListTitle);
+        TextView noteClass = (TextView) findViewById(R.id.classNote);
+        TextView noteProf = (TextView) findViewById(R.id.noteProf);
+
+        noteHead.setText("Lecture " + LectureList.lecNum);
+        noteClass.setText(MyClasses.lectureHeading);
+        noteProf.setText(MyClasses.classProf);
 
         displayNoteList();
 

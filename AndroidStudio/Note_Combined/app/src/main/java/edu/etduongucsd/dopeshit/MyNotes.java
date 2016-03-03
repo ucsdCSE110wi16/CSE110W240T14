@@ -14,8 +14,8 @@ import java.util.Collections;
 
 public class MyNotes extends AppCompatActivity {
 
-    private static ListView list_view;
-    private static NoteListAdapter adapter;
+    private static ListView myNoteView;
+    private static MyNoteListAdapter myNoteAdapter;
 
     public static Note noteSel;
     public static ArrayList<Note> myNotes = new ArrayList<Note>();
@@ -35,15 +35,15 @@ public class MyNotes extends AppCompatActivity {
         }
     }
 
-    public void displayNoteList() {
-        list_view = (ListView) findViewById(R.id.notesList);
-        adapter = new NoteListAdapter(MyNotes.this, 0, myNotes);
-        list_view.setAdapter(adapter);
-        list_view.setOnItemClickListener(
+    public void displayMyNoteList() {
+        myNoteView = (ListView) findViewById(R.id.myNotesList);
+        myNoteAdapter = new MyNoteListAdapter(MyNotes.this, 0, myNotes);
+        myNoteView.setAdapter(myNoteAdapter);
+        myNoteView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        noteSel = (Note) list_view.getItemAtPosition(position);
+                        noteSel = (Note) myNoteView.getItemAtPosition(position);
 
 
                     }
@@ -55,6 +55,18 @@ public class MyNotes extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_notes);
+
+        Note note1 = new Note(1, 0);
+        Note note2 = new Note(2, 0);
+        Note note3 = new Note(3, 0);
+        Note note4 = new Note(4, 0);
+
+        addToMyNotes(note1);
+        addToMyNotes(note2);
+        addToMyNotes(note3);
+        addToMyNotes(note4);
+
+        displayMyNoteList();
 
     }
 
