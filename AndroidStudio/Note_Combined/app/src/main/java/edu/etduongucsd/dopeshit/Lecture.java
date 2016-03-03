@@ -4,7 +4,6 @@ import com.firebase.client.Firebase;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -24,25 +23,6 @@ public class Lecture {
         numberOfNotes = 0;
         //addLectureToFirebase();
     }
-
-    public Lecture (int lecNum) {
-        dataBaseRef = "";
-        lectureNum = lecNum;
-        notes = new ArrayList<Note>();
-        numberOfNotes = notes.size();
-    }
-
-
-    public static final Comparator<Lecture> ASCENDING_LECS = new Comparator<Lecture>() {
-        @Override
-        public int compare(Lecture lhs, Lecture rhs) {
-            return lhs.lectureNum - rhs.lectureNum;
-        }
-    };
-
-    //public int compareTo(Lecture lec) {
-      //  return (this.lectureNum).compareTo(lec.lectureNum);
-    //}
 
     public String getDataBaseRef(){
         return dataBaseRef;

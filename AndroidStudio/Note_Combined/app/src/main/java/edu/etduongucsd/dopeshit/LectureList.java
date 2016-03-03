@@ -1,6 +1,5 @@
 package edu.etduongucsd.dopeshit;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,14 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LectureList extends AppCompatActivity {
 
-    private static LectureListAdapter lecAdapter;
-
     public ListView lecListView;
+<<<<<<< HEAD
     public static ArrayList<Lecture> lecList = new ArrayList<Lecture>();
 
     public static Lecture lecSelected;
@@ -30,6 +27,9 @@ public class LectureList extends AppCompatActivity {
 
     //TextView noteTitle = (TextView) findViewById(R.id.noteListTitle);
 
+=======
+    public ArrayList<LectureObject> lecList = new ArrayList<LectureObject>();
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +54,7 @@ public class LectureList extends AppCompatActivity {
                 startActivity(new Intent(LectureList.this, SettingsPage.class));
             }
         });
+<<<<<<< HEAD
 */
         Lecture lec1 = new Lecture(1);
         Lecture lec2 = new Lecture(2);
@@ -66,33 +67,34 @@ public class LectureList extends AppCompatActivity {
         TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
         lecHeading.setText(MyClasses.lectureHeading);
 
+=======
+
+        ArrayList<NoteObject> lec1notes = new ArrayList<NoteObject>();
+        LectureObject lec1 = new LectureObject(1, lec1notes);
+        lecList.add(lec1);
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
         displayLecList();
 
     }
 
-    public void addToLecList(Lecture newLec) {
-        if(lecList.contains(newLec)) {}
-        else {
-            lecList.add(newLec);
-            Collections.sort(lecList, Lecture.ASCENDING_LECS);
-        }
+    public void addToLecList(int lecNum, ArrayList<NoteObject> noteList) {
+        LectureObject newLec = new LectureObject(lecNum, noteList);
+        lecList.add(newLec);
     }
 
-    public void delFromLecList(Lecture delLec) {
-        if(lecList.contains(delLec)) {
-            lecList.remove(delLec);
-            Collections.sort(lecList, Lecture.ASCENDING_LECS);
-        }
+    public void delFromLecList(ArrayList<LectureObject> delList) {
+        lecList.remove(delList);
     }
 
     public void displayLecList() {
         lecListView = (ListView) findViewById(R.id.lectureListView);
-        lecAdapter = new LectureListAdapter(LectureList.this, 0, lecList);
-        lecListView.setAdapter(lecAdapter);
+        ArrayAdapter<LectureObject> adapter = new ArrayAdapter<LectureObject>(this, R.layout.lecture_list, lecList);
+        lecListView.setAdapter(adapter);
         lecListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+<<<<<<< HEAD
                         //TextView noteTitle = (TextView) findViewById(R.id.noteListTitle);
                         lecSelected = (Lecture) lecListView.getItemAtPosition(position);
                         lecNum = lecSelected.getLectureNum();
@@ -101,6 +103,9 @@ public class LectureList extends AppCompatActivity {
                         Toast.makeText(LectureList.this, "Lecture " + lecNum + " has " + numNotes + " notes.", Toast.LENGTH_LONG).show();
                         //startActivity(new Intent(LectureList.this, NoteList.class));
                         openNoteList(view);
+=======
+                        LectureObject lecSelect = (LectureObject) lecListView.getItemAtPosition(position);
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
 
 
                     }

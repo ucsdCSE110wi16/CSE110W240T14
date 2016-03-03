@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,13 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
         Firebase.setAndroidContext(this);
 
-if(creatingDatabase) {
+/*if(creatingDatabase) {
     depart.clear();
     Firebase ref = new Firebase("https://note110.firebaseio.com/");
     ref.setValue(0);
         wordScanner = new WordScanner(this);    //Construct wordScanner object
         wordScanner.parseList(path);            //Go through words in lines and sort according to dept and course
-}
+    depart = wordScanner.departments;
+    creatingDatabase = false;
+    Intent intent = getIntent();
+    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+    finish();
+    startActivity(intent);
+}*/
 if(!creatingDatabase) {
     Firebase ref = new Firebase("https://note110.firebaseio.com/Departments/");
     //  addListenerForSingleValueEvent
@@ -72,6 +79,7 @@ if(!creatingDatabase) {
                 }
             }
             createList();                           //Create ui list of departments shown on phone
+            registerClickCallback();
         }
 
         //    @Override
@@ -93,5 +101,43 @@ if(!creatingDatabase) {
         ListView deptList = (ListView) findViewById(R.id.listView);
         //Set adapter to this UI list
         deptList.setAdapter(departmentArrayAdapter);
+    }
+
+    //This will do something when a department on the list is clicked on
+    private void registerClickCallback(){
+
+        //List shown on screen
+        ListView list = (ListView) findViewById(R.id.listView);
+
+        //Listener for the list
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            //What will happen when the list is clicked
+            @Override
+            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
+
+                selectedDepartment = position;  //Deparment selected from the list of departments
+
+                //Create new intent to open course list contained by selected department
+                Intent selectedIntent = new Intent(MainActivity.this, testCourse.class);
+                startActivity(selectedIntent);
+
+            }
+        });
+    }
+
+    public void buttonOnClickResetData(View v){
+        Button button = (Button)v;
+        depart.clear();
+        Firebase ref = new Firebase("https://note110.firebaseio.com/");
+        ref.setValue(0);
+        wordScanner = new WordScanner(this);    //Construct wordScanner object
+        wordScanner.parseList(path);            //Go through words in lines and sort according to dept and course
+        depart = wordScanner.departments;
+        creatingDatabase = false;
+        Intent intent = getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        startActivity(intent);
     }
 }

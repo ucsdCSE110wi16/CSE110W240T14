@@ -59,11 +59,5 @@ public class Department {
             c.addCourseToFirebase();
             courses.add(c);
         }
-     /*   //Check if course had already been added
-        if(!courses.contains(courseName)){
-            Course c = new Course(courseName, dataBaseRef+name+"/");
-            c.addCourseToFirebase();
-            courses.add(c);
-        }*/
     }
 }

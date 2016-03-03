@@ -26,10 +26,8 @@ import java.util.List;
 public class MyClasses extends AppCompatActivity {
 
     private static ListView list_view;
-    private static ClassInfoListAdapter listAdapter;
 
-    public static ClassInfo classSel;
-    public static ArrayList<ClassInfo> MYCLASSES = new ArrayList<ClassInfo>();
+    private static List<String> MYCLASSES = new ArrayList<String>();
 
     public static String lectureHeading;
     public static String classProf;
@@ -40,17 +38,14 @@ public class MyClasses extends AppCompatActivity {
     //private static String[] MYCLASSES = new String[] {"CSE 100",
     //                                                  "CSE 101", "CSE 105", "CSE 110", "CSE 140", "GARY"};
 
-    public void addToMyClasses (ClassInfo newMyClass) {
-        if(MYCLASSES.contains(newMyClass)){}
-        else {
-            MYCLASSES.add(newMyClass);
-            Collections.sort(MYCLASSES, ClassInfo.ASC_ORDER);
-        }
+    public void addToMyClasses (String className) {
+        MYCLASSES.add(className);
+        Collections.sort(MYCLASSES, String.CASE_INSENSITIVE_ORDER);
     }
 
-    public void delFromMyClasses (ClassInfo remMyClass) {
-        MYCLASSES.remove(remMyClass);
-        Collections.sort(MYCLASSES, ClassInfo.ASC_ORDER);
+    public void delFromMyClasses (String className) {
+        MYCLASSES.remove(className);
+        Collections.sort(MYCLASSES, String.CASE_INSENSITIVE_ORDER);
     }
 
     @Override
@@ -80,12 +75,13 @@ public class MyClasses extends AppCompatActivity {
         //android.support.v7.app.ActionBar ab = getSupportActionBar();
         //ab.setLogo(R.drawable.lettern);
         //ab.setDisplayUseLogoEnabled(true);
-        //ab.setDisplayShowHomeEnabled(true)
+        //ab.setDisplayShowHomeEnabled(true);
 
         Typeface myTypeface = Typeface.createFromAsset(getAssets(), "Sweet Pea_2.ttf");
         TextView myClassesTitle = (TextView) findViewById(R.id.myClassesTitle);
         myClassesTitle.setTypeface(myTypeface);
 
+<<<<<<< HEAD
         ClassInfo example = new ClassInfo("CSE 110", "Kesden");
         //ClassInfo example3 = new ClassInfo("CSE 113", "Kesden");
         //ClassInfo example4 = new ClassInfo("CSE 114", "Kesden");
@@ -100,19 +96,28 @@ public class MyClasses extends AppCompatActivity {
         //addToMyClasses(example4);
         addToMyClasses(example5);
         delFromMyClasses(example5);
+=======
+        addToMyClasses("CSE 100");
+        addToMyClasses("CSE 105");
+        addToMyClasses("CSE 101");
+        addToMyClasses("CSE 110");
+        addToMyClasses("CSE 130");
+        addToMyClasses("CSE GARY");
+        delFromMyClasses("CSE GARY");
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
 
         myClassesView();
     }
 
     public void myClassesView () {
         list_view = (ListView)findViewById(R.id.myClassesList);
-        listAdapter = new ClassInfoListAdapter(MyClasses.this, 0, MYCLASSES);
-        //ArrayAdapter<ClassInfo> adapter = new ArrayAdapter<ClassInfo>(this, R.layout.myclasses_list, MYCLASSES);
-        list_view.setAdapter(listAdapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.myclasses_list, MYCLASSES);
+        list_view.setAdapter(adapter);
         list_view.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+<<<<<<< HEAD
                         //TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
                         classSel = (ClassInfo) list_view.getItemAtPosition(position);
                         lectureHeading = classSel.getClassName();
@@ -123,16 +128,24 @@ public class MyClasses extends AppCompatActivity {
                         //Toast.makeText(MyClasses.this, "Class: " + classSelected + " has " + numLecs + " lectures.", Toast.LENGTH_LONG).show();
                         openLectureList(view);
                         //openLectureList();
+=======
+                        String value = (String) list_view.getItemAtPosition(position) ;
+                        Toast.makeText(MyClasses.this, "Class: " + value, Toast.LENGTH_LONG).show();
+
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
                     }
                 }
         );
     }
 
+<<<<<<< HEAD
     public void openLectureList(View view) {
         Intent moveToLecList = new Intent(this, LectureList.class);
         startActivity(moveToLecList);
     }
 
+=======
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
     public void openClassNotes(View view) {
         startActivity(new Intent(this, LectureList.class));
     }

@@ -48,6 +48,11 @@ public class Lecture {
         return numberOfNotes;
     }
 
+    @Override
+    public String toString(){
+        return "Lecture "+(lectureNum + 1);
+    }
+
     public void addLectureToFirebase(){
         Firebase ref = new Firebase(dataBaseRef);
         ref.child("Lecture "+lectureNum).setValue(0); //need to get number from firebase

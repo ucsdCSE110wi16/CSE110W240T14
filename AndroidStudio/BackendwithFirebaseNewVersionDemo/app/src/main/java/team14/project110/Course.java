@@ -58,11 +58,5 @@ public class Course {
             professors.add(c);
             c.addProfToFirebase();
         }
-    /*    //Check if course had already been added
-        if (!professors.contains(profName)) {
-            Professor c = new Professor(profName, dataBaseRef+name+"/");
-            professors.add(c);
-            c.addProfToFirebase();
-        }*/
     }
 }
