@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="edu.etduongucsd.dopeshit.MyClasses"
+    android:background="#C8E3FF">
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/myClassesList"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#C8E3FF"
+        android:divider="#72a6f9"
+        android:dividerHeight="1dp"
+        android:drawSelectorOnTop="false"
+        android:footerDividersEnabled="true"
+        android:textFilterEnabled="false"
+        android:paddingTop="50dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="My Classes"
+        android:id="@+id/myClassesTitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/myClassesList"
+        android:layout_alignEnd="@+id/myClassesList"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:textColor="#fdfd96"
+        android:background="#AAC5E2" />
+
+</RelativeLayout>
