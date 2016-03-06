@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:paddingTop="40dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="40dp"
+    tools:context="edu.etduongucsd.dopeshit.NoteList"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -9,27 +13,28 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Note Name"
         android:id="@+id/textView4"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Flag"
-        android:id="@+id/button5"
+        android:id="@+id/flagButton"
         android:layout_alignBottom="@+id/imageButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toRightOf="@+id/likeButton"
+        android:layout_toEndOf="@+id/likeButton" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Like"
-        android:id="@+id/button6"
-        android:layout_alignBottom="@+id/imageButton"
-        android:layout_alignLeft="@+id/textView5"
-        android:layout_alignStart="@+id/textView5" />
+        android:id="@+id/likeButton"
+        android:layout_alignTop="@+id/flagButton"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,9 +42,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Rating"
         android:id="@+id/textView5"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_toLeftOf="@+id/button5"
-        android:layout_toStartOf="@+id/button5" />
+        android:layout_below="@+id/textView4"
+        android:layout_toLeftOf="@+id/flagButton"
+        android:layout_toStartOf="@+id/flagButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -50,8 +55,22 @@
         android:minHeight="100dp"
         android:minWidth="100dp"
         android:adjustViewBounds="true"
+        android:onClick="setContentView"
         android:layout_alignTop="@+id/textView4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="setContentView" />
+        android:layout_toLeftOf="@+id/textView4"
+        android:layout_toStartOf="@+id/textView4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="1"
+        android:id="@+id/numVotes"
+        android:layout_marginRight="21dp"
+        android:layout_marginEnd="21dp"
+        android:layout_alignBaseline="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignRight="@+id/flagButton"
+        android:layout_alignEnd="@+id/flagButton" />
+
 </RelativeLayout>

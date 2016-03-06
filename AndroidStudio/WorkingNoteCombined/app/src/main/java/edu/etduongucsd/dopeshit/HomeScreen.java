@@ -30,6 +30,7 @@ public class HomeScreen extends AppCompatActivity {
     public static Course selectedCourse;
     public static Professor selectedProfessor;
     public static Lecture selectedLecture;
+    public static Note selectedNote;
     public static UserProfile userProfile = new UserProfile("Temp name");
 
     @Override

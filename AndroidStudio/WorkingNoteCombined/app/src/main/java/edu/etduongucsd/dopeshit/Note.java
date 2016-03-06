@@ -16,9 +16,10 @@ import java.util.Comparator;
  */
 //Note object
 public class Note {
-    int flag;       //Flags a set of notes has received
+    public static int upvote;
+    public static int flag;       //Flags a set of notes has received
     int noteNum;
-    Lecture parentLecture;
+    public Lecture parentLecture;
     String dataBaseRef;
     ArrayList<Bitmap> pictureNote;
     ArrayList<String> pictureString = new ArrayList<String>();
@@ -27,6 +28,7 @@ public class Note {
 
     //Notes constructor
     public Note(ArrayList<Bitmap> bmp, int numberOfNotes, String parentFireBaseRef) {
+        upvote = 0;
         flag = 0;
         pictureNote = bmp;
         noteNum = numberOfNotes;
@@ -34,6 +36,7 @@ public class Note {
     }
 
     public Note(int numberOfNotes, String parentFireBaseRef){
+        upvote = 0;
         flag = 0;
         pictureNote = new ArrayList<Bitmap>();
         noteNum = numberOfNotes;
@@ -44,6 +47,8 @@ public class Note {
     public int getFlag(){
         return flag;
     }
+
+    public int getUpvote() {return upvote;}
 
     @Override
     public String toString(){
@@ -76,6 +81,14 @@ public class Note {
             return lhs.noteNum - rhs.noteNum;
         }
     };
+
+    public void incUpvote() {
+        upvote++;
+    }
+
+    public void incFlag() {
+        flag++;
+    }
 
     public String storeBitmap(Bitmap bmp){
         ByteArrayOutputStream bYte = new ByteArrayOutputStream();

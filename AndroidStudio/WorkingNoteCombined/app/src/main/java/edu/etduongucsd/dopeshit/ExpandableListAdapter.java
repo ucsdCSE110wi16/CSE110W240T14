@@ -1,10 +1,12 @@
 package edu.etduongucsd.dopeshit;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +23,17 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
     // child data in format of header title, child title
     private HashMap<String, List<String>> _listDataChild;
 
+    private List<String> copy_listDataHeader;
+    private HashMap<String, List<String>> copy_listDataChild;
+
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
                                  HashMap<String, List<String>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
+
+        this.copy_listDataHeader = listDataHeader;
+        this.copy_listDataChild = listChildData;
     }
 
     @Override
@@ -112,4 +120,34 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
+
+    /*
+    public void filterDate(String query) {
+        query = query.toLowerCase();
+        Log.v("ExpandableListAdapter", String.valueOf(_listDataChild.size()));
+        _listDataChild.clear();
+
+        if(query.isEmpty()) {
+            _listDataChild = (HashMap) copy_listDataChild.clone();
+        }
+        else {
+            for(String listString: copy_listDataChild.) {
+                ArrayList<ClassInfo> class_info = classInList.getClassList();
+                ArrayList<ClassInfo> newList = new ArrayList<ClassInfo>();
+                for (ClassInfo classinfo: class_info) {
+                    if(classinfo.getCode().toLowerCase().contains(query) || classinfo.getClassName().toLowerCase().contains(query)) {
+                        newList.add(classinfo);
+                    }
+                }
+                if(newList.size() > 0) {
+                    ClassList nClassList = new ClassList(classInList.getName(), newList);
+                    classList.add(nClassList);
+                }
+            }
+        }
+
+        Log.v("ExpandableListAdapter", String.valueOf(classList.size()));
+        notifyDataSetChanged();
+
+    }*/
 }
