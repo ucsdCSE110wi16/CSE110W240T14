@@ -12,7 +12,7 @@ import java.util.List;
 public class Course {
     String name;
     String dataBaseRef;
-    Department parentDepartment;
+    public Department parentDepartment;
     List<Professor> professors;  //List of courses within department
 
     //Default constructor

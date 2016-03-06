@@ -17,8 +17,8 @@ public class Professor {
     String name;    //Professor name
     String dataBaseRef;
     List<Lecture> lectures; //List of weeks within the course
-    int numberOfLectures;
-    Course parentCourse;
+    public int numberOfLectures;
+    public Course parentCourse;
 
     public Professor(){};
 

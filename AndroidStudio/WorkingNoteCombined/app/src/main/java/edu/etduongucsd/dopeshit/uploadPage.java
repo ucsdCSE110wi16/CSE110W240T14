@@ -150,7 +150,14 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     currentLecture.addNotes(bmapArray);
                     Note noteBeingAdded = currentLecture.notes.get(currentLecture.notes.size() - 1);
                     HomeScreen.userProfile.myNotes.addToMyNotes(noteBeingAdded);
-                    HomeScreen.userProfile.myCourses.add(noteBeingAdded.parentLecture.parentProfessor.parentCourse);
+
+                    if(HomeScreen.userProfile.myCourses.contains(noteBeingAdded.parentLecture.parentProfessor.parentCourse)){
+                        HomeScreen.selectedProfessor = noteBeingAdded.parentLecture.parentProfessor;
+                    }
+                    else {
+                        HomeScreen.userProfile.myCourses.add(noteBeingAdded.parentLecture.parentProfessor.parentCourse);
+                        HomeScreen.selectedProfessor = noteBeingAdded.parentLecture.parentProfessor;
+                    }
                     //Need to save note info to user phone
                     finish();
                 }

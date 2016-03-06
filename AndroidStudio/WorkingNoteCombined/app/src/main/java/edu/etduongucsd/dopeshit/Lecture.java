@@ -23,9 +23,9 @@ public class Lecture {
     String dataBaseRef;
     int lectureNum;
     List<Note> notes;
-    int numberOfNotes;
+    public int numberOfNotes;
     int count;
-    Professor parentProfessor;
+    public Professor parentProfessor;
 
     public Lecture(String parentFirebaseRef, int numberOfLectures){
         dataBaseRef = parentFirebaseRef;
