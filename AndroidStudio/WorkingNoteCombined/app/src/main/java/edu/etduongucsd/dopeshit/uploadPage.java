@@ -2,8 +2,11 @@ package edu.etduongucsd.dopeshit;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -21,6 +24,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,16 +38,9 @@ import java.util.List;
 //Upload page
 public class uploadPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    Spinner classSpin;
-    Spinner profSpin;
-    Spinner weekSpin;
-    Spinner lecNumSpin;
-    private Button upload;
-    private Button moreButton;
-    private Button finalUpload;
-    private ImageButton imageSlot1;
-    private ImageButton imageSlot2;
-    private ImageButton imageSlot3;
+    Spinner classSpin, profSpin, weekSpin, lecNumSpin;
+    private Button upload, moreButton, finalUpload;
+    private ImageButton imageSlot1, imageSlot2, imageSlot3, xOne, xTwo, xThree;
     private final static int SELECT_PHOTO = 12345;
     private ArrayList<Bitmap> bmapArray = new ArrayList<Bitmap>();
     private int numPictures = 0;
@@ -64,11 +61,17 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
         imageSlot2 = (ImageButton) findViewById(R.id.imageSlot2);
         imageSlot3 = (ImageButton) findViewById(R.id.imageSlot3);
         finalUpload = (Button) findViewById(R.id.final_upload);
+        xOne = (ImageButton) findViewById(R.id.xone);
+        xTwo = (ImageButton) findViewById(R.id.xtwo);
+        xThree = (ImageButton) findViewById(R.id.xthree);
         moreButton.setVisibility(View.INVISIBLE);
         imageSlot1.setVisibility(View.INVISIBLE);
         imageSlot2.setVisibility(View.INVISIBLE);
         imageSlot3.setVisibility(View.INVISIBLE);
         finalUpload.setVisibility(View.INVISIBLE);
+        xOne.setVisibility(View.INVISIBLE);
+        xTwo.setVisibility(View.INVISIBLE);
+        xThree.setVisibility(View.INVISIBLE);
 
         moreButton.setEnabled(true);
 
@@ -154,6 +157,38 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
+        xOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePicture(0);
+            }
+        });
+        xTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePicture(1);
+            }
+        });
+        xThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletePicture(2);
+            }
+        });
+
+        imageSlot1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Dialog settingsDialog = new Dialog(context);
+                //settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                //settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.full_image_layout, null));
+                setContentView(R.layout.full_image_layout);
+                ImageView picture = (ImageView) findViewById(R.id.insertPicture);
+                picture.setImageBitmap(bmapArray.get(0));
+                // settingsDialog.show();
+            }
+        });
+
     }
 
     @Override
@@ -203,19 +238,21 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             // options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             bmapArray.add(bitmap);
-            int numPictures = bmapArray.size();
             String imageSlot = "R.id.imageSlot" + numPictures;
             if (numPictures == 1) {
                 imageSlot1.setImageBitmap(bitmap);
                 imageSlot1.setVisibility(View.VISIBLE);
+                xOne.setVisibility(View.VISIBLE);
             }
             else if (numPictures == 2) {
                 imageSlot2.setImageBitmap(bitmap);
                 imageSlot2.setVisibility(View.VISIBLE);
+                xTwo.setVisibility(View.VISIBLE);
             }
             else if (numPictures == 3) {
                 imageSlot3.setImageBitmap(bitmap);
                 imageSlot3.setVisibility(View.VISIBLE);
+                xThree.setVisibility(View.VISIBLE);
             }
             else {
                 int morePictures = numPictures - 3;
@@ -233,6 +270,88 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
+
+    /* Private helper method to create a dialog to prevent a note from being uploaded
+     * and then delete that picture
+     */
+    private void deletePicture(final int whichX) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Delete this note");
+        builder.setMessage("Are you sure you don't want to upload this note?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                if (bmapArray.size() == 1) {
+                    imageSlot1.setImageBitmap(null);
+                    imageSlot1.setVisibility(View.INVISIBLE);
+                    xOne.setVisibility(View.INVISIBLE);
+                    bmapArray.remove(0);
+                    System.out.println("Removed first picture. Bitmap size is now: " + bmapArray.size());
+                } else if (bmapArray.size() == 2) {
+                    if (whichX == 0) {
+                        imageSlot1.setImageBitmap(bmapArray.get(1));
+                        bmapArray.set(0, bmapArray.get(1));
+                    }
+                    imageSlot2.setImageBitmap(null);
+                    imageSlot2.setVisibility(View.INVISIBLE);
+                    xTwo.setVisibility(View.INVISIBLE);
+                    bmapArray.remove(1);
+                }
+
+                // otherwise the size is 3 or more, meaning all three spots are taken
+                else {
+                    if (whichX == 0) {
+                        imageSlot1.setImageBitmap(bmapArray.get(1));
+                        imageSlot2.setImageBitmap(bmapArray.get(2));
+                        bmapArray.set(0, bmapArray.get(1));
+                        bmapArray.set(1, bmapArray.get(2));
+                    }
+                    else if (whichX == 1) {
+                        /* Fails here */
+
+                        imageSlot2.setImageBitmap(bmapArray.get(2));
+                        bmapArray.set(1, bmapArray.get(2));
+                    }
+
+                    /* Deal with the third slot */
+
+                    // if size is greater than 3, then we have more pictures that we can pull from
+                    if (bmapArray.size() > 3) {
+                        imageSlot3.setImageBitmap(bmapArray.get(3));
+                        bmapArray.set(2, bmapArray.get(3));
+                        bmapArray.remove(bmapArray.size() - 1);
+                        if (bmapArray.size() < 4) {
+                            moreButton.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                    else {
+                        imageSlot3.setImageBitmap(null);
+                        imageSlot3.setVisibility(View.INVISIBLE);
+                        xThree.setVisibility(View.INVISIBLE);
+                        bmapArray.remove(2);
+                    }
+                }
+                numPictures--;
+                // System.out.println("numPics: " + numPictures);
+            }
+
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Don't delete anything
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
