@@ -11,6 +11,7 @@ public class UserProfile {
     String name;
     public static List<Course> myCourses = new ArrayList<Course>();
     public static List<Course> myUploadCourses = new ArrayList<Course>();
+    public static List<Note> userUpNotes = new ArrayList<Note>();
     //List<Note> myNotes;
     MyNotes myNotes = new MyNotes();
 
