@@ -159,6 +159,11 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                         HomeScreen.userProfile.myCourses.add(noteBeingAdded.parentLecture.parentProfessor.parentCourse);
                         HomeScreen.selectedProfessor = noteBeingAdded.parentLecture.parentProfessor;
                     }
+
+                    if(HomeScreen.userProfile.myUploadCourses.contains(noteBeingAdded.parentLecture.parentProfessor.parentCourse)){}
+                    else {
+                        HomeScreen.userProfile.myUploadCourses.add((noteBeingAdded.parentLecture.parentProfessor.parentCourse));
+                    }
                     //Need to save note info to user phone
                     finish();
                 }
