@@ -6,9 +6,16 @@
         android:layout_width="wrap_content"
         android:id="@+id/insertPicture"
         android:layout_height="wrap_content" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
-        android:onClick="dismissListener"/>
+        android:id="@+id/backButton"
+        android:text="Back"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deleteButton"
+        android:text="Delete"/>
 </LinearLayout>
