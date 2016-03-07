@@ -9,7 +9,7 @@ import java.util.List;
 //Saves myCourses and myNotes lists
 public class UserProfile {
     String name;
-    List<Course> myCourses = new ArrayList<Course>();
+    public static List<Course> myCourses = new ArrayList<Course>();
     //List<Note> myNotes;
     MyNotes myNotes = new MyNotes();
 
