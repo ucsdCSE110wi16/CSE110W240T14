@@ -3,7 +3,6 @@ package edu.etduongucsd.dopeshit;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.widget.ImageView;
 
 import com.firebase.client.Firebase;
 
@@ -16,8 +15,15 @@ import java.util.Comparator;
  */
 //Note object
 public class Note {
+<<<<<<< HEAD
+    public static int upvote;
+    public static int flag;       //Flags a set of notes has received
+    public boolean upvoteBool;
+    public boolean flagBool;
+=======
     static int upvote;
     static int flag;       //Flags a set of notes has received
+>>>>>>> a031d36575f4269c0fba2858e6a66ebbe04528ef
     int noteNum;
     public Lecture parentLecture;
     String dataBaseRef;
@@ -30,6 +36,8 @@ public class Note {
     public Note(ArrayList<Bitmap> bmp, int numberOfNotes, String parentFireBaseRef) {
         upvote = 0;
         flag = 0;
+        upvoteBool = false;
+        flagBool = false;
         pictureNote = bmp;
         noteNum = numberOfNotes;
         dataBaseRef = parentFireBaseRef;
@@ -38,14 +46,11 @@ public class Note {
     public Note(int numberOfNotes, String parentFireBaseRef){
         upvote = 0;
         flag = 0;
+        upvoteBool = false;
+        flagBool = false;
         pictureNote = new ArrayList<Bitmap>();
         noteNum = numberOfNotes;
         dataBaseRef = parentFireBaseRef;
-    }
-
-
-    public int getFlag(){
-        return flag;
     }
 
     public int getUpvote() {return upvote;}
@@ -91,14 +96,6 @@ public class Note {
         }
     };
 
-    public void incUpvote() {
-        upvote++;
-    }
-
-    public void incFlag() {
-        flag++;
-    }
-
     public String storeBitmap(Bitmap bmp){
         ByteArrayOutputStream bYte = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 25, bYte);
@@ -120,14 +117,37 @@ public class Note {
     }
 
     //Toggle Flag
-    public void incrFlag() {
-        if( flag == 1 ) {
-            flag = 0;
+    public void toggleFlag() {
+        HomeScreen.userProfile.toggleMyFlags(this);
+
+        if( flagBool == true ) {
+            flagBool = false;
+            flag--;
+            //Remove note from myFlags list in UserProfile
         }
         else {
-            flag = 1;
+            flagBool = true;
+            flag++;
+            //Add not to myFlags list in UserProfile
         }
     }
+
+    //Toggle Upvotes
+    public void toggleUpvotes() {
+        HomeScreen.userProfile.toggleMyUpvote(this);
+
+        if( upvoteBool == true ) {
+            upvoteBool = false;
+            upvote--;
+            //Remove note from myFlags list in UserProfile
+        }
+        else {
+            upvoteBool = true;
+            upvote++;
+            //Add not to myFlags list in UserProfile
+        }
+    }
+
 
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
