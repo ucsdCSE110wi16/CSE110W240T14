@@ -15,15 +15,10 @@ import java.util.Comparator;
  */
 //Note object
 public class Note {
-<<<<<<< HEAD
     public static int upvote;
     public static int flag;       //Flags a set of notes has received
     public boolean upvoteBool;
     public boolean flagBool;
-=======
-    static int upvote;
-    static int flag;       //Flags a set of notes has received
->>>>>>> a031d36575f4269c0fba2858e6a66ebbe04528ef
     int noteNum;
     public Lecture parentLecture;
     String dataBaseRef;
@@ -130,6 +125,10 @@ public class Note {
             flag++;
             //Add not to myFlags list in UserProfile
         }
+    }
+
+    public void incUpvote() {
+        upvote++;
     }
 
     //Toggle Upvotes
