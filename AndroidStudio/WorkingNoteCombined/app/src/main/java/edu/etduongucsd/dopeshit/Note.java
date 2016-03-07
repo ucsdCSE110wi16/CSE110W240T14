@@ -15,10 +15,15 @@ import java.util.Comparator;
  */
 //Note object
 public class Note {
+<<<<<<< HEAD
     public static int upvote;
     public static int flag;       //Flags a set of notes has received
     public boolean upvoteBool;
     public boolean flagBool;
+=======
+    static int upvote;
+    static int flag;       //Flags a set of notes has received
+>>>>>>> a031d36575f4269c0fba2858e6a66ebbe04528ef
     int noteNum;
     public Lecture parentLecture;
     String dataBaseRef;
@@ -78,7 +83,16 @@ public class Note {
     public static final Comparator<Note> ASC_NOTES = new Comparator<Note>() {
         @Override
         public int compare(Note lhs, Note rhs) {
-            return lhs.noteNum - rhs.noteNum;
+
+            int lhsVotes = lhs.getUpvote();
+            int rhsVotes = rhs.getUpvote();
+
+            if(lhsVotes != rhsVotes) {
+                return lhsVotes - rhsVotes;
+            }
+            else {
+                return lhs.noteNum - rhs.noteNum;
+            }
         }
     };
 

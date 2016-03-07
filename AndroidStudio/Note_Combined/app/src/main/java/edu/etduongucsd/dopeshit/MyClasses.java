@@ -29,6 +29,12 @@ public class MyClasses extends AppCompatActivity {
 
     private static List<String> MYCLASSES = new ArrayList<String>();
 
+    public static String lectureHeading;
+    public static String classProf;
+
+    //TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
+
+
     //private static String[] MYCLASSES = new String[] {"CSE 100",
     //                                                  "CSE 101", "CSE 105", "CSE 110", "CSE 140", "GARY"};
 
@@ -75,6 +81,22 @@ public class MyClasses extends AppCompatActivity {
         TextView myClassesTitle = (TextView) findViewById(R.id.myClassesTitle);
         myClassesTitle.setTypeface(myTypeface);
 
+<<<<<<< HEAD
+        ClassInfo example = new ClassInfo("CSE 110", "Kesden");
+        //ClassInfo example3 = new ClassInfo("CSE 113", "Kesden");
+        //ClassInfo example4 = new ClassInfo("CSE 114", "Kesden");
+        ClassInfo example2 = new ClassInfo("CSE 105", "Shacham");
+        ClassInfo example5 = new ClassInfo("CSE 100", "Diba");
+        ClassInfo example1 = new ClassInfo("CSE 131", "Ord");
+
+        addToMyClasses(example);
+        addToMyClasses(example1);
+        addToMyClasses(example2);
+        //addToMyClasses(example3);
+        //addToMyClasses(example4);
+        addToMyClasses(example5);
+        delFromMyClasses(example5);
+=======
         addToMyClasses("CSE 100");
         addToMyClasses("CSE 105");
         addToMyClasses("CSE 101");
@@ -82,6 +104,7 @@ public class MyClasses extends AppCompatActivity {
         addToMyClasses("CSE 130");
         addToMyClasses("CSE GARY");
         delFromMyClasses("CSE GARY");
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
 
         myClassesView();
     }
@@ -94,14 +117,35 @@ public class MyClasses extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+<<<<<<< HEAD
+                        //TextView lecHeading = (TextView) findViewById(R.id.lectureTitle);
+                        classSel = (ClassInfo) list_view.getItemAtPosition(position);
+                        lectureHeading = classSel.getClassName();
+                        classProf = classSel.getProfessor();
+                        //lecHeading.setText(classSelected);
+                        LectureList.lecList = classSel.classLectures; //Set LectureList's array of Lecs to selected class' lecList
+                        int numLecs = classSel.getNumLec();
+                        //Toast.makeText(MyClasses.this, "Class: " + classSelected + " has " + numLecs + " lectures.", Toast.LENGTH_LONG).show();
+                        openLectureList(view);
+                        //openLectureList();
+=======
                         String value = (String) list_view.getItemAtPosition(position) ;
                         Toast.makeText(MyClasses.this, "Class: " + value, Toast.LENGTH_LONG).show();
 
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
                     }
                 }
         );
     }
 
+<<<<<<< HEAD
+    public void openLectureList(View view) {
+        Intent moveToLecList = new Intent(this, LectureList.class);
+        startActivity(moveToLecList);
+    }
+
+=======
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
     public void openClassNotes(View view) {
         startActivity(new Intent(this, LectureList.class));
     }

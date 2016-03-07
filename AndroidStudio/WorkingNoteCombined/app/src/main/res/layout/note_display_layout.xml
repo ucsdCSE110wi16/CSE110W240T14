@@ -42,7 +42,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Rating"
         android:id="@+id/textView5"
-        android:layout_below="@+id/textView4"
+
+        android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/flagButton"
         android:layout_toStartOf="@+id/flagButton" />
 
@@ -56,9 +57,9 @@
         android:minWidth="100dp"
         android:adjustViewBounds="true"
         android:onClick="setContentView"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_toLeftOf="@+id/textView4"
-        android:layout_toStartOf="@+id/textView4" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"

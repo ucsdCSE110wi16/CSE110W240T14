@@ -10,8 +10,12 @@ import java.util.List;
 public class UserProfile {
     String name;
     public static List<Course> myCourses = new ArrayList<Course>();
+<<<<<<< HEAD
     public List<Note> myFlags = new ArrayList<>();
     public List<Note> myUpvotes = new ArrayList<>();
+=======
+    public static List<Course> myUploadCourses = new ArrayList<Course>();
+>>>>>>> a031d36575f4269c0fba2858e6a66ebbe04528ef
     //List<Note> myNotes;
     MyNotes myNotes = new MyNotes();
 
