@@ -17,15 +17,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Class Title"
-        android:id="@+id/ClassTitleLectures"
+        android:id="@+id/lectureTitle"
         android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#fdfd96"
+        android:background="#AAC5E2"
+        android:textSize="30sp"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lectureListView"
-        android:layout_below="@+id/ClassTitleLectures"
+        android:layout_below="@+id/lectureTitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="33dp"
         android:divider="#72a6f9"

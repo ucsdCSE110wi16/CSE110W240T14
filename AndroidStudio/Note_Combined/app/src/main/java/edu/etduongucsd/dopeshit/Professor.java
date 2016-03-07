@@ -4,6 +4,7 @@ package edu.etduongucsd.dopeshit;
 import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -28,6 +29,22 @@ public class Professor {
        // addProfToFirebase();
       //  thisCourse = course;
       //  addProf(thisCourse);
+    }
+
+    public static final Comparator<Professor> ASC_PROF = new Comparator<Professor>() {
+        @Override
+        public int compare(Professor lhs, Professor rhs) {
+            String lhsName = lhs.getName();
+            String rhsName = rhs.getName();
+            return lhsName.compareTo(rhsName);
+        }
+    };
+
+    public Professor(String profName) {
+        name = profName;
+        dataBaseRef = "";
+        lectures = new ArrayList<Lecture>();
+        numberOfLectures = 0;
     }
 
     public String getName(){
