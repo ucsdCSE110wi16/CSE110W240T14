@@ -53,6 +53,15 @@
                 android:value="edu.etduongucsd.dopeshit.HomeScreen" />
         </activity>
         <activity
+            android:name=".FullScreenPreview"
+            android:label="FullScreenPreview"
+            android:parentActivityName=".uploadPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.etduongucsd.dopeshit.uploadPage" />
+        </activity>
+        <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
