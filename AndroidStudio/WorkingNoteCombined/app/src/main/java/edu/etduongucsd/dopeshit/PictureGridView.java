@@ -31,9 +31,8 @@ public class PictureGridView extends AppCompatActivity {
         bmapList = i.getStringArrayListExtra("bmaps");
 
         setContentView(R.layout.grid_view_layout);
-        GridViewAdapter adapter = new GridViewAdapter(PictureGridView.this,bmapList);
         gridView = (GridView) findViewById(R.id.gridView);
-        gridView.setAdapter(adapter);
+        gridView.setAdapter(new GridViewAdapter(getApplicationContext(), bmapList));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

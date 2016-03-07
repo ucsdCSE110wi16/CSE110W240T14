@@ -14,27 +14,18 @@
         android:hint="Enter UCSD email"
         android:focusable="true"
         android:textColorHighlight="#ff7eff15"
-<<<<<<< HEAD
-        android:textColorHint="#ffff25e6"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-=======
         android:textColorHint="#000000"
         android:layout_marginBottom="133dp"
         android:layout_above="@+id/button2"
         android:layout_centerHorizontal="true" />
->>>>>>> a031d36575f4269c0fba2858e6a66ebbe04528ef
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_below="@+id/textView"
-<<<<<<< HEAD
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:cropToPadding="false" />/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -49,10 +40,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/email"
         android:layout_alignEnd="@+id/email" />
-=======
-        android:layout_centerHorizontal="true"
-        android:cropToPadding="false" />
->>>>>>> a031d36575f4269c0fba2858e6a66ebbe04528ef
 
     <Button
         android:layout_width="wrap_content"
