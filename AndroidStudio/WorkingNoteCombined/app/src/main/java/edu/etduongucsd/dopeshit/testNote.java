@@ -58,7 +58,7 @@ public class testNote extends AppCompatActivity {
 
         currentProfessor = HomeScreen.selectedProfessor;
         TextView lecTitle = (TextView) findViewById(R.id.lectureTitle);
-        lecTitle.setText(currentProfessor.toString());
+        lecTitle.setText(currentProfessor.getName());
         createLectureList();
 
         //registerClickCallback();
