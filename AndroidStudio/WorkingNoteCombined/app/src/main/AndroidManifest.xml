@@ -86,6 +86,10 @@
             android:label="@string/title_activity_my_notes"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".MyNotesNext"
+            android:label="MyNotesNext"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ProfList"
             android:label="@string/title_activity_prof_list"
             android:theme="@style/AppTheme.NoActionBar" />

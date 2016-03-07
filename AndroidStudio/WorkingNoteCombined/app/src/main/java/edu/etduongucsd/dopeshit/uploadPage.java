@@ -152,13 +152,15 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     currentLecture.addNotes(bmapArray);
                     Note noteBeingAdded = currentLecture.notes.get(currentLecture.notes.size() - 1);
                     HomeScreen.userProfile.myNotes.addToMyNotes(noteBeingAdded);
+                    HomeScreen.selectedProfessor = noteBeingAdded.parentLecture.parentProfessor;
+                    HomeScreen.selectedLecture = noteBeingAdded.parentLecture;
+                    HomeScreen.selectedCourse = noteBeingAdded.parentLecture.parentProfessor.parentCourse;
+                    HomeScreen.selectedDepart = noteBeingAdded.parentLecture.parentProfessor.parentCourse.parentDepartment;
 
                     if(HomeScreen.userProfile.myCourses.contains(noteBeingAdded.parentLecture.parentProfessor.parentCourse)){
-                        HomeScreen.selectedProfessor = noteBeingAdded.parentLecture.parentProfessor;
                     }
                     else {
                         HomeScreen.userProfile.myCourses.add(noteBeingAdded.parentLecture.parentProfessor.parentCourse);
-                        HomeScreen.selectedProfessor = noteBeingAdded.parentLecture.parentProfessor;
                     }
 
                     if(HomeScreen.userProfile.myUploadCourses.contains(noteBeingAdded.parentLecture.parentProfessor.parentCourse)){}

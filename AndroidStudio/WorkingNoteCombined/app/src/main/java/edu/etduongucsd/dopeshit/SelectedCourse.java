@@ -46,10 +46,10 @@ public class SelectedCourse extends AppCompatActivity{
 
         /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
          * it will return to the home screen.
-         */
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+         *
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +62,7 @@ public class SelectedCourse extends AppCompatActivity{
                 startActivity(new Intent(SelectedCourse.this, SettingsPage.class));
             }
         });*/
+
         TextView className = (TextView) findViewById(R.id.profListTitle);
         className.setText(HomeScreen.selectedDepart.getName()+" "+HomeScreen.selectedCourse.getName().trim());
         createCourseList();
@@ -84,7 +85,7 @@ public class SelectedCourse extends AppCompatActivity{
                 // Set up the input
                 final EditText input = new EditText(SelectedCourse.this);
                 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(input);
 
                 builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
