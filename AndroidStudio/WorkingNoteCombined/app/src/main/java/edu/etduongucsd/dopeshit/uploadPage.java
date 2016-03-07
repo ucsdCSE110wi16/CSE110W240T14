@@ -33,15 +33,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 //Upload page
 public class uploadPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     Spinner classSpin, profSpin, weekSpin, lecNumSpin;
-    private Button upload, moreButton, finalUpload;
+    private Button upload, moreButton, finalUpload, deleteButton, backButton;
     private ImageButton imageSlot1, imageSlot2, imageSlot3, xOne, xTwo, xThree;
     private final static int SELECT_PHOTO = 12345;
+    private final static int DISPLAY_PHOTO = 777;
     private ArrayList<Bitmap> bmapArray = new ArrayList<Bitmap>();
     private int numPictures = 0;
 
@@ -49,6 +52,8 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
     int courseNumber;
     int profNumber;
     int lectNumber;
+
+    Bundle b;
     Context context = this;
     Lecture currentLecture;
 
@@ -121,11 +126,7 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
         List<Department> depart = HomeScreen.depart;
 
         ArrayAdapter adapter = new ArrayAdapter<Department>(this, android.R.layout.simple_spinner_item, depart);
-
-
         classSpin.setAdapter(adapter);
-
-
         classSpin.setOnItemSelectedListener(this);
 
         //Need to handle case if no courses added yet
@@ -157,6 +158,7 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
+        // Options for deleting any of the three slots available
         xOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,13 +181,31 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
         imageSlot1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Dialog settingsDialog = new Dialog(context);
-                //settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-                //settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.full_image_layout, null));
-                setContentView(R.layout.full_image_layout);
-                ImageView picture = (ImageView) findViewById(R.id.insertPicture);
-                picture.setImageBitmap(bmapArray.get(0));
-                // settingsDialog.show();
+                Intent intent = new Intent(uploadPage.this, FullScreenPreview.class);
+                String bms = bm2s(bmapArray.get(0));
+                intent.putExtra("numPic", 0);
+                intent.putExtra("bmap", bms);
+                startActivityForResult(intent, DISPLAY_PHOTO);
+            }
+        });
+        imageSlot2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(uploadPage.this, FullScreenPreview.class);
+                String bms = bm2s(bmapArray.get(1));
+                intent.putExtra("numPic", 1);
+                intent.putExtra("bmap", bms);
+                startActivityForResult(intent, DISPLAY_PHOTO);
+            }
+        });
+        imageSlot3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(uploadPage.this, FullScreenPreview.class);
+                String bms = bm2s(bmapArray.get(2));
+                intent.putExtra("numPic", 2);
+                intent.putExtra("bmap", bms);
+                startActivityForResult(intent, DISPLAY_PHOTO);
             }
         });
 
@@ -264,12 +284,57 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             finalUpload.setVisibility(View.VISIBLE);
             // Close the cursor so we go back to the main page
             cursor.close();
-
-
+        }
+        else if (requestCode == DISPLAY_PHOTO && resultCode == RESULT_OK && data != null) {
+            String delete = data.getStringExtra("delete");
+            if (delete != null) {
+                if (delete.equals("yes")) {
+                    int numToDelete = data.getIntExtra("numToDelete", -1);
+                    deletePicture(numToDelete);
+                }
+            }
         }
 
     }
 
+    private String bm2s(Bitmap bmap) {
+        String bmapString = "bmap";//no .png or .jpg needed
+        try {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            FileOutputStream fo = openFileOutput(bmapString, Context.MODE_PRIVATE);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            bmapString = null;
+        }
+        return bmapString;
+    }
+
+
+    /* Not needed anymore because we are using intents
+    private void displayPicture(final int whichPic) {
+        setContentView(R.layout.full_image_layout);
+        deleteButton = (Button) findViewById(R.id.deleteButton);
+        backButton = (Button) findViewById(R.id.backButton);
+        ImageView picture = (ImageView) findViewById(R.id.insertPicture);
+        picture.setImageBitmap(bmapArray.get(whichPic));
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int toDelete = 100 + whichPic;
+                deletePicture(toDelete);
+            }
+        });
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+    */
 
     /* Private helper method to create a dialog to prevent a note from being uploaded
      * and then delete that picture
@@ -277,6 +342,7 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
     private void deletePicture(final int whichX) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
+        int toDelete = whichX;
         builder.setTitle("Delete this note");
         builder.setMessage("Are you sure you don't want to upload this note?");
 
@@ -284,6 +350,11 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
 
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+
+                // Deleting from the full screen preview page
+                if (whichX >= 100) {
+                    finish();
+                }
                 if (bmapArray.size() == 1) {
                     imageSlot1.setImageBitmap(null);
                     imageSlot1.setVisibility(View.INVISIBLE);
@@ -291,7 +362,7 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     bmapArray.remove(0);
                     System.out.println("Removed first picture. Bitmap size is now: " + bmapArray.size());
                 } else if (bmapArray.size() == 2) {
-                    if (whichX == 0) {
+                    if (whichX == 0 || whichX == 100) {
                         imageSlot1.setImageBitmap(bmapArray.get(1));
                         bmapArray.set(0, bmapArray.get(1));
                     }
@@ -303,14 +374,13 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
 
                 // otherwise the size is 3 or more, meaning all three spots are taken
                 else {
-                    if (whichX == 0) {
+                    if (whichX == 0 || whichX == 100) {
                         imageSlot1.setImageBitmap(bmapArray.get(1));
                         imageSlot2.setImageBitmap(bmapArray.get(2));
                         bmapArray.set(0, bmapArray.get(1));
                         bmapArray.set(1, bmapArray.get(2));
                     }
-                    else if (whichX == 1) {
-                        /* Fails here */
+                    if (whichX == 1 || whichX == 101) {
 
                         imageSlot2.setImageBitmap(bmapArray.get(2));
                         bmapArray.set(1, bmapArray.get(2));
@@ -319,19 +389,20 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     /* Deal with the third slot */
 
                     // if size is greater than 3, then we have more pictures that we can pull from
-                    if (bmapArray.size() > 3) {
-                        imageSlot3.setImageBitmap(bmapArray.get(3));
-                        bmapArray.set(2, bmapArray.get(3));
-                        bmapArray.remove(bmapArray.size() - 1);
-                        if (bmapArray.size() < 4) {
-                            moreButton.setVisibility(View.INVISIBLE);
+                    if (whichX == 2 || whichX == 102) {
+                        if (bmapArray.size() > 3) {
+                            imageSlot3.setImageBitmap(bmapArray.get(3));
+                            bmapArray.set(2, bmapArray.get(3));
+                            bmapArray.remove(bmapArray.size() - 1);
+                            if (bmapArray.size() < 4) {
+                                moreButton.setVisibility(View.INVISIBLE);
+                            }
+                        } else {
+                            imageSlot3.setImageBitmap(null);
+                            imageSlot3.setVisibility(View.INVISIBLE);
+                            xThree.setVisibility(View.INVISIBLE);
+                            bmapArray.remove(2);
                         }
-                    }
-                    else {
-                        imageSlot3.setImageBitmap(null);
-                        imageSlot3.setVisibility(View.INVISIBLE);
-                        xThree.setVisibility(View.INVISIBLE);
-                        bmapArray.remove(2);
                     }
                 }
                 numPictures--;
