@@ -28,7 +28,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return picturesToConvert.size();
     }
 
     @Override
