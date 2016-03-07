@@ -45,6 +45,7 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
     private ImageButton imageSlot1, imageSlot2, imageSlot3, xOne, xTwo, xThree;
     private final static int SELECT_PHOTO = 12345;
     private final static int DISPLAY_PHOTO = 777;
+    private final static int GRID_VIEW = 666;
     private ArrayList<Bitmap> bmapArray = new ArrayList<Bitmap>();
     private int numPictures = 0;
 
@@ -221,6 +222,20 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
+        moreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(uploadPage.this, PictureGridView.class);
+                String tmp;
+                ArrayList<String> stringarr = new ArrayList<String>();
+                for (int i = 0; i < bmapArray.size(); i++) {
+                    stringarr.add(bm2s(bmapArray.get(i)));
+                }
+                intent.putStringArrayListExtra("bmaps", stringarr);
+                startActivityForResult(intent, GRID_VIEW);
+            }
+        });
+
     }
 
     @Override
@@ -256,9 +271,14 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
+    /* Used for returning the values from the picture select, the full screen
+     * preview, and the grid view of every photo.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        /* Section for picture selection */
         if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK && data != null) {
             Uri pickedImage = data.getData();
             String[] filePath = { MediaStore.Images.Media.DATA };
@@ -290,13 +310,13 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                 int morePictures = numPictures - 3;
                 moreButton.setVisibility(View.VISIBLE);
                 moreButton.setText(morePictures + " more - click here to view all pictures");
-
-                // TODO set some variable that says how many more you have + 1
             }
             finalUpload.setVisibility(View.VISIBLE);
             // Close the cursor so we go back to the main page
             cursor.close();
         }
+
+        /* Section for returning values from the full screen picture view */
         else if (requestCode == DISPLAY_PHOTO && resultCode == RESULT_OK && data != null) {
             String delete = data.getStringExtra("delete");
             if (delete != null) {
@@ -306,6 +326,8 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                 }
             }
         }
+
+        // TODO: section for returning values from the grid view
 
     }
 
@@ -324,29 +346,6 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
         return bmapString;
     }
 
-
-    /* Not needed anymore because we are using intents
-    private void displayPicture(final int whichPic) {
-        setContentView(R.layout.full_image_layout);
-        deleteButton = (Button) findViewById(R.id.deleteButton);
-        backButton = (Button) findViewById(R.id.backButton);
-        ImageView picture = (ImageView) findViewById(R.id.insertPicture);
-        picture.setImageBitmap(bmapArray.get(whichPic));
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int toDelete = 100 + whichPic;
-                deletePicture(toDelete);
-            }
-        });
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-    */
 
     /* Private helper method to create a dialog to prevent a note from being uploaded
      * and then delete that picture
@@ -372,7 +371,7 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     imageSlot1.setVisibility(View.INVISIBLE);
                     xOne.setVisibility(View.INVISIBLE);
                     bmapArray.remove(0);
-                    System.out.println("Removed first picture. Bitmap size is now: " + bmapArray.size());
+                    // System.out.println("Removed first picture. Bitmap size is now: " + bmapArray.size());
                 } else if (bmapArray.size() == 2) {
                     if (whichX == 0 || whichX == 100) {
                         imageSlot1.setImageBitmap(bmapArray.get(1));
@@ -418,7 +417,6 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     }
                 }
                 numPictures--;
-                // System.out.println("numPics: " + numPictures);
             }
 
         });

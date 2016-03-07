@@ -62,6 +62,15 @@
                 android:value="edu.etduongucsd.dopeshit.uploadPage" />
         </activity>
         <activity
+            android:name=".PictureGridView"
+            android:label="PictureGridView"
+            android:parentActivityName=".uploadPage"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.etduongucsd.dopeshit.uploadPage" />
+        </activity>
+        <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
