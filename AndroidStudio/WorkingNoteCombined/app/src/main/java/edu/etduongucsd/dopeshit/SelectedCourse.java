@@ -34,7 +34,7 @@ public class SelectedCourse extends AppCompatActivity{
 
     public static List<Professor> profList = HomeScreen.selectedCourse.getProfessors();
     public static Professor profSel;
-    private String newProfName;
+    private String newProfName = "";
 
 
     @Override
@@ -79,6 +79,7 @@ public class SelectedCourse extends AppCompatActivity{
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(SelectedCourse.this);
                 builder.setTitle("Add New Professor For " + HomeScreen.selectedDepart.getName() + " " + HomeScreen.selectedCourse.getName());
+                builder.setMessage("What is the new professor's name?");
 
                 // Set up the input
                 final EditText input = new EditText(SelectedCourse.this);
@@ -86,26 +87,30 @@ public class SelectedCourse extends AppCompatActivity{
                 input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 builder.setView(input);
 
-                builder.setPositiveButton("Enter Name", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         newProfName = input.getText().toString();
+                        dialog.dismiss();
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
+                        dialog.dismiss();
                     }
                 });
 
                 builder.show();
 
-                HomeScreen.selectedCourse.addProfessor(newProfName);
-                Intent intent = getIntent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                finish();
-                startActivity(intent);
+                if(newProfName != "") {
+                    HomeScreen.selectedCourse.addProfessor(newProfName);
+                    Intent intent = getIntent();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    finish();
+                    startActivity(intent);
+                }
+
             }
         });
     }

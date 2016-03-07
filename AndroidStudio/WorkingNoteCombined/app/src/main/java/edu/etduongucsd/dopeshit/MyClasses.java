@@ -112,29 +112,20 @@ public class MyClasses extends AppCompatActivity {
 
                 courseSel = (Course) list_view.getItemAtPosition(position);
                 lectureHeading = courseSel.getName();
-                classProf = courseSel.getProfessors().get(position);
+                //classProf = courseSel.getProfessors().get(position);
 
-                HomeScreen.selectedProfessor = classProf;
+                //HomeScreen.selectedProfessor = classProf;
                 HomeScreen.selectedDepart = MYCLASSES.get(position).parentDepartment;
                 HomeScreen.selectedCourse = MYCLASSES.get(position);
 
-                classProfName = classProf.getName();
+                //classProfName = classProf.getName();
 
-                //testNote.lecList = classProf.lectures;
-                int numLecs = classProf.numberOfLectures;
-                //openLectureList(view);
+                //int numLecs = classProf.numberOfLectures;
 
                 Intent selectedIntent = new Intent(MyClasses.this, testNote.class);
                 startActivity(selectedIntent);
             }
         });
-
-        /*
-        ArrayAdapter courseArrayAdapter = new ArrayAdapter
-                (this, android.R.layout.simple_list_item_1, MYCLASSES);
-        ListView courseListview = (ListView) this.findViewById(R.id.listView5);
-        courseListview.setAdapter(courseArrayAdapter);*/
-
     }
 
     private void registerClickCallback() {

@@ -23,6 +23,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 //Note display page
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ArrayList<Bitmap>> arrayOfPicture = new ArrayList<ArrayList<Bitmap>>();
 
     Lecture currentLecture;
-
+    List<Note> currNoteList;
     Note current = null;
 
     Button upBut;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         currentLecture = HomeScreen.selectedLecture;
+        currNoteList = currentLecture.notes;
+        Collections.sort(currNoteList, Note.ASC_NOTES);
 
         picture = new ArrayList<Bitmap>();
 
