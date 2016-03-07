@@ -7,35 +7,33 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ERIC on 3/5/2016.
+ * Created by ERIC on 3/6/2016.
  */
-public class CourseListAdapter extends ArrayAdapter<Course> {
-
+public class FirstNoteListAdapter extends ArrayAdapter<Note> {
     private Context context;
     private int resource;
-    private List<Course> classList;
+    private List<Note> noteList;
 
-    public CourseListAdapter(Context context, int resource, List<Course> objects) {
+    public FirstNoteListAdapter(Context context, int resource, List<Note> objects) {
         super(context, resource, objects);
         this.context = context;
-        this.classList = objects;
+        this.noteList = objects;
     }
 
     public int getGroupCount(int pos) {
-        return classList.size();
+        return noteList.size();
     }
 
     public Object getGroup(int groupPos) {
-        return classList.get(groupPos);
+        return noteList.get(groupPos);
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        Course myClass = (Course) getGroup(position);
+        Note myNote = (Note) getGroup(position);
         if(convertView == null) {
             LayoutInflater layInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layInflater.inflate(R.layout.myclasses_list, null);
@@ -44,7 +42,7 @@ public class CourseListAdapter extends ArrayAdapter<Course> {
         TextView className = (TextView) convertView.findViewById(R.id.myClassHeading);
         TextView profName = (TextView) convertView.findViewById(R.id.myClassProf);
 
-        className.setText((HomeScreen.selectedDepart.getName() + " " + HomeScreen.selectedCourse.getName()).trim());
+        className.setText(myNote.parentLecture.parentProfessor.parentCourse.getName().trim());
         profName.setText(HomeScreen.selectedProfessor.getName().trim());
         //profName.setText(myClass.professors.get(position).getName().trim());
 
@@ -56,6 +54,7 @@ public class CourseListAdapter extends ArrayAdapter<Course> {
     public boolean hasStableIds() {
         return true;
     }
+
 
 
 }

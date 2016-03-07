@@ -11,5 +11,13 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"/>
 
+    <TextView
+        android:id="@+id/myNotesProf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textColor="#fdfd96"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
 
 </RelativeLayout>

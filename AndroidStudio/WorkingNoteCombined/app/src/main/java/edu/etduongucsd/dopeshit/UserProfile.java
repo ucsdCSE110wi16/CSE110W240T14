@@ -13,6 +13,7 @@ public class UserProfile {
     public List<Note> myFlags = new ArrayList<>();
     public List<Note> myUpvotes = new ArrayList<>();
     public static List<Course> myUploadCourses = new ArrayList<Course>();
+    public static List<Note> userUpNotes = new ArrayList<Note>();
     //List<Note> myNotes;
     MyNotes myNotes = new MyNotes();
 

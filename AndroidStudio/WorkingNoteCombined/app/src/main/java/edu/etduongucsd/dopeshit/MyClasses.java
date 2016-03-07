@@ -87,6 +87,8 @@ public class MyClasses extends AppCompatActivity {
                 startActivity(new Intent(MyClasses.this, SettingsPage.class));
             }
         });
+
+
         if (HomeScreen.userProfile.myCourses != null) {
             MYCLASSES = HomeScreen.userProfile.myCourses;
         }

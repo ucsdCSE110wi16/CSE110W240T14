@@ -131,7 +131,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
             _listDataChild = (HashMap) copy_listDataChild.clone();
         }
         else {
-            for(String listString: copy_listDataChild.) {
+            for(List<String> listString: copy_listDataChild.) {
                 ArrayList<ClassInfo> class_info = classInList.getClassList();
                 ArrayList<ClassInfo> newList = new ArrayList<ClassInfo>();
                 for (ClassInfo classinfo: class_info) {
@@ -146,8 +146,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
             }
         }
 
-        Log.v("ExpandableListAdapter", String.valueOf(classList.size()));
+        Log.v("ExpandableListAdapter", String.valueOf(_listDataChild.size()));
         notifyDataSetChanged();
-
     }*/
 }
