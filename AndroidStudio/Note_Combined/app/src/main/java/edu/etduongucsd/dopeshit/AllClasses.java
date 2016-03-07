@@ -73,6 +73,23 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         myList = (ExpandableListView) findViewById(R.id.allClassesExpList);
         listAdapter = new MyListAdapter(AllClasses.this, courseList);
         myList.setAdapter(listAdapter);
+<<<<<<< HEAD
+        /*myList.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        ClassList codeSel = (ClassList) myList.getItemAtPosition(position);
+                        //ClassInfo classSel = listAdapter.getChild(position, id);
+                        //String classSelected = classSel.getClassName();
+                        //MyClasses.MYCLASSES.add(classSel);
+                        //int numNotes = classSel.getNumLec();
+                        Toast.makeText(AllClasses.this, codeSel + " has been added to MyClasses.", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+        );*/
+=======
+>>>>>>> 5ef9270ab7c17fdbce5e72fe0807110eadcbd11f
     }
 
     /* To display the classes we have to first create the a ClassInfo object using
