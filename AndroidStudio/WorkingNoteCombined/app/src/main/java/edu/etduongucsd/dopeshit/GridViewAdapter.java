@@ -33,7 +33,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int pos) {
-        return null;
+        return picturesToConvert.get(pos);
     }
 
     @Override

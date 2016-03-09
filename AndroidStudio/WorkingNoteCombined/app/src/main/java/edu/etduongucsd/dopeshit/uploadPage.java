@@ -23,6 +23,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -333,18 +334,12 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
-    private String bm2s(Bitmap bmap) {
-        String bmapString = "bmap";//no .png or .jpg needed
-        try {
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            bmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            FileOutputStream fo = openFileOutput(bmapString, Context.MODE_PRIVATE);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            bmapString = null;
-        }
+    private String bm2s(final Bitmap bmap) {
+        Bitmap tmp = bmap;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        tmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] bytes = baos.toByteArray();
+        String bmapString = Base64.encodeToString(bytes, Base64.DEFAULT);
         return bmapString;
     }
 
