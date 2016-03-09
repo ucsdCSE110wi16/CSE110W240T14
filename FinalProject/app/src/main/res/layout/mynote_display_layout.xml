@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="40dp"
+    tools:context="edu.etduongucsd.dopeshit.NoteList"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Note Name"
+        android:id="@+id/myTextView4"
+        android:visibility="invisible"
+        android:layout_alignTop="@+id/myImageButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/myImageButton"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
+        android:adjustViewBounds="true"
+        android:onClick="setContentView"
+        android:layout_toLeftOf="@+id/myTextView4"
+        android:layout_toStartOf="@+id/myTextView4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="10"
+        android:id="@+id/myRatingNum"
+        android:layout_alignTop="@+id/myTextView4"
+        android:layout_toRightOf="@+id/myTextView4"
+        android:layout_toEndOf="@+id/myTextView4"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp" />
+
+    <ImageView
+        android:src="@drawable/ic_star_black_18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/myRateSym"
+        android:layout_alignTop="@+id/myRatingNum"
+        android:layout_toRightOf="@+id/myRatingNum"
+        android:layout_toEndOf="@+id/myRatingNum"
+        android:layout_alignBottom="@+id/myRatingNum" />
+
+</RelativeLayout>

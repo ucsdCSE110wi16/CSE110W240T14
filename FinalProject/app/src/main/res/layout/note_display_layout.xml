@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="40dp"
+    tools:context="edu.etduongucsd.dopeshit.NoteList">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Note Name"
+        android:id="@+id/textView4"
+        android:visibility="invisible"
+        android:layout_above="@+id/likeButton"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        style="?android:attr/buttonStyleSmall"
+        android:src="@drawable/ic_flag_black_18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/flagButton"
+        android:layout_alignBottom="@+id/imageButton"
+        android:layout_toRightOf="@+id/likeButton"
+        android:layout_toEndOf="@+id/likeButton"
+        android:onClick="flagButOnClick"/>
+
+    <ImageButton
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_upward_black_18dp"
+        android:id="@+id/likeButton"
+        android:layout_alignTop="@+id/flagButton"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4"
+        android:onClick="upButOnClick"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/imageButton"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
+        android:adjustViewBounds="true"
+        android:onClick="setContentView"
+        android:layout_toLeftOf="@+id/textView4"
+        android:layout_toStartOf="@+id/textView4" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="10"
+        android:id="@+id/ratingNum"
+        android:layout_alignTop="@+id/textView4"
+        android:layout_alignRight="@+id/likeButton"
+        android:layout_alignEnd="@+id/likeButton" />
+
+    <ImageView
+        android:src="@drawable/ic_star_black_18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rateSym"
+        android:layout_alignTop="@+id/ratingNum"
+        android:layout_alignLeft="@+id/flagButton"
+        android:layout_alignStart="@+id/flagButton"
+        android:layout_alignBottom="@+id/ratingNum" />
+
+</RelativeLayout>
