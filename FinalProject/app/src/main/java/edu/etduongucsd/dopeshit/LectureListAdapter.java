@@ -17,17 +17,12 @@ import java.util.List;
 public class LectureListAdapter extends ArrayAdapter<Lecture> {
 
     private Context context;
-    private int resource;
     private List<Lecture> lectureList;
 
     public LectureListAdapter(Context context, int resource, List<Lecture> objects) {
         super(context, resource, objects);
         this.context = context;
         this.lectureList = objects;
-    }
-
-    public int getGroupCount(int pos) {
-        return lectureList.size();
     }
 
     public Object getGroup(int groupPos) {
@@ -44,7 +39,6 @@ public class LectureListAdapter extends ArrayAdapter<Lecture> {
 
         TextView lectureHead = (TextView) convertView.findViewById(R.id.lecListHead);
         String displayDate = lec.date;
-        System.out.println("Adding date: "+ displayDate);
         lectureHead.setText((displayDate + " Lecture").trim());
 
         TextView lecNums = (TextView) convertView.findViewById(R.id.lecListNum);

@@ -46,10 +46,6 @@ public class testNote extends AppCompatActivity {
     public static int monthSel;
     public static int yearSel;
 
-    public static String daySelString = String.valueOf(daySel);
-    public static String monthSelString = String.valueOf(monthSel);
-    public static String yearSelString = String.valueOf(yearSel);
-
     static final int Dialog_ID = 0;
 
     final Calendar calendar = Calendar.getInstance();
@@ -84,7 +80,7 @@ public class testNote extends AppCompatActivity {
             }
         });
 
-        Typeface myType = Typeface.createFromAsset(getAssets(), "AD.ttf");
+        Typeface myType = Typeface.createFromAsset(getAssets(), "Lob.otf");
 
         currentProfessor = HomeScreen.selectedProfessor;
         TextView lecTitle = (TextView) findViewById(R.id.lectureTitle);
@@ -94,8 +90,6 @@ public class testNote extends AppCompatActivity {
         lecList  = HomeScreen.selectedProfessor.lectures;
         createLectureList();
 
-        //buttonOnClick();
-        //button2OnClick();
         addToMyClassesOnClick();
 
         daySel = calendar.get(Calendar.DAY_OF_MONTH);
@@ -113,7 +107,6 @@ public class testNote extends AppCompatActivity {
             public void onClick(View v) {
 
                 Professor newProf = HomeScreen.selectedProfessor;
-              //  Course newCourse = newProf.parentCourse;
                 if(HomeScreen.userProfile.myCourses.contains(newProf)) {
                     Toast.makeText(testNote.this, HomeScreen.selectedDepart.getName() + " " + HomeScreen.selectedCourse.getName() + " is already in your list of classes!", Toast.LENGTH_LONG).show();
                 }
@@ -135,17 +128,12 @@ public class testNote extends AppCompatActivity {
         });
     }
 
-    //Adda Lecture
+    //Add a Lecture
     public void newLecOnClick(){
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog(Dialog_ID);
-             /*   HomeScreen.selectedProfessor.addLecture();
-                Intent intent = getIntent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                finish();
-                startActivity(intent);*/
             }
         });
     }
@@ -177,10 +165,7 @@ public class testNote extends AppCompatActivity {
             }
             if(lectureExists == false) {
                 Toast.makeText(testNote.this, monthSel + "/" + daySel + " Lecture has been added!", Toast.LENGTH_LONG).show();
-                System.out.println("Number of lectures in prof: " + HomeScreen.selectedProfessor.lectures.size());
                 HomeScreen.selectedProfessor.addLecture(monthSel, daySel, HomeScreen.selectedProfessor.lectures.size() + 1);
-                System.out.println("Number of lectures in prof: " + HomeScreen.selectedProfessor.lectures.size());
-                //HomeScreen.selectedProfessor.numberOfLectures = HomeScreen.selectedProfessor.lectures.size() + 1;
 
                 Intent intent = getIntent();
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -203,30 +188,6 @@ public class testNote extends AppCompatActivity {
                 HomeScreen.selectedLecture = HomeScreen.selectedProfessor.lectures.get(position);
                 lecSel = (Lecture) lecListView.getItemAtPosition(position);
                 lecName = lecSel.toString();
-          //      Data data = new Data();
-           //     data.setupData(testNote.this, new Intent(testNote.this, MainActivity.class));
-                Intent selectedIntent = new Intent(testNote.this, MainActivity.class);
-                startActivity(selectedIntent);
-
-            }
-        });
-    }
-
-    private void registerClickCallback(){
-
-        //List shown on screen
-        ListView list = (ListView) findViewById(R.id.lectureListView);
-
-        //Listener for the list
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            //What will happen when the list is clicked
-            @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-
-                HomeScreen.selectedLecture = HomeScreen.selectedProfessor.lectures.get(position);  //Deparment selected from the list of departments
-
-                //Create new intent to open course list contained by selected department
                 Intent selectedIntent = new Intent(testNote.this, MainActivity.class);
                 startActivity(selectedIntent);
 

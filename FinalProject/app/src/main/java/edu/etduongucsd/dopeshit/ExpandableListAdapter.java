@@ -68,14 +68,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
 
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.classCode);
-       // TextView listProf = (TextView) convertView
-       // .findViewById(R.id.classProfessor);
-       // TextView listClassName = (TextView) convertView
-        //        .findViewById(R.id.className);
 
         txtListChild.setText(childText);
-       // listProf.setText("");
-       // listClassName.setText("");
+
         return convertView;
     }
 
@@ -133,11 +128,9 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
         query = query.toLowerCase();
 
         _listDataHeader.clear();
-        //_listDataChild.clear();
 
         if(query.isEmpty()) {
             _listDataHeader.addAll(copy_listDataHeader);
-            //_,listDataChild = (HashMap) copy_listDataChild.clone();
         }
 
         else {
@@ -154,38 +147,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter{
 
                 }
             }
-            Log.v("QQQQQQQQQQQQ", "size is " + String.valueOf(_listDataHeader.size()));
-
-
-            /*
-            //Child
-            for(Map.Entry<String, List<String>> entry: copy_listDataChild.entrySet()) {
-
-                String key = entry.getKey();
-                List<String> value = entry.getValue();
-
-                HashMap<String, List<String>> newMap = new HashMap<String, List<String>>();
-                List<String> newL = new ArrayList<String>();
-
-                for (String classString: value) {
-                    if(classString.toLowerCase().contains(query)) {
-                        newL.add(classString);
-
-                    }
-                }
-
-                Log.v("LLLLLLLLLLLL", "size is " + newL.size());
-                newMap.put(key, newL);
-                Log.v("GGGGGG", "size is " + newMap.size());
-
-                if(newMap.size() > 0) {
-                    _listDataChild.put(key, newL);
-                }
-            }*/
         }
 
-        Log.v("ExpandableListAdapter", String.valueOf(_listDataHeader.size()));
-        Log.v("ExpandableListAdapter", String.valueOf(_listDataChild.size()));
         notifyDataSetChanged();
     }
 }

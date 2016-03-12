@@ -15,9 +15,6 @@ public class Course {
     public Department parentDepartment;
     List<Professor> professors;  //List of courses within department
 
-    //Default constructor
-    public Course() {}
-
     //Constructor with course name
     public Course(String n, String parentFirebaseRef) {
         name = n;

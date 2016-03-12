@@ -48,10 +48,6 @@ public class CourseListAdapter2 extends ArrayAdapter<Professor> {
 
         className.setText((myClass.parentCourse.parentDepartment.getName() + " " + myClass.parentCourse.getName()).trim());
         profName.setText(myClass.getName().trim());
-        //className.setText((HomeScreen.selectedDepart.getName() + " " + HomeScreen.selectedCourse.getName()).trim());
-        //profName.setText(HomeScreen.selectedProfessor.getName().trim());
-       ////profName.setText(myClass.professors.get(position).getName().trim());
-
 
         return convertView;
 

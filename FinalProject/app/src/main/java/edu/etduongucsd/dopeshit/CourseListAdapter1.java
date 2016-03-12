@@ -22,17 +22,12 @@ import java.util.List;
 public class CourseListAdapter1 extends ArrayAdapter<Professor> {
 
     private Context context;
-    private int resource;
     private List<Professor> classList;
 
     public CourseListAdapter1(Context context, int resource, List<Professor> objects) {
         super(context, resource, objects);
         this.context = context;
         this.classList = objects;
-    }
-
-    public int getGroupCount(int pos) {
-        return classList.size();
     }
 
     public Object getGroup(int groupPos) {
@@ -52,9 +47,6 @@ public class CourseListAdapter1 extends ArrayAdapter<Professor> {
 
         className.setText((myClass.parentCourse.parentDepartment.getName() + " " + myClass.parentCourse.getName()).trim());
         profName.setText(myClass.getName().trim());
-        //className.setText((HomeScreen.selectedDepart.getName() + " " + HomeScreen.selectedCourse.getName()).trim());
-        //profName.setText(HomeScreen.selectedProfessor.getName().trim());
-       ////profName.setText(myClass.professors.get(position).getName().trim());
 
         final ImageButton delClassBut = (ImageButton) convertView.findViewById(R.id.delClassBut);
 
@@ -63,14 +55,12 @@ public class CourseListAdapter1 extends ArrayAdapter<Professor> {
             @Override
             public void onClick(View v) {
 
-                System.out.println("Remove My Class");
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Removing From My Courses");
                 builder.setMessage("Are you sure you want to remove this course?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // TODO REMOVE CLASS FUNC CALL
                         int buttonPosition = (Integer) delClassBut.getTag();
                        Professor newProf = classList.get(buttonPosition);
 
@@ -86,7 +76,6 @@ public class CourseListAdapter1 extends ArrayAdapter<Professor> {
                             StartingPoint.preferenceEditor.putStringSet((StartingPoint.myProfile.name + "myCourses"), StartingPoint.myCourses);
                             StartingPoint.preferenceEditor.commit();
 
-                          //  Toast.makeText(context, HomeScreen.selectedDepart.getName() + " " + HomeScreen.selectedCourse.getName() + " has been removed to your classes!", Toast.LENGTH_LONG).show();
                         }
                         Intent intent = ((Activity) context).getIntent();
                         Activity act = (Activity)context;

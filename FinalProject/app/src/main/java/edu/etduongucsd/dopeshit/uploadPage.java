@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -43,7 +45,7 @@ import java.util.List;
 public class uploadPage extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     Spinner classSpin, profSpin, weekSpin, lecNumSpin;
-    private Button upload, moreButton, finalUpload, deleteButton, backButton;
+    private Button upload, moreButton, finalUpload;
     private ImageButton imageSlot1, imageSlot2, imageSlot3, xOne, xTwo, xThree;
     private final static int SELECT_PHOTO = 12345;
     private final static int DISPLAY_PHOTO = 777;
@@ -56,7 +58,6 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
     int profNumber;
     int lectNumber;
 
-    Bundle b;
     Context context = this;
     Lecture currentLecture = null;
 
@@ -131,7 +132,9 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             }
         });
 
-
+        Typeface myType = Typeface.createFromAsset(getAssets(), "Lob.otf");
+        TextView title = (TextView) findViewById(R.id.uploadTitle);
+        title.setTypeface(myType);
 
         classSpin = (Spinner) findViewById(R.id.classSpinner);
         profSpin = (Spinner) findViewById(R.id.profSpinner);
@@ -183,16 +186,6 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                         StartingPoint.preferenceEditor.putStringSet((StartingPoint.myProfile.name + "myCourses"), StartingPoint.myCourses);
                         StartingPoint.preferenceEditor.commit();
                     }
-/*
-                    boolean containsNote = false;
-
-                    for(Note note : HomeScreen.userProfile.userUpNotes){
-                        if((note.dataBaseRef+"Note " + note.noteNum+"/").equals(noteBeingAdded.dataBaseRef+"Note " + noteBeingAdded.noteNum+"/")){
-                            containsNote = true;
-
-                        }
-                    }
-                    if(containsNote == false){*/
 
                     HomeScreen.userProfile.userUpNotes.add(noteBeingAdded);
                     System.out.println("PROFESSOR ALREADY ADDED: " + HomeScreen.userProfile.userUpNotes.size());
@@ -215,13 +208,6 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                             }
                         }
                     }
-
-                    //  }
-                    //Need to save note info to user phone
-                /*    for(Bitmap bmp : bmapArray){
-                        bmp.recycle();
-                        bmp = null;
-                    }*/
                     finish();
                 }
             }
@@ -282,14 +268,11 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(uploadPage.this, PictureGridView.class);
-                ArrayList<String> stringarr = new ArrayList<>();
                 int picCount;
                 for (picCount = 0; picCount < bmapArray.size(); picCount++) {
                     intent.putExtra("picture" + picCount + ".png", bm2s(bmapArray.get(picCount), picCount));
-                    // stringarr.add(bm2s(bmapArray.get(i)));
                 }
                 intent.putExtra("numPics", bmapArray.size());
-                // intent.putExtra("bmaps", stringarr);
                 startActivityForResult(intent, GRID_VIEW);
             }
         });
@@ -347,26 +330,18 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             Cursor cursor = getContentResolver().query(pickedImage, filePath, null, null, null);
             cursor.moveToFirst();
             String imagePath = cursor.getString(cursor.getColumnIndex(filePath[0]));
-
-            // BitmapFactory.Options options = new BitmapFactory.Options();
-            // options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
 
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
 
-         //   bitmap.recycle();
-            //     bitmap = null;
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             String imgString = Base64.encodeToString(byteArray, Base64.DEFAULT);
-           // Bitmap smallerBitmap = decodeSampledBitmapFromResource(byteArray, 1280, 960);
-
 
             bmapArray.add(bitmap);
             numPictures++;
             tempBmpArray.add(storeBitmap(wPixel, hPixel, bitmap));
-            String imageSlot = "R.id.imageSlot" + numPictures;
             if (numPictures == 1) {
                 imageSlot1.setImageBitmap(tempBmpArray.get(0));
                 imageSlot1.setVisibility(View.VISIBLE);
@@ -422,7 +397,6 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             FileOutputStream fos = this.openFileOutput(bmapString, Context.MODE_PRIVATE);
             bmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.close();
-            // bmap.recycle();
         }
         catch (Exception e) {
             e.printStackTrace();

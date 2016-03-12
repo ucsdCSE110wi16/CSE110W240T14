@@ -42,9 +42,6 @@
     </activity>
 
         <activity
-            android:name=".loadingScreen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".AllClasses"
             android:label="@string/title_activity_all_classes"
             android:theme="@style/AppTheme.NoActionBar" />

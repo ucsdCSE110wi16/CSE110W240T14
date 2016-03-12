@@ -25,10 +25,6 @@ public class ProfListAdapter extends ArrayAdapter<Professor> {
         this.profList = objects;
     }
 
-    public int getGroupCount(int pos) {
-        return profList.size();
-    }
-
     public Object getGroup(int groupPos) {
         return profList.get(groupPos);
     }
