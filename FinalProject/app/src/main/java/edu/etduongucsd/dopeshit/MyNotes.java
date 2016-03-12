@@ -18,11 +18,13 @@ import java.util.List;
 public class MyNotes extends AppCompatActivity {
 
     private static ListView myNoteView;
-    private static CourseListAdapter1 myNoteAdapter;
+    private static CourseListAdapter2 myNoteAdapter;
 
     public static Professor noteCourseSel;
     public static ArrayList<Note> myNotes = new ArrayList<Note>();
     public List<Professor> noteProfs;
+
+    public static boolean restart;
 
     public void addToMyNotes(Note newNote) {
         if(myNotes.contains(newNote)) {}
@@ -43,11 +45,19 @@ public class MyNotes extends AppCompatActivity {
     public void displayMyNoteList_real() {
         noteProfs = new ArrayList<Professor>();
         for(Note note : HomeScreen.userProfile.userUpNotes){
-            noteProfs.add(note.parentLecture.parentProfessor);
+            boolean hasProf = false;
+            for(Professor professor : noteProfs){
+                if(note.parentLecture.parentProfessor.name.equals(professor.name)){
+                    hasProf = true;
+                }
+            }
+            if(hasProf == false) {
+                noteProfs.add(note.parentLecture.parentProfessor);
+            }
         }
 
         myNoteView = (ListView) findViewById(R.id.myNotesList);
-        myNoteAdapter = new CourseListAdapter1(MyNotes.this, 0, noteProfs);
+        myNoteAdapter = new CourseListAdapter2(MyNotes.this, 0, noteProfs);
         myNoteView.setAdapter(myNoteAdapter);
         myNoteView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,7 +71,12 @@ public class MyNotes extends AppCompatActivity {
                 HomeScreen.selectedDepart = HomeScreen.userProfile.userUpNotes.get(position).parentLecture.parentProfessor.parentCourse.parentDepartment;
                 HomeScreen.selectedCourse = HomeScreen.userProfile.userUpNotes.get(position).parentLecture.parentProfessor.parentCourse;
                 HomeScreen.selectedProfessor = HomeScreen.userProfile.userUpNotes.get(position).parentLecture.parentProfessor;  //I added
-                HomeScreen.selectedLecture = HomeScreen.userProfile.userUpNotes.get(position).parentLecture;    //I added
+         //       HomeScreen.selectedLecture = HomeScreen.userProfile.userUpNotes.get(position).parentLecture;    //I added
+
+                System.out.println("MyNotes: "+HomeScreen.selectedDepart);
+                System.out.println("MyNotes: "+HomeScreen.selectedCourse);
+                System.out.println("MyNotes: "+HomeScreen.selectedProfessor);
+                System.out.println("MyNotes: "+HomeScreen.selectedLecture);
 
                 //classProfName = classProf.getName();
 
@@ -103,7 +118,10 @@ public class MyNotes extends AppCompatActivity {
         toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyNotes.this, HomeScreen.class));
+                finish();
+                Intent intent = new Intent(MyNotes.this, HomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
@@ -116,9 +134,15 @@ public class MyNotes extends AppCompatActivity {
         TextView title = (TextView) findViewById(R.id.myNotesTitle);
         Typeface myType = Typeface.createFromAsset(getAssets(), "AD.ttf");
         title.setTypeface(myType);
-
         displayMyNoteList_real();
+if(restart == true) {
+    restart = false;
 
+    displayMyNoteList_real();
+    System.out.println("ASIODFHNIUYASFKDNM<");
+    finish();
+    startActivity(getIntent());
+}
     }
 
 }

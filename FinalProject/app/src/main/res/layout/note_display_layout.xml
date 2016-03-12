@@ -36,7 +36,7 @@
         android:layout_alignTop="@+id/flagButton"
         android:layout_toRightOf="@+id/textView4"
         android:layout_toEndOf="@+id/textView4"
-        android:onClick="upButOnClick"/>
+        android:onClick="upButOnClick" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -48,8 +48,9 @@
         android:minWidth="100dp"
         android:adjustViewBounds="true"
         android:onClick="setContentView"
-        android:layout_toLeftOf="@+id/textView4"
-        android:layout_toStartOf="@+id/textView4" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,9 +58,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="10"
         android:id="@+id/ratingNum"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_alignRight="@+id/likeButton"
-        android:layout_alignEnd="@+id/likeButton" />
+        android:textColor="#fdfd96"
+        android:textStyle="bold"
+        android:layout_above="@+id/textView4"
+        android:layout_toLeftOf="@+id/rateSym"
+        android:layout_toStartOf="@+id/rateSym" />
 
     <ImageView
         android:src="@drawable/ic_star_black_18dp"
@@ -70,5 +73,16 @@
         android:layout_alignLeft="@+id/flagButton"
         android:layout_alignStart="@+id/flagButton"
         android:layout_alignBottom="@+id/ratingNum" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="4 Pages"
+        android:id="@+id/numPages"
+        android:textColor="#fdfd96"
+        android:layout_above="@+id/flagButton"
+        android:layout_alignLeft="@+id/ratingNum"
+        android:layout_alignStart="@+id/ratingNum" />
 
 </RelativeLayout>

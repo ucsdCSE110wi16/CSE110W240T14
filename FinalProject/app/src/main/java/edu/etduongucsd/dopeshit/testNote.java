@@ -71,7 +71,10 @@ public class testNote extends AppCompatActivity {
         toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(testNote.this, HomeScreen.class));
+                finish();
+                Intent intent = new Intent(testNote.this, HomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
@@ -200,6 +203,8 @@ public class testNote extends AppCompatActivity {
                 HomeScreen.selectedLecture = HomeScreen.selectedProfessor.lectures.get(position);
                 lecSel = (Lecture) lecListView.getItemAtPosition(position);
                 lecName = lecSel.toString();
+          //      Data data = new Data();
+           //     data.setupData(testNote.this, new Intent(testNote.this, MainActivity.class));
                 Intent selectedIntent = new Intent(testNote.this, MainActivity.class);
                 startActivity(selectedIntent);
 

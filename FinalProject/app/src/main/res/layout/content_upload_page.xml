@@ -14,16 +14,33 @@
     android:background="#C8E3FF">
 
     <TextView
+        android:id="@+id/uploadTitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="Upload Notes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:textColor="#fdfd96"
+        android:background="#AAC5E2"
+        >
+    </TextView>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Department: "
         android:id="@+id/classSelect"
         android:textColor="#fdfd96"
-        android:background="#AAC5E2"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/uploadTitle"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textStyle="bold"
+        android:paddingTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,7 +53,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="27dp"
         android:textColor="#fdfd96"
-        android:background="#AAC5E2" />
+        android:textStyle="bold"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +67,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="27dp"
         android:textColor="#fdfd96"
-        android:background="#AAC5E2" />
+        android:textStyle="bold"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +81,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="27dp"
         android:textColor="#fdfd96"
-        android:background="#AAC5E2" />
+        android:textStyle="bold"
+        />
 
     <Spinner
         android:entries="@array/classUploadList"
@@ -70,9 +90,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/classSpinner"
         android:textAlignment="viewEnd"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBaseline="@+id/classSelect"
+        android:layout_alignBottom="@+id/classSelect"
+        android:layout_alignRight="@+id/xthree"
+        android:layout_alignEnd="@+id/xthree" />
 
     <Spinner
         android:entries="@array/profUploadList"
@@ -110,11 +131,8 @@
         android:layout_height="wrap_content"
         android:text="Select Notes"
         android:id="@+id/noteSelButton"
-        android:layout_marginBottom="56dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/weekNumSel"
-        android:layout_centerHorizontal="true"
-        android:layout_toEndOf="@+id/weekNumSel" />
+        android:layout_above="@+id/final_upload"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -134,7 +152,8 @@
         android:layout_toLeftOf="@+id/noteSelButton"
         android:layout_toStartOf="@+id/noteSelButton"
         android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        android:layout_below="@+id/xone" />
 
     <ImageButton
         android:id="@+id/imageSlot2"
@@ -142,7 +161,8 @@
         android:layout_height="120dp"
         android:paddingTop="0dp"
         android:layout_above="@+id/moreButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/xtwo" />
 
     <ImageButton
         android:id="@+id/imageSlot3"
@@ -153,7 +173,8 @@
         android:layout_marginStart="9dp"
         android:layout_above="@+id/moreButton"
         android:layout_toRightOf="@+id/final_upload"
-        android:layout_toEndOf="@+id/final_upload" />
+        android:layout_toEndOf="@+id/final_upload"
+        android:layout_below="@+id/xthree" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -178,9 +199,8 @@
         android:cropToPadding="true"
         android:background="@null"
         android:layout_below="@+id/lecNumSpinner"
-        android:layout_toRightOf="@+id/profSelect"
-        android:layout_toEndOf="@+id/profSelect"
-        android:layout_marginTop="22dp" />
+        android:layout_alignRight="@+id/lecNumSel"
+        android:layout_alignEnd="@+id/lecNumSel" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -210,8 +230,8 @@
         android:adjustViewBounds="true"
         android:cropToPadding="true"
         android:background="@null"
-        android:layout_alignTop="@+id/xtwo"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_above="@+id/imageSlot2"
+        android:layout_alignRight="@+id/uploadTitle"
+        android:layout_alignEnd="@+id/uploadTitle" />
 
 </RelativeLayout>

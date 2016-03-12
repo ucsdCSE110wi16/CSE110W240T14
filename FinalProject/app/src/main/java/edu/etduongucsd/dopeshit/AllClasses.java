@@ -25,11 +25,13 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
     private ExpandableListView myList;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    private List<Department> depart;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        depart = HomeScreen.depart;
         setContentView(R.layout.activity_all_classes);
 
         /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
@@ -41,7 +43,10 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AllClasses.this, HomeScreen.class));
+                finish();
+                Intent intent = new Intent(AllClasses.this, HomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
@@ -60,6 +65,7 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
 
         displayList();
 
+
     }
 
     private void expandAll() {
@@ -76,6 +82,8 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         myList = (ExpandableListView) findViewById(R.id.allClassesExpList);
         listAdapter = new ExpandableListAdapter(AllClasses.this, listDataHeader, listDataChild);
         myList.setAdapter(listAdapter);
+        //setDepartments(listAdapter._listDataHeader);
+        resetDepartments();
 
         // Listview Group click listener
         myList.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
@@ -129,6 +137,8 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
                 retrieveSelected(listDataHeader.get(groupPosition), listDataChild.get(
                         listDataHeader.get(groupPosition)).get(
                         childPosition));
+                //Data data = new Data();
+                //data.setupData(AllClasses.this, new Intent(AllClasses.this, SelectedCourse.class));
                 startActivity(new Intent(AllClasses.this, SelectedCourse.class));
 
                 return false;
@@ -136,8 +146,28 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         });
     }
 
+    private void resetDepartments () {
+        depart = new ArrayList<Department>();
+        for (Department tmpDept : HomeScreen.depart) {
+            depart.add(tmpDept);
+        }
+    }
+
+
+    private void setDepartments (List<String> d) {
+
+        depart = new ArrayList<Department>();
+        for (Department tmpDept : HomeScreen.depart) {
+            for (String s : d) {
+                if (tmpDept.name.equals(s)) {
+                    depart.add(tmpDept);
+                }
+            }
+        }
+    }
+
     private void retrieveSelected(String dept, String course){
-        for(Department tempDept : HomeScreen.depart){
+        for(Department tempDept : depart){
             if(tempDept.name.equals(dept)){
                 HomeScreen.selectedDepart = tempDept;
                 for(Course tempCourse : tempDept.courses){
@@ -158,7 +188,7 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         listDataChild = new HashMap<String, List<String>>();
 
 
-        for(Department department : HomeScreen.depart){
+        for(Department department : depart){
             listDataHeader.add(department.toString());
             List<String> courseName = new ArrayList<String>();
             for(Course course : department.courses){
@@ -178,6 +208,9 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
     @Override
     public boolean onQueryTextSubmit(String query) {
         listAdapter.filterDate(query);
+        setDepartments(listAdapter._listDataHeader);
+        loadData();
+        //displayList();
         //expandAll();
         return false;
     }
@@ -185,6 +218,9 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
     @Override
     public boolean onQueryTextChange(String newText) {
         listAdapter.filterDate(newText);
+        setDepartments (listAdapter._listDataHeader);
+        loadData();
+       // displayList();
       //  expandAll();
         return false;
     }

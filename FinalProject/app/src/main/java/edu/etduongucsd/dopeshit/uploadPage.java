@@ -24,6 +24,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -59,10 +60,19 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
     Context context = this;
     Lecture currentLecture = null;
 
+    private ArrayList<Bitmap> tempBmpArray = new ArrayList<Bitmap>();
+    int wPixel;
+    int hPixel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_upload_page);
+
+        wPixel = this.getWindowManager().getDefaultDisplay().getWidth()/6;
+        hPixel = this.getWindowManager().getDefaultDisplay().getHeight()/6;
+
         moreButton = (Button) findViewById(R.id.moreButton);
         imageSlot1 = (ImageButton) findViewById(R.id.imageSlot1);
         imageSlot2 = (ImageButton) findViewById(R.id.imageSlot2);
@@ -91,7 +101,10 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
         toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(uploadPage.this, HomeScreen.class));
+                finish();
+                Intent intent = new Intent(uploadPage.this, HomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
@@ -115,7 +128,6 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                 Intent photoPick = new Intent(Intent.ACTION_PICK);
                 photoPick.setType("image/*");
                 startActivityForResult(photoPick, SELECT_PHOTO);
-                numPictures++;
             }
         });
 
@@ -141,9 +153,12 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     Toast.makeText(getApplicationContext(),
                             " Expanded bmps: " + bmapArray.size(),
                             Toast.LENGTH_SHORT).show();
-                    System.out.println(currentLecture.toString() + "2");
 
                     currentLecture.addNotes(bmapArray);
+                    for (Bitmap bmp : bmapArray) {
+                        bmp.recycle();
+                        bmp = null;
+                    }
                     Note noteBeingAdded = currentLecture.notes.get(currentLecture.notes.size() - 1);
                     HomeScreen.userProfile.myNotes.addToMyNotes(noteBeingAdded);
                     HomeScreen.selectedProfessor = noteBeingAdded.parentLecture.parentProfessor;
@@ -151,33 +166,57 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     HomeScreen.selectedCourse = noteBeingAdded.parentLecture.parentProfessor.parentCourse;
                     HomeScreen.selectedDepart = noteBeingAdded.parentLecture.parentProfessor.parentCourse.parentDepartment;
 
-                    if(HomeScreen.userProfile.myCourses.contains(noteBeingAdded.parentLecture.parentProfessor)){
+                    boolean containsProf = false;
+                    for (Professor professor : HomeScreen.userProfile.myCourses) {
+                        if (professor.name.equals(noteBeingAdded.parentLecture.parentProfessor.name)) {
+                            containsProf = true;
+                        }
                     }
-                    else {
+
+                    if (containsProf == true) {
+                    } else {
                         Professor c = noteBeingAdded.parentLecture.parentProfessor;
                         HomeScreen.userProfile.myCourses.add(c);
-                        StartingPoint.myCourses.add(c.dataBaseRef+c.name+"/");
+                        StartingPoint.myCourses.add(c.dataBaseRef + c.name + "/");
                         StartingPoint.preferenceEditor.remove((StartingPoint.myProfile.name + "myCourses"));
                         StartingPoint.preferenceEditor.commit();
                         StartingPoint.preferenceEditor.putStringSet((StartingPoint.myProfile.name + "myCourses"), StartingPoint.myCourses);
                         StartingPoint.preferenceEditor.commit();
                     }
-
+/*
                     boolean containsNote = false;
 
                     for(Note note : HomeScreen.userProfile.userUpNotes){
                         if((note.dataBaseRef+"Note " + note.noteNum+"/").equals(noteBeingAdded.dataBaseRef+"Note " + noteBeingAdded.noteNum+"/")){
                             containsNote = true;
+
                         }
                     }
-                    if(containsNote == false){
-                        HomeScreen.userProfile.userUpNotes.add(noteBeingAdded);
-                        StartingPoint.myNotes.add(noteBeingAdded.dataBaseRef+"Note " + noteBeingAdded.noteNum+"/");
-                        StartingPoint.preferenceEditor.remove((StartingPoint.myProfile.name + "myNotes"));
-                        StartingPoint.preferenceEditor.commit();
-                        StartingPoint.preferenceEditor.putStringSet((StartingPoint.myProfile.name + "myNotes"), StartingPoint.myNotes);
-                        StartingPoint.preferenceEditor.commit();
+                    if(containsNote == false){*/
+
+                    HomeScreen.userProfile.userUpNotes.add(noteBeingAdded);
+                    System.out.println("PROFESSOR ALREADY ADDED: " + HomeScreen.userProfile.userUpNotes.size());
+                    StartingPoint.myNotes.add(noteBeingAdded.dataBaseRef + "Note " + noteBeingAdded.noteNum + "/");
+                    StartingPoint.preferenceEditor.remove((StartingPoint.myProfile.name + "myNotes"));
+                    StartingPoint.preferenceEditor.commit();
+                    StartingPoint.preferenceEditor.putStringSet((StartingPoint.myProfile.name + "myNotes"), StartingPoint.myNotes);
+                    StartingPoint.preferenceEditor.commit();
+
+                    for (Department department : HomeScreen.depart) {
+                        for (Course course : department.courses) {
+                            for (Professor professor : course.professors) {
+                                for (Lecture lecture : professor.lectures) {
+                                    for (Note note : lecture.notes) {
+                                        if ((noteBeingAdded.dataBaseRef + "Note " + noteBeingAdded.noteNum + "/").equals(note.dataBaseRef + "Note " + note.noteNum + "/")) {
+                                            HomeScreen.userProfile.userUpNotes.add(noteBeingAdded);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
+
+                    //  }
                     //Need to save note info to user phone
                 /*    for(Bitmap bmp : bmapArray){
                         bmp.recycle();
@@ -312,32 +351,38 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
             // BitmapFactory.Options options = new BitmapFactory.Options();
             // options.inPreferredConfig = Bitmap.Config.ARGB_8888;
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+
+
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            bitmap.recycle();
-            bitmap = null;
+
+         //   bitmap.recycle();
+            //     bitmap = null;
             byte[] byteArray = byteArrayOutputStream.toByteArray();
-            Bitmap smallerBitmap = decodeSampledBitmapFromResource(byteArray, 1280, 960);
+            String imgString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+           // Bitmap smallerBitmap = decodeSampledBitmapFromResource(byteArray, 1280, 960);
 
 
-            bmapArray.add(smallerBitmap);
+            bmapArray.add(bitmap);
+            numPictures++;
+            tempBmpArray.add(storeBitmap(wPixel, hPixel, bitmap));
             String imageSlot = "R.id.imageSlot" + numPictures;
             if (numPictures == 1) {
-                imageSlot1.setImageBitmap(smallerBitmap);
+                imageSlot1.setImageBitmap(tempBmpArray.get(0));
                 imageSlot1.setVisibility(View.VISIBLE);
                 xOne.setVisibility(View.VISIBLE);
             }
             else if (numPictures == 2) {
-                imageSlot2.setImageBitmap(smallerBitmap);
+                imageSlot2.setImageBitmap(tempBmpArray.get(1));
                 imageSlot2.setVisibility(View.VISIBLE);
                 xTwo.setVisibility(View.VISIBLE);
             }
             else if (numPictures == 3) {
-                imageSlot3.setImageBitmap(smallerBitmap);
+                imageSlot3.setImageBitmap(tempBmpArray.get(2));
                 imageSlot3.setVisibility(View.VISIBLE);
                 xThree.setVisibility(View.VISIBLE);
             }
-            else {
+            else if (numPictures > 3){
                 int morePictures = numPictures - 3;
                 moreButton.setVisibility(View.VISIBLE);
                 moreButton.setText(morePictures + " more - click here to view all notes");
@@ -448,6 +493,7 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     }
                 }
 
+                tempBmpArray.remove(toRemove);
                 bmapArray.remove(toRemove);
                 numPictures--;
                 if (bmapArray.size() > 3) {
@@ -459,9 +505,7 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                     moreButton.setVisibility(View.INVISIBLE);
                 }
                 // TODO delete this after done debugging and delete works correctly
-                //System.out.println("Array of bitmaps has size: " + bmapArray.size());
 
-                //System.out.println("Number of pictures remaining: " + numPictures);
             }
 
         });
@@ -489,7 +533,6 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
                 if(HomeScreen.depart.get(departNumber).courses.get(courseNumber).professors.size() != 0) {
                     if (HomeScreen.depart.get(departNumber).courses.get(courseNumber).professors.get(profNumber).lectures.size() != 0) {
                         currentLecture = HomeScreen.depart.get(departNumber).courses.get(courseNumber).professors.get(profNumber).lectures.get(lectNumber);
-                        System.out.println("The professor that should get the note: " + HomeScreen.depart.get(departNumber).courses.get(courseNumber).professors.get(profNumber).name);
                     }
                 }
             }
@@ -532,5 +575,22 @@ public class uploadPage extends AppCompatActivity implements AdapterView.OnItemS
         }
 
         return inSampleSize;
+    }
+
+    public Bitmap bitmapForFirstThumbnail(int reqWidth, int reqHeight, String currBitmap) {
+        //get number of pictures
+        Bitmap bmp;
+        String base64Image = currBitmap;
+        byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
+        bmp = decodeSampledBitmapFromResource(imageAsBytes,reqWidth ,reqHeight);
+        return bmp;
+    }
+
+    public Bitmap storeBitmap(int reqWidth, int reqHeight, Bitmap bmp){
+        ByteArrayOutputStream bYte = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 25, bYte);
+        byte[] byteArray = bYte.toByteArray();
+        String result = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        return bitmapForFirstThumbnail(reqWidth, reqHeight, result);
     }
 }

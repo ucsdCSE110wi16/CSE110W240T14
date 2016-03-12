@@ -29,34 +29,20 @@
         android:textSize="35sp"
         android:background="#AAC5E2" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/textView2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#AAC5E2"
-        android:textSize="35sp" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upload"
         android:id="@+id/button"
+        android:layout_marginTop="100dp"
+        android:background="#BED9F6"
+        android:textAlignment="center"
+        android:onClick = "openUploadPage"
         android:layout_below="@+id/textView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="48dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#BED9F6"
-        android:textAlignment="center"
-        android:paddingLeft="15dp"
-        android:onClick = "openUploadPage"/>
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -69,7 +55,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingLeft="15dp"
         android:textAlignment="center"
         android:onClick = "openMyNotes"/>
 
@@ -84,7 +69,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/button2"
         android:layout_alignEnd="@+id/button2"
-        android:paddingLeft="15dp"
         android:textAlignment="center"
         android:onClick = "openMyClasses"/>
 
@@ -94,7 +78,6 @@
         android:text="All Courses"
         android:id="@+id/button4"
         android:background="#BED9F6"
-        android:paddingLeft="15dp"
         android:textAlignment="center"
         android:onClick = "openAllClasses"
         android:layout_below="@+id/button3"
@@ -102,4 +85,17 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/button3"
         android:layout_alignEnd="@+id/button3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESET ACCOUNT"
+        android:id="@+id/resetAccBut"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#94b8df"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/button4"
+        android:layout_alignEnd="@+id/button4" />
 </RelativeLayout>

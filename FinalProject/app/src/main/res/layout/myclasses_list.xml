@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="55dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:descendantFocusability="blocksDescendants">
 
     <TextView
         android:id="@+id/myClassHeading"
@@ -15,8 +16,18 @@
         android:id="@+id/myClassProf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_below="@id/myClassHeading"
         android:textColor="#fdfd96"
         android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <ImageButton
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/delClassBut"
+        android:src="@drawable/ic_delete_forever_black_24dp"
+        android:background="#C8E3FF"
+        />
 
 </RelativeLayout>
