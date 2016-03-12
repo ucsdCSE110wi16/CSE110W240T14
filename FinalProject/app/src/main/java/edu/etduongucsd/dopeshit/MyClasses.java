@@ -33,8 +33,6 @@ public class MyClasses extends AppCompatActivity {
     public static List<Professor> MYCLASSES = new ArrayList<Professor>();
 
     public static String lectureHeading;
-    public static String classProfName;
-    public static Professor classProf;
 
     Button button;
     /**
@@ -59,10 +57,6 @@ public class MyClasses extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_classes);
 
-        //button = (Button) findViewById(R.id.addButton);
-        //button.setVisibility(View.INVISIBLE);
-
-
         /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
          * it will return to the home screen.
          */
@@ -72,7 +66,10 @@ public class MyClasses extends AppCompatActivity {
         toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyClasses.this, HomeScreen.class));
+                finish();
+                Intent intent = new Intent(MyClasses.this, HomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
@@ -89,12 +86,8 @@ public class MyClasses extends AppCompatActivity {
         createCourseList();
 
         TextView title = (TextView) findViewById(R.id.myClassesTitle);
-        Typeface myType = Typeface.createFromAsset(getAssets(), "AD.ttf");
+        Typeface myType = Typeface.createFromAsset(getAssets(), "Lob.otf");
         title.setTypeface(myType);
-
-
-        //registerClickCallback();
-
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -113,16 +106,10 @@ public class MyClasses extends AppCompatActivity {
 
                 courseSel = (Professor) list_view.getItemAtPosition(position);
                 lectureHeading = courseSel.parentCourse.getName();
-                //classProf = courseSel.getProfessors().get(position);
 
-                //HomeScreen.selectedProfessor = classProf;
                 HomeScreen.selectedDepart = MYCLASSES.get(position).parentCourse.parentDepartment;
                 HomeScreen.selectedCourse = MYCLASSES.get(position).parentCourse;
                 HomeScreen.selectedProfessor = MYCLASSES.get(position);
-
-                //classProfName = classProf.getName();
-
-                //int numLecs = classProf.numberOfLectures;
 
                 Intent selectedIntent = new Intent(MyClasses.this, testNote.class);
                 startActivity(selectedIntent);

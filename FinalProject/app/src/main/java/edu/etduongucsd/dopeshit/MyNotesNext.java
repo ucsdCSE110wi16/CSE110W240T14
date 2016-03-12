@@ -1,6 +1,8 @@
 package edu.etduongucsd.dopeshit;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -16,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,19 +31,26 @@ import java.util.List;
 public class MyNotesNext extends AppCompatActivity {
 
     ArrayList<Bitmap> picture;
-    ArrayList<ArrayList<Bitmap>> arrayOfPicture = new ArrayList<ArrayList<Bitmap>>();
+    ArrayList<ArrayList<Bitmap>> arrayOfPicture;
 
     int index;
     List<Note> currNoteList;
     Note current = null;
     ImageButton notePic;
     int FULL_VIEW = 212;
+    int wPixel;
+    int hPixel;
+    public Typeface myType2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        myType2 = Typeface.createFromAsset(getAssets(), "PBP.ttf");
+
+        wPixel = this.getWindowManager().getDefaultDisplay().getWidth()/6;
+        hPixel = this.getWindowManager().getDefaultDisplay().getHeight()/6;
 
         /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
          * it will return to the home screen.
@@ -51,7 +62,10 @@ public class MyNotesNext extends AppCompatActivity {
         toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyNotesNext.this, HomeScreen.class));
+                finish();
+                Intent intent = new Intent(MyNotesNext.this, HomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
@@ -60,26 +74,43 @@ public class MyNotesNext extends AppCompatActivity {
                 startActivity(new Intent(MyNotesNext.this, SettingsPage.class));
             }
         });
+        currNoteList = new ArrayList<Note>();
+        for(Lecture lecture : HomeScreen.selectedProfessor.lectures){
+            for(Note note : lecture.notes){
+                System.out.println("NUMBER OF MY NOTE: " + StartingPoint.myNotes.size());
+                if(StartingPoint.myNotes.contains(note.dataBaseRef+"Note " + note.noteNum+"/")){
+                    currNoteList.add(note);
+                }
+            }
+        }
 
-        currNoteList = HomeScreen.userProfile.userUpNotes;
+//        currNoteList = HomeScreen.userProfile.userUpNotes;
         //Collections.sort(currNoteList, Note.ASC_NOTES);
 
-        picture = new ArrayList<Bitmap>();
+        if(arrayOfPicture != null){
+            arrayOfPicture = null;
+        }
+        arrayOfPicture = new ArrayList<ArrayList<Bitmap>>();
 
         for (int i = 0; i < currNoteList.size(); i++) {
+            if(picture != null) {
+                picture = null;
+            }
+            picture = new ArrayList<Bitmap>();
 
             current = currNoteList.get(i);
-            picture = current.convertToNoteBitmap(100, 100);
+            picture.add(current.bitmapForFirstThumbnail(wPixel, hPixel));
             arrayOfPicture.add(picture);
         }
 
         Typeface myType = Typeface.createFromAsset(getAssets(), "AD.ttf");
+        Typeface myType2 = Typeface.createFromAsset(getAssets(), "PBP.ttf");
 
         TextView noteHead = (TextView) findViewById(R.id.noteListTitle);
         TextView noteClass = (TextView) findViewById(R.id.classNote);
         TextView noteProf = (TextView) findViewById(R.id.noteProf);
 
-        noteHead.setText(HomeScreen.selectedLecture.toString().trim());
+        noteHead.setText("My Notes".trim());
         noteHead.setTypeface(myType);
         noteClass.setText(HomeScreen.selectedDepart.getName() + " " + HomeScreen.selectedCourse.getName().trim());
         noteProf.setText(HomeScreen.selectedProfessor.getName().trim());
@@ -91,7 +122,7 @@ public class MyNotesNext extends AppCompatActivity {
 
     private class MyNoteListAdapter extends ArrayAdapter<Note>{
         public MyNoteListAdapter(){
-            super(MyNotesNext.this, R.layout.mynote_display_layout, HomeScreen.userProfile.userUpNotes);
+            super(MyNotesNext.this, R.layout.mynote_display_layout, currNoteList);
         }
 
         @Override
@@ -101,7 +132,7 @@ public class MyNotesNext extends AppCompatActivity {
                 noteView = getLayoutInflater().inflate(R.layout.mynote_display_layout, parent, false);
             }
 
-            Note currentNote = HomeScreen.userProfile.userUpNotes.get(position);
+            final Note currentNote = currNoteList.get(position);
 
             ImageView imageView = (ImageView)noteView.findViewById(R.id.myImageButton);
             imageView.setImageBitmap(arrayOfPicture.get(position).get(0));
@@ -110,7 +141,19 @@ public class MyNotesNext extends AppCompatActivity {
             TextView textView = (TextView)noteView.findViewById(R.id.myTextView4);
             textView.setText(currentNote.toString());
 
+            TextView numPages = (TextView) noteView.findViewById(R.id.myNumPages);
+            if(currentNote.pictureString == null){
+                numPages.setText((0 + " Page(s)").trim());
+                numPages.setTypeface(myType2);
+            }
+            else{
+                numPages.setText(((currentNote.pictureString.size()) + " Page(s)").trim());
+                numPages.setTypeface(myType2);
+            }
+
             notePic = (ImageButton) noteView.findViewById(R.id.myImageButton);
+
+            notePic.setTag(position);
 
             notePic.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,18 +161,17 @@ public class MyNotesNext extends AppCompatActivity {
                     Intent intent = new Intent(MyNotesNext.this, PictureGridView.class);
                     ArrayList<String> stringarr = new ArrayList<>();
 
-                    ArrayList<Bitmap> tmp = arrayOfPicture.get(index);
+                    int buttonPosition = (Integer)v.getTag();
+                    ArrayList<Bitmap> tmp = currNoteList.get(buttonPosition).convertToNoteBitmap(wPixel, hPixel);
 
 
-                    int picCount;
-                    int actualCount = 0;
-                    for (picCount = 0; picCount < tmp.size()/2; picCount++) {
+                    for (int picCount = 0; picCount < tmp.size(); picCount++) {
                         //if (picCount % 2 == 0) {
                         intent.putExtra("picture" + picCount + ".png", bm2s(tmp.get(picCount), picCount));
                         // actualCount++;
                         //}
                     }
-                    intent.putExtra("numPics", tmp.size()/2);
+                    intent.putExtra("numPics", tmp.size());
                     intent.putExtra("rcode", FULL_VIEW);
                     startActivityForResult(intent, FULL_VIEW);
 
@@ -137,37 +179,93 @@ public class MyNotesNext extends AppCompatActivity {
             });
 
             TextView numUpVotes = (TextView) noteView.findViewById(R.id.myRatingNum);
-            if(numUpVotes == null){
-                System.out.println("numUpVotes is null");
-            }
-            if(currentNote == null){
-                System.out.println("currentNote is null");
-            }
+
 
             numUpVotes.setText(String.valueOf(currentNote.upvote));
 
+            ImageButton delBut = (ImageButton) noteView.findViewById(R.id.deleteButton);
+            delBut.setTag(position);
+
+            delBut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    int buttonPosition = (Integer) v.getTag();
+                    final Note currNote = currNoteList.get(buttonPosition);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MyNotesNext.this);
+                    builder.setTitle("Delete Note");
+                    builder.setMessage("Are you sure you want to remove these notes?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // TODO REMOVE NOTE FUNC CALL
+                            Note removedNote = currNote;
+                            for (Note note : HomeScreen.userProfile.userUpNotes) {
+                                if ((note.dataBaseRef + "Note " + note.noteNum + "/").equals(removedNote.dataBaseRef + "Note " + removedNote.noteNum + "/")) {
+                                    StartingPoint.myNotes.remove(note);
+                                    StartingPoint.preferenceEditor.remove((StartingPoint.myProfile.name + "myNotes"));
+                                    StartingPoint.preferenceEditor.commit();
+                                    StartingPoint.preferenceEditor.putStringSet((StartingPoint.myProfile.name + "myNotes"), StartingPoint.myNotes);
+                                    StartingPoint.preferenceEditor.commit();
+                                    Firebase ref = new Firebase(currNote.dataBaseRef);
+                                    ref.child("Note " + currNote.noteNum).child("Removed").setValue(true);
+                                    note.removed = true; //May not need
+                                    int index = 0;
+                                    for (Lecture lecture : HomeScreen.selectedProfessor.lectures) {
+                                        for (Note removeNote : lecture.notes) {
+                                            index++;
+                                        }
+                                    }
+                                    if (index == 1) {
+
+
+                                    }
+                                    for (Lecture lecture : HomeScreen.selectedProfessor.lectures) {
+                                        for (Note removeNote : lecture.notes) {
+                                            if ((removeNote.dataBaseRef + removeNote.toString()).equals(note.dataBaseRef + note.toString())) {
+                                                lecture.notes.remove(note);
+                                                if (index > 1) {
+                                                    Intent intent = getIntent();
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                    finish();
+                                                    startActivity(intent);
+                                                } else {
+                                                    HomeScreen.userProfile.userUpNotes.remove(note);
+                                                    finish();
+                                                    Intent intent = new Intent(getContext(), HomeScreen.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(intent);
+
+
+                                                }
+
+                                            }
+                                        }
+                                    }
+//May need to reassign arrays here. or use firebase update
+
+                                }
+                            }
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void
+                        onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builder.show();
+
+
+                }
+            });
+
             return noteView;
         }
-    }
-
-    private void notePicClick() {
-        notePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyNotesNext.this, PictureGridView.class);
-                ArrayList<String> stringarr = new ArrayList<>();
-
-                ArrayList<Bitmap> tmp = arrayOfPicture.get(index);
-
-                int picCount;
-                for (picCount = 0; picCount < tmp.size(); picCount++) {
-                    intent.putExtra("picture" + picCount + ".png", bm2s(tmp.get(picCount), picCount));
-                }
-                intent.putExtra("numPics", tmp.size());
-                startActivityForResult(intent, FULL_VIEW);
-
-            }
-        });
     }
 
     /* Convert any bitmap into a string in order to send it across intents
@@ -178,7 +276,7 @@ public class MyNotesNext extends AppCompatActivity {
         String bmapString = "picture" + where + ".png";
         try {
             FileOutputStream fos = this.openFileOutput(bmapString, Context.MODE_PRIVATE);
-            bmap.compress(Bitmap.CompressFormat.PNG, 10, fos);
+            bmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.close();
             // bmap.recycle();
         }
@@ -187,5 +285,7 @@ public class MyNotesNext extends AppCompatActivity {
         }
         return bmapString;
     }
+
+
 
 }

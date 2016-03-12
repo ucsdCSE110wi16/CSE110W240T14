@@ -12,6 +12,8 @@
         android:paddingLeft="35sp"
         android:paddingRight="10dp"
         android:text="CSE"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        android:textColor="#fdfd96"/>
 
 </RelativeLayout>

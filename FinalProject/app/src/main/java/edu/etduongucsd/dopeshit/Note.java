@@ -23,7 +23,8 @@ public class Note {
     public Lecture parentLecture;
     String dataBaseRef;
     ArrayList<Bitmap> pictureNote;
-    ArrayList<String> pictureString = new ArrayList<String>();
+    ArrayList<String> pictureString = new ArrayList<>();
+    Boolean removed = false;
 
     public Note(){};
 
@@ -36,6 +37,11 @@ public class Note {
         pictureNote = bmp;
         noteNum = numberOfNotes;
         dataBaseRef = parentFireBaseRef;
+        for(int i = 0; i < pictureNote.size(); i++){
+            String stringImage = storeBitmap(pictureNote.get(i));
+            pictureString.add(stringImage);
+        }
+        pictureNote = null;
     }
 
     public Note(int numberOfNotes, String parentFireBaseRef){
@@ -43,7 +49,6 @@ public class Note {
         flag = 0;
         upvoteBool = false;
         flagBool = false;
-        pictureNote = new ArrayList<Bitmap>();
         noteNum = numberOfNotes;
         dataBaseRef = parentFireBaseRef;
     }
@@ -55,24 +60,20 @@ public class Note {
         return "Note "+noteNum;
     }
 
-    public ArrayList<Bitmap> getNoteImage(){
-        return pictureNote;
-    }
-
     public int getNoteNum(){
         return noteNum;
     }
 
     public void addNoteToFirebase(){
         Firebase ref = new Firebase(dataBaseRef);
-        int arraySize = pictureNote.size();
+        int arraySize = pictureString.size();
         ref.child("Note " + noteNum).setValue(0);
         ref.child("Note " + noteNum).child("Rating").setValue(0);
         ref.child("Note " + noteNum).child("Flags").setValue(0);
+        ref.child("Note " + noteNum).child("Removed").setValue(false);
         for(int i = 0; i < arraySize; i++){
-            String stringImage = storeBitmap(pictureNote.get(i));
+            String stringImage = pictureString.get(i);
             ref.child("Note " + noteNum).child("Pic "+(i+1)).setValue(stringImage);
-            pictureString.add(stringImage);
         }
     }
 
@@ -103,13 +104,25 @@ public class Note {
 
     public ArrayList<Bitmap> convertToNoteBitmap(int reqWidth, int reqHeight) {
         //get number of pictures
-        System.out.println("Number of pictures: ");
-        for(int i = 0; i < pictureString.size(); i++) {
+        if(pictureNote != null){
+            pictureNote = null;
+        }
+        pictureNote = new ArrayList<Bitmap>();
+        for(int i = 0; i < (pictureString.size()); i++) {
             String base64Image = pictureString.get(i);
             byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
             pictureNote.add(decodeSampledBitmapFromResource(imageAsBytes,reqWidth ,reqHeight));
         }
         return pictureNote;
+    }
+
+    public Bitmap bitmapForFirstThumbnail(int reqWidth, int reqHeight) {
+        //get number of pictures
+        Bitmap bmp;
+        String base64Image = pictureString.get(0);
+        byte[] imageAsBytes = Base64.decode(base64Image.getBytes(), Base64.DEFAULT);
+        bmp = decodeSampledBitmapFromResource(imageAsBytes,reqWidth ,reqHeight);
+        return bmp;
     }
 
     //Toggle Flag
@@ -135,7 +148,9 @@ public class Note {
         else {
             flagBool = true;
             incFlag();
-            //Add note to myFlags list in UserProfile
+            if( upvoteBool == true && flagBool == true) {
+                toggleUpvotes();
+            }            //Add note to myFlags list in UserProfile
             HomeScreen.userProfile.myFlags.add(this);
             StartingPoint.flaggedNotes.add(dataBaseRef + "Note " + noteNum + "/");
             StartingPoint.preferenceEditor.remove((StartingPoint.myProfile.name + "flaggedNotes"));
@@ -176,6 +191,7 @@ public class Note {
         if( upvoteBool == true ) {
             upvoteBool = false;
             decUpvote();
+
             //Remove note from myFlags list in UserProfile
             if(HomeScreen.userProfile.myUpvotes.remove(this) == false){
                 System.out.println("Couldn't find note object in userProfile list of toggleLike");
@@ -191,6 +207,10 @@ public class Note {
         else {
             upvoteBool = true;
             incUpvote();
+
+            if( flagBool == true && upvoteBool ==true) {
+                toggleFlag();
+            }
             //Add not to myFlags list in UserProfile
             HomeScreen.userProfile.myUpvotes.add(this);
             StartingPoint.likedNotes.add(dataBaseRef + "Note " + noteNum + "/");

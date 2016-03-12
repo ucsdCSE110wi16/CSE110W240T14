@@ -1,7 +1,11 @@
 package edu.etduongucsd.dopeshit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +44,10 @@ public class StartingPoint extends AppCompatActivity {
 
     Button loginButton;
 
+    ProgressBar progressBar;
+
+    ProgressBarAnimation pba;
+
     EditText emailText;
 
     String emailInput;
@@ -63,11 +72,16 @@ public class StartingPoint extends AppCompatActivity {
 
     Boolean resetSavedData = false;
 
+    boolean canProceed = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_loading);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(100);
+        pba = new ProgressBarAnimation(progressBar, 1000);
 
         depart = new ArrayList<Department>();              //List of departments
 
@@ -84,65 +98,20 @@ public class StartingPoint extends AppCompatActivity {
         if(users == null){
             users = new HashSet<String>();
         }
-
+        
         setupData();
 
-
-
         Firebase.setAndroidContext(this);
+    }
 
-        login = new Login();
-
-
-
-        loginButton = (Button) findViewById(R.id.loginButton);
-
-        emailText = (EditText)findViewById(R.id.email);
-
-        if(lastUser != null){
-            emailText.setText(lastUser, TextView.BufferType.EDITABLE);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(canProceed == true) {
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         }
-
-        loginButton.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        if (login.checkName(emailText.getText().toString()) == true) {
-                            myCourses = preferenceSettings.getStringSet((myProfile.name + "myCourses"), null);
-
-                            if(myCourses == null){
-                                myCourses = new HashSet<String>();
-                            }
-                            setupMyCourses(myCourses);
-                            System.out.println("Number of myCourses: " + myCourses.size());
-                            System.out.println("Number of myCourses: " + myProfile.myCourses.size());
-                            myNotes = preferenceSettings.getStringSet((myProfile.name + "myNotes"), null);
-                            if(myNotes == null){
-                                myNotes = new HashSet<String>();
-                            }
-                            setupMyNotes(myNotes);
-                            System.out.println("Number of myNotes: " + myNotes.size());
-                            System.out.println("Number of myNotes: " + myProfile.userUpNotes.size());
-                            likedNotes = preferenceSettings.getStringSet((myProfile.name + "likedNotes"), null);
-                            if(likedNotes == null){
-                                likedNotes = new HashSet<String>();
-                            }
-                            setupLikedNotes(likedNotes);
-                            System.out.println("Number of likedNotes: " + likedNotes.size());
-                            System.out.println("Number of likedNotes: " + myProfile.myUpvotes.size());
-                            flaggedNotes = preferenceSettings.getStringSet((myProfile.name + "flaggedNotes"), null);
-                            if(flaggedNotes == null){
-                                flaggedNotes = new HashSet<String>();
-                            }
-                            setupFlaggedNotes(flaggedNotes);
-                            System.out.println("Number of flaggedNotes: " + flaggedNotes.size());
-                            System.out.println("Number of flaggedNotes: " + myProfile.myFlags.size());
-                            startActivity(new Intent(StartingPoint.this, HomeScreen.class));
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Please enter valid UCSD email", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-        );
     }
 
     private void setupMyCourses(Set<String> courses){
@@ -152,16 +121,7 @@ public class StartingPoint extends AppCompatActivity {
                     for(Course course : department.courses){
                         for(Professor professor : course.professors) {
                             if (c.equals(professor.dataBaseRef + professor.name + "/")) {
-                                boolean found = false;
-                                for(Professor checkProf : myProfile.myCourses){
-                                    if(checkProf.name.equals(professor.name)){
-                                        found = true;
-                                    }
-                                    if(found == false){
-                                        myProfile.myCourses.add(professor);
-                                    }
-                                }
-
+                                myProfile.myCourses.add(professor);
                             }
                         }
                     }
@@ -265,27 +225,111 @@ public class StartingPoint extends AppCompatActivity {
                                         date = noteSnapshot.getValue().toString();
                                         lect.date = date;
                                     } else {
-                                        j++;
-                                        Note note = new Note(j, lect.dataBaseRef + lect.toString() + "/");
-                                        note.parentLecture = lect;
-                                        lect.notes.add(note);
-                                        lect.numberOfNotes = j;
+                                        boolean removed = false;
+                                        int numberOfFlags = 0;
                                         for (DataSnapshot pictureSnapshot : noteSnapshot.getChildren()) {
-                                            System.out.println(pictureSnapshot.getKey().toString());
-                                            if ((pictureSnapshot.getKey().toString()).equals("Rating")) {
-                                                note.upvote = Integer.parseInt(pictureSnapshot.getValue().toString());
-                                            } else if ((pictureSnapshot.getKey().toString()).equals("Flags")) {
-                                                note.flag = Integer.parseInt(pictureSnapshot.getValue().toString());
-                                            } else {
-                                                String added = pictureSnapshot.getValue().toString();
-                                                note.pictureString.add(added);
+                                            if ((pictureSnapshot.getKey().toString()).equals("Removed")) {
+                                                removed = Boolean.parseBoolean(pictureSnapshot.getValue().toString());
+                                            }
+                                            if((pictureSnapshot.getKey().toString()).equals("Removed")){
+                                                numberOfFlags++;
                                             }
                                         }
+                                        if (removed == false && numberOfFlags < 5) {
+                                            j++;
+                                            Note note = new Note(j, lect.dataBaseRef + lect.toString() + "/");
+                                            note.parentLecture = lect;
+                                            lect.notes.add(note);
+                                            lect.numberOfNotes = j;
+                                            for (DataSnapshot pictureSnapshot : noteSnapshot.getChildren()) {
+                                                if ((pictureSnapshot.getKey().toString()).equals("Rating")) {
+                                                    note.upvote = Integer.parseInt(pictureSnapshot.getValue().toString());
+                                                } else if ((pictureSnapshot.getKey().toString()).equals("Flags")) {
+                                                    note.flag = Integer.parseInt(pictureSnapshot.getValue().toString());
+                                                } else if(!((pictureSnapshot.getKey().toString()).equals("Removed"))){
+                                                    String added = pictureSnapshot.getValue().toString();
+                                                    note.pictureString.add(added);
+                                                }
+                                            }
+                                        }
+
                                     }
                                 }
                             }
                         }
                     }
+                    pba.setProgress(100);
+                }
+                canProceed = true;
+                while (canProceed) {
+                    setContentView(R.layout.activity_login);
+                    login = new Login();
+
+                    loginButton = (Button) findViewById(R.id.loginButton);
+
+                    //Button logBut = (Button) findViewById(R.id.loginButton);
+                    Typeface myType = Typeface.createFromAsset(getAssets(), "Lob.otf");
+                    loginButton.setTypeface(myType);
+
+                    emailText = (EditText)findViewById(R.id.email);
+
+                    if(lastUser != null){
+                        emailText.setText(lastUser, TextView.BufferType.EDITABLE);
+                    }
+
+                    loginButton.setOnClickListener(
+                            new View.OnClickListener() {
+                                public void onClick(View view) {
+                                    if (canProceed = true) {
+
+                                        if (login.checkName(emailText.getText().toString()) == true) {
+
+                                            myCourses = preferenceSettings.getStringSet((myProfile.name + "myCourses"), null);
+
+                                            if (myCourses == null) {
+                                                myCourses = new HashSet<String>();
+                                            }
+                                            setupMyCourses(myCourses);
+                                            System.out.println("Number of myCourses: " + myCourses.size());
+                                            System.out.println("Number of myCourses: " + myProfile.myCourses.size());
+                                            myNotes = preferenceSettings.getStringSet((myProfile.name + "myNotes"), null);
+                                            if (myNotes == null) {
+                                                myNotes = new HashSet<String>();
+                                            }
+                                            setupMyNotes(myNotes);
+                                            System.out.println("Number of myNotes: " + myNotes.size());
+                                            System.out.println("Number of myNotes: " + myProfile.userUpNotes.size());
+                                            likedNotes = preferenceSettings.getStringSet((myProfile.name + "likedNotes"), null);
+                                            if (likedNotes == null) {
+                                                likedNotes = new HashSet<String>();
+                                            }
+                                            setupLikedNotes(likedNotes);
+                                            System.out.println("Number of likedNotes: " + likedNotes.size());
+                                            System.out.println("Number of likedNotes: " + myProfile.myUpvotes.size());
+                                            flaggedNotes = preferenceSettings.getStringSet((myProfile.name + "flaggedNotes"), null);
+                                            if (flaggedNotes == null) {
+                                                flaggedNotes = new HashSet<String>();
+                                            }
+                                            setupFlaggedNotes(flaggedNotes);
+                                            System.out.println("Number of flaggedNotes: " + flaggedNotes.size());
+                                            System.out.println("Number of flaggedNotes: " + myProfile.myFlags.size());
+                            /*  new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    startActivity(new Intent(StartingPoint.this, HomeScreen.class));
+                                    finish();
+                                }
+                            }, LOADING_TIME);*/
+                                            startActivity(new Intent(StartingPoint.this, HomeScreen.class));
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Please enter valid UCSD email", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            }
+                    );
+                    canProceed = false;
                 }
             }
 
@@ -293,5 +337,8 @@ public class StartingPoint extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
+
+
+        // setContentView(R.layout.activity_login);
     }
 }

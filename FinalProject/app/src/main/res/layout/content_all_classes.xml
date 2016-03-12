@@ -9,11 +9,30 @@
     tools:showIn="@layout/activity_all_classes"
     android:background="#C8E3FF">
 
+    <TextView
+        android:id="@+id/allCoursesTitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="All Courses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:textColor="#fdfd96"
+        android:background="#AAC5E2"
+        >
+    </TextView>
+
+
+
+
     <SearchView
         android:id="@+id/allClassesSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:layout_below="@+id/allCoursesTitle">
     </SearchView>
 
     <ExpandableListView

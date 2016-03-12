@@ -28,8 +28,9 @@
         android:minWidth="100dp"
         android:adjustViewBounds="true"
         android:onClick="setContentView"
-        android:layout_toLeftOf="@+id/myTextView4"
-        android:layout_toStartOf="@+id/myTextView4" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,20 +38,43 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="10"
         android:id="@+id/myRatingNum"
-        android:layout_alignTop="@+id/myTextView4"
-        android:layout_toRightOf="@+id/myTextView4"
-        android:layout_toEndOf="@+id/myTextView4"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp" />
+        android:textColor="#fdfd96"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/myImageButton"
+        android:layout_toLeftOf="@+id/myRateSym"
+        android:layout_toStartOf="@+id/myRateSym"
+        android:layout_marginTop="16dp" />
 
     <ImageView
         android:src="@drawable/ic_star_black_18dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/myRateSym"
+        android:layout_marginRight="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/myRatingNum"
-        android:layout_toRightOf="@+id/myRatingNum"
-        android:layout_toEndOf="@+id/myRatingNum"
         android:layout_alignBottom="@+id/myRatingNum" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deleteButton"
+        android:src="@drawable/ic_delete_forever_black_24dp"
+        android:layout_below="@+id/myTextView4"
+        android:layout_alignLeft="@+id/myRatingNum"
+        android:layout_alignStart="@+id/myRatingNum" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="4 Pages"
+        android:id="@+id/myNumPages"
+        android:textColor="#fdfd96"
+        android:layout_alignBottom="@+id/myTextView4"
+        android:layout_alignRight="@+id/deleteButton"
+        android:layout_alignEnd="@+id/deleteButton" />
 
 </RelativeLayout>

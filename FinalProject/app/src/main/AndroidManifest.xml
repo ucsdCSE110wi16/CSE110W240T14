@@ -42,8 +42,7 @@
     </activity>
 
         <activity
-            android:name=".WeekLectureSelection"
-            android:label="@string/title_activity_week_lecture_selection"
+            android:name=".loadingScreen"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AllClasses"

@@ -6,7 +6,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:id="@+id/insertPicture"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"/>
 
     <Button
         android:layout_width="wrap_content"

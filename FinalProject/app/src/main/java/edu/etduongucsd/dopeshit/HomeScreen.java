@@ -1,5 +1,7 @@
 package edu.etduongucsd.dopeshit;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -33,6 +35,7 @@ public class HomeScreen extends AppCompatActivity {
     public static Lecture selectedLecture;
     public static Note selectedNote;
     public static UserProfile userProfile = StartingPoint.myProfile; /*= StartingPoint1.myProfile;*/
+    public Context context = this.context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,8 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void openUploadPage (View view) {
+        //Data data = new Data();
+        //data.setupData(this, new Intent(this, uploadPage.class));
         startActivity(new Intent(this, uploadPage.class));
     }
 

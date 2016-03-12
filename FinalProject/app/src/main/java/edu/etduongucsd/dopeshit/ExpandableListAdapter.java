@@ -20,9 +20,9 @@ import android.widget.TextView;
 //Adapter used on list in AllClasses.class
 public class ExpandableListAdapter extends BaseExpandableListAdapter{
     private Context _context;
-    private List<String> _listDataHeader; // header titles
+    public List<String> _listDataHeader; // header titles
     // child data in format of header title, child title
-    private HashMap<String, List<String>> _listDataChild;
+    public HashMap<String, List<String>> _listDataChild;
 
     private List<String> copy_listDataHeader;
     private HashMap<String, List<String>> copy_listDataChild;

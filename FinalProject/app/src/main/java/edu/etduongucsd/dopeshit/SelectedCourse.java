@@ -59,7 +59,10 @@ public class SelectedCourse extends AppCompatActivity{
         toolbar.findViewById(R.id.toolbar_title).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SelectedCourse.this, HomeScreen.class));
+                finish();
+                Intent intent = new Intent(SelectedCourse.this, HomeScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         toolbar.findViewById(R.id.toolbar_settings).setOnClickListener(new View.OnClickListener() {
@@ -146,6 +149,8 @@ public class SelectedCourse extends AppCompatActivity{
                 //HomeScreen.selectedProfessor = HomeScreen.selectedCourse.professors.get(position);  //Deparment selected from the list of departments
 
                 //Create new intent to open course list contained by selected department
+               // Data data = new Data();
+               // data.setupData(SelectedCourse.this, new Intent(SelectedCourse.this, testNote.class));
                 Intent selectedIntent = new Intent(SelectedCourse.this, testNote.class);
                 startActivity(selectedIntent);
             }
