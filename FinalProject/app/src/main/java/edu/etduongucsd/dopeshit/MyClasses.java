@@ -41,13 +41,6 @@ public class MyClasses extends AppCompatActivity {
      */
     private GoogleApiClient client;
 
-    public void addToMyClasses(Professor newMyClass) {
-        if (MYCLASSES.contains(newMyClass)) {
-        } else {
-            MYCLASSES.add(newMyClass);
-        }
-    }
-
     public void delFromMyClasses(Course remMyClass) {
         MYCLASSES.remove(remMyClass);
     }
@@ -113,29 +106,6 @@ public class MyClasses extends AppCompatActivity {
 
                 Intent selectedIntent = new Intent(MyClasses.this, testNote.class);
                 startActivity(selectedIntent);
-            }
-        });
-    }
-
-    private void registerClickCallback() {
-
-        //List shown on screen
-        ListView list = (ListView) findViewById(R.id.lectureListView);
-
-        //Listener for the list
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            //What will happen when the list is clicked
-            @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-
-                HomeScreen.selectedDepart = MYCLASSES.get(position).parentCourse.parentDepartment;
-                HomeScreen.selectedCourse = MYCLASSES.get(position).parentCourse;
-                HomeScreen.selectedProfessor = MYCLASSES.get(position);
-                //Create new intent to open course list contained by selected department
-                Intent selectedIntent = new Intent(MyClasses.this, testNote.class);
-                startActivity(selectedIntent);
-
             }
         });
     }

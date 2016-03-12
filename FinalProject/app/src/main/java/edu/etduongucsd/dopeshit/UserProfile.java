@@ -18,7 +18,6 @@ public class UserProfile {
     public List<Professor> myCourses = new ArrayList<Professor>();
     public List<Note> myFlags = new ArrayList<>();
     public List<Note> myUpvotes = new ArrayList<>();
-   // public List<Course> myUploadCourses = new ArrayList<Course>();
     public List<Note> userUpNotes = new ArrayList<Note>();
     //List<Note> myNotes;
     MyNotes myNotes = new MyNotes();
@@ -44,10 +43,6 @@ public class UserProfile {
             myCourses.add(c);
         }
     }
-
-    //public void addMyNote(Note note){
-    //    myNotes.add(note);
-    //}
 
     //Compares a note to add or remove from Note List (either myFlags or myUpvotes)
     public boolean containsNote( Note n, List<Note> myList) {
@@ -85,9 +80,4 @@ public class UserProfile {
             myFlags.add(n);
         }
     }
-
-    public boolean isUser(String s) {
-        return name.equals(s);
-    }
-
 }

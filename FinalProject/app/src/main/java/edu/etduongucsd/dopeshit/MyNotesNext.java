@@ -103,7 +103,7 @@ public class MyNotesNext extends AppCompatActivity {
             arrayOfPicture.add(picture);
         }
 
-        Typeface myType = Typeface.createFromAsset(getAssets(), "AD.ttf");
+        Typeface myType = Typeface.createFromAsset(getAssets(), "Lob.otf");
         Typeface myType2 = Typeface.createFromAsset(getAssets(), "PBP.ttf");
 
         TextView noteHead = (TextView) findViewById(R.id.noteListTitle);
@@ -217,34 +217,18 @@ public class MyNotesNext extends AppCompatActivity {
                                             index++;
                                         }
                                     }
-                                    if (index == 1) {
-
-
-                                    }
                                     for (Lecture lecture : HomeScreen.selectedProfessor.lectures) {
                                         for (Note removeNote : lecture.notes) {
                                             if ((removeNote.dataBaseRef + removeNote.toString()).equals(note.dataBaseRef + note.toString())) {
                                                 lecture.notes.remove(note);
-                                                if (index > 1) {
                                                     Intent intent = getIntent();
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                     finish();
                                                     startActivity(intent);
-                                                } else {
-                                                    HomeScreen.userProfile.userUpNotes.remove(note);
-                                                    finish();
-                                                    Intent intent = new Intent(getContext(), HomeScreen.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    startActivity(intent);
-
-
-                                                }
 
                                             }
                                         }
                                     }
-//May need to reassign arrays here. or use firebase update
-
                                 }
                             }
                             dialog.dismiss();

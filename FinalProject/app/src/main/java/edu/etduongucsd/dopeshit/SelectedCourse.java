@@ -72,7 +72,7 @@ public class SelectedCourse extends AppCompatActivity{
             }
         });
 
-        Typeface myType = Typeface.createFromAsset(getAssets(), "AD.ttf");
+        Typeface myType = Typeface.createFromAsset(getAssets(), "Lob.otf");
 
         TextView className = (TextView) findViewById(R.id.profListTitle);
         className.setText(HomeScreen.selectedDepart.getName()+" "+HomeScreen.selectedCourse.getName().trim());
@@ -80,8 +80,6 @@ public class SelectedCourse extends AppCompatActivity{
         profList = HomeScreen.selectedCourse.getProfessors();
 
         createCourseList();
-
-        //registerClickCallback();
 
         button2OnClick();
 
@@ -146,43 +144,10 @@ public class SelectedCourse extends AppCompatActivity{
                 profSel = (Professor) profListView.getItemAtPosition(position);
                 HomeScreen.selectedProfessor = profSel;
 
-                //HomeScreen.selectedProfessor = HomeScreen.selectedCourse.professors.get(position);  //Deparment selected from the list of departments
-
                 //Create new intent to open course list contained by selected department
-               // Data data = new Data();
-               // data.setupData(SelectedCourse.this, new Intent(SelectedCourse.this, testNote.class));
                 Intent selectedIntent = new Intent(SelectedCourse.this, testNote.class);
                 startActivity(selectedIntent);
             }
         });
-
-        /*ArrayAdapter professorArrayAdapter = new ArrayAdapter
-                (this, android.R.layout.simple_list_item_1, HomeScreen.selectedCourse.professors);
-        //ListView professorListview = (ListView) this.findViewById(R.id.listView5);
-        //professorListview.setAdapter(professorArrayAdapter);*/
-
     }
-
-    /*
-    private void registerClickCallback(){
-
-        //List shown on screen
-        //ListView list = (ListView) findViewById(R.id.listView5);
-
-        //Listener for the list
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            //What will happen when the list is clicked
-            @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id) {
-
-                HomeScreen.selectedProfessor = HomeScreen.selectedCourse.professors.get(position);  //Deparment selected from the list of departments
-
-                //Create new intent to open course list contained by selected department
-                Intent selectedIntent = new Intent(SelectedCourse.this, testNote.class);
-                startActivity(selectedIntent);
-
-            }
-        });
-    }*/
 }

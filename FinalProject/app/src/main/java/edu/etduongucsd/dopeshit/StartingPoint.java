@@ -35,9 +35,6 @@ public class StartingPoint extends AppCompatActivity {
     public static SharedPreferences preferenceSettings;
     public static SharedPreferences.Editor preferenceEditor;
 
-    Set<String> mySet;
-
-
     public static UserProfile myProfile;
 
     public static List<Department> depart;
@@ -49,12 +46,6 @@ public class StartingPoint extends AppCompatActivity {
     ProgressBarAnimation pba;
 
     EditText emailText;
-
-    String emailInput;
-
-    String checkEmail;
-
-    String checkName;
 
     public static Set<String> users;
 
@@ -290,37 +281,21 @@ public class StartingPoint extends AppCompatActivity {
                                                 myCourses = new HashSet<String>();
                                             }
                                             setupMyCourses(myCourses);
-                                            System.out.println("Number of myCourses: " + myCourses.size());
-                                            System.out.println("Number of myCourses: " + myProfile.myCourses.size());
                                             myNotes = preferenceSettings.getStringSet((myProfile.name + "myNotes"), null);
                                             if (myNotes == null) {
                                                 myNotes = new HashSet<String>();
                                             }
                                             setupMyNotes(myNotes);
-                                            System.out.println("Number of myNotes: " + myNotes.size());
-                                            System.out.println("Number of myNotes: " + myProfile.userUpNotes.size());
                                             likedNotes = preferenceSettings.getStringSet((myProfile.name + "likedNotes"), null);
                                             if (likedNotes == null) {
                                                 likedNotes = new HashSet<String>();
                                             }
                                             setupLikedNotes(likedNotes);
-                                            System.out.println("Number of likedNotes: " + likedNotes.size());
-                                            System.out.println("Number of likedNotes: " + myProfile.myUpvotes.size());
                                             flaggedNotes = preferenceSettings.getStringSet((myProfile.name + "flaggedNotes"), null);
                                             if (flaggedNotes == null) {
                                                 flaggedNotes = new HashSet<String>();
                                             }
                                             setupFlaggedNotes(flaggedNotes);
-                                            System.out.println("Number of flaggedNotes: " + flaggedNotes.size());
-                                            System.out.println("Number of flaggedNotes: " + myProfile.myFlags.size());
-                            /*  new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    startActivity(new Intent(StartingPoint.this, HomeScreen.class));
-                                    finish();
-                                }
-                            }, LOADING_TIME);*/
                                             startActivity(new Intent(StartingPoint.this, HomeScreen.class));
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Please enter valid UCSD email", Toast.LENGTH_SHORT).show();
@@ -337,8 +312,5 @@ public class StartingPoint extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
-
-
-        // setContentView(R.layout.activity_login);
     }
 }

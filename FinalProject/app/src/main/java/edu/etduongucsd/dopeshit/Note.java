@@ -60,10 +60,6 @@ public class Note {
         return "Note "+noteNum;
     }
 
-    public int getNoteNum(){
-        return noteNum;
-    }
-
     public void addNoteToFirebase(){
         Firebase ref = new Firebase(dataBaseRef);
         int arraySize = pictureString.size();
@@ -98,7 +94,6 @@ public class Note {
         bmp.compress(Bitmap.CompressFormat.JPEG, 25, bYte);
         byte[] byteArray = bYte.toByteArray();
         String result = Base64.encodeToString(byteArray, Base64.DEFAULT);
-        System.out.println("Stored image with length: " + byteArray.length);
         return result;
     }
 
@@ -132,13 +127,7 @@ public class Note {
         if( flagBool == true ) {
             flagBool = false;
             decFlag();
-            //Remove note from myFlags list in UserProfile
-            if(HomeScreen.userProfile.myFlags.remove(this) == false){
-                System.out.println("Couldn't find note object in userProfile list of toggleFlag");
-            }
-            if(StartingPoint.flaggedNotes.remove(dataBaseRef + "Note " + noteNum + "/") == false){
-                System.out.println("Couldn't find string in flaggedNotes list of toggleFlag");
-            }
+
             StartingPoint.preferenceEditor.remove((StartingPoint.myProfile.name + "flaggedNotes"));
             StartingPoint.preferenceEditor.commit();
             StartingPoint.preferenceEditor.putStringSet((StartingPoint.myProfile.name + "flaggedNotes"), StartingPoint.flaggedNotes);
@@ -192,13 +181,6 @@ public class Note {
             upvoteBool = false;
             decUpvote();
 
-            //Remove note from myFlags list in UserProfile
-            if(HomeScreen.userProfile.myUpvotes.remove(this) == false){
-                System.out.println("Couldn't find note object in userProfile list of toggleLike");
-            }
-            if(StartingPoint.likedNotes.remove(dataBaseRef + "Note " + noteNum + "/") == false){
-                System.out.println("Couldn't find string in StartingPoint.likedNotes list of toggleLike");
-            }
             StartingPoint.preferenceEditor.remove((StartingPoint.myProfile.name + "likedNotes"));
             StartingPoint.preferenceEditor.commit();
             StartingPoint.preferenceEditor.putStringSet((StartingPoint.myProfile.name + "likedNotes"), StartingPoint.likedNotes);

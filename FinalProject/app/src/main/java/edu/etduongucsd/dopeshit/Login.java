@@ -9,8 +9,6 @@ import android.app.Activity;
  */
 public class Login extends Activity{
 
-    String emailInput;
-
     String checkEmail;
 
     String checkName;
@@ -40,7 +38,6 @@ public class Login extends Activity{
             for (String c : StartingPoint.users) {
 
                 if (c.equals(checkName)) {
-                    System.out.println("Found existing user");
                     StartingPoint.myProfile = new UserProfile(c);
                     StartingPoint.preferenceEditor.remove("lastUser");
                     StartingPoint.preferenceEditor.commit();
@@ -53,7 +50,6 @@ public class Login extends Activity{
         }
 
         // create a new profile
-        System.out.println("Creating new user");
         StartingPoint.myProfile = new UserProfile(checkName);
         StartingPoint.users.add(checkName);
         StartingPoint.preferenceEditor.putStringSet("Users", StartingPoint.users);

@@ -45,7 +45,6 @@ public class PictureGridView extends AppCompatActivity {
                 bmapList.add(j, i.getStringExtra("picture" + j + ".png"));
             }
         }
-        // bmapList = i.getStringArrayListExtra("bmaps");
 
         setContentView(R.layout.grid_view_layout);
         gridView = (GridView) findViewById(R.id.gridView);
@@ -84,22 +83,6 @@ public class PictureGridView extends AppCompatActivity {
                 }
             }
         }
-
-    }
-
-    private String bm2s( Bitmap bmap, int where) {
-
-        String bmapString = "picture" + where + ".png";
-        try {
-            FileOutputStream fos = this.openFileOutput(bmapString, Context.MODE_PRIVATE);
-            bmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.close();
-            // bmap.recycle();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bmapString;
     }
 
 }

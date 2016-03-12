@@ -34,14 +34,6 @@ public class MyNotes extends AppCompatActivity {
         }
     }
 
-    public void delFromMyNotes(Note delNote) {
-        if(myNotes.contains(delNote)) {
-            myNotes.remove(delNote);
-            Collections.sort(myNotes, Note.ASC_NOTES);
-        }
-    }
-/////STOPDTOPSROPSTOPSTOPSTOP
-
     public void displayMyNoteList_real() {
         noteProfs = new ArrayList<Professor>();
         for(Note note : HomeScreen.userProfile.userUpNotes){
@@ -64,23 +56,15 @@ public class MyNotes extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 noteCourseSel = (Professor) myNoteView.getItemAtPosition(position);
-                //lectureHeading = courseSel.getName();
-                //classProf = courseSel.getProfessors().get(position);
 
-                //HomeScreen.selectedProfessor = classProf;
                 HomeScreen.selectedDepart = HomeScreen.userProfile.userUpNotes.get(position).parentLecture.parentProfessor.parentCourse.parentDepartment;
                 HomeScreen.selectedCourse = HomeScreen.userProfile.userUpNotes.get(position).parentLecture.parentProfessor.parentCourse;
                 HomeScreen.selectedProfessor = HomeScreen.userProfile.userUpNotes.get(position).parentLecture.parentProfessor;  //I added
-         //       HomeScreen.selectedLecture = HomeScreen.userProfile.userUpNotes.get(position).parentLecture;    //I added
 
                 System.out.println("MyNotes: "+HomeScreen.selectedDepart);
                 System.out.println("MyNotes: "+HomeScreen.selectedCourse);
                 System.out.println("MyNotes: "+HomeScreen.selectedProfessor);
                 System.out.println("MyNotes: "+HomeScreen.selectedLecture);
-
-                //classProfName = classProf.getName();
-
-                //int numLecs = classProf.numberOfLectures;
 
                 Intent selectedIntent = new Intent(MyNotes.this, MyNotesNext.class);
                 startActivity(selectedIntent);
@@ -88,21 +72,6 @@ public class MyNotes extends AppCompatActivity {
         });
 
     }
-
-    /*
-    public void displayMyNoteList() {
-        myNoteView = (ListView) findViewById(R.id.myNotesList);
-        myNoteAdapter = new MyNoteListAdapter(MyNotes.this, 0, myNotes);
-        myNoteView.setAdapter(myNoteAdapter);
-        myNoteView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        noteSel = (Note) myNoteView.getItemAtPosition(position);
-                    }
-                }
-        );
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,17 +101,16 @@ public class MyNotes extends AppCompatActivity {
         });
 
         TextView title = (TextView) findViewById(R.id.myNotesTitle);
-        Typeface myType = Typeface.createFromAsset(getAssets(), "AD.ttf");
+        Typeface myType = Typeface.createFromAsset(getAssets(), "Lob.otf");
         title.setTypeface(myType);
         displayMyNoteList_real();
-if(restart == true) {
-    restart = false;
+        if (restart == true) {
+            restart = false;
 
-    displayMyNoteList_real();
-    System.out.println("ASIODFHNIUYASFKDNM<");
-    finish();
-    startActivity(getIntent());
-}
+            displayMyNoteList_real();
+            finish();
+            startActivity(getIntent());
+        }
     }
 
 }

@@ -33,7 +33,6 @@ public class HomeScreen extends AppCompatActivity {
     public static Course selectedCourse;
     public static Professor selectedProfessor;
     public static Lecture selectedLecture;
-    public static Note selectedNote;
     public static UserProfile userProfile = StartingPoint.myProfile; /*= StartingPoint1.myProfile;*/
     public Context context = this.context;
 
@@ -45,11 +44,7 @@ public class HomeScreen extends AppCompatActivity {
         Firebase.setAndroidContext(this);
 
         depart = StartingPoint.depart;
-
-
-
-        //setupData();
-
+        
         /* Find the toolbar by id, and set it as the action bar. Whenever the 'Note' is clicked,
          * it will return to the home screen.
          */
@@ -82,8 +77,6 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void openUploadPage (View view) {
-        //Data data = new Data();
-        //data.setupData(this, new Intent(this, uploadPage.class));
         startActivity(new Intent(this, uploadPage.class));
     }
 

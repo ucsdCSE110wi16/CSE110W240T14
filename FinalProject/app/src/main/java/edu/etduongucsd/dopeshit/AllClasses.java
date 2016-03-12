@@ -3,6 +3,7 @@ package edu.etduongucsd.dopeshit;
         import android.app.SearchManager;
         import android.content.Context;
         import android.content.Intent;
+        import android.graphics.Typeface;
         import android.os.Bundle;
         import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ package edu.etduongucsd.dopeshit;
         import android.widget.AdapterView;
         import android.widget.ExpandableListView;
         import android.widget.SearchView;
+        import android.widget.TextView;
         import android.widget.Toast;
 
         import java.util.ArrayList;
@@ -63,16 +65,13 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         search.setOnQueryTextListener(this);
         search.setOnCloseListener(this);
 
+        TextView allClass = (TextView) findViewById(R.id.allCoursesTitle);
+        Typeface myType = Typeface.createFromAsset(getAssets(), "Lob.otf");
+        allClass.setTypeface(myType);
+
         displayList();
 
 
-    }
-
-    private void expandAll() {
-        int count = listAdapter.getGroupCount();
-        for(int i = 0; i < count; i++) {
-            myList.expandGroup(i);
-        }
     }
 
     private void displayList() {
@@ -82,7 +81,6 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         myList = (ExpandableListView) findViewById(R.id.allClassesExpList);
         listAdapter = new ExpandableListAdapter(AllClasses.this, listDataHeader, listDataChild);
         myList.setAdapter(listAdapter);
-        //setDepartments(listAdapter._listDataHeader);
         resetDepartments();
 
         // Listview Group click listener
@@ -100,9 +98,7 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
 
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -111,10 +107,6 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -124,21 +116,10 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                // TODO Auto-generated method stub
-                Toast.makeText(
-                        getApplicationContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();
 
                 retrieveSelected(listDataHeader.get(groupPosition), listDataChild.get(
                         listDataHeader.get(groupPosition)).get(
                         childPosition));
-                //Data data = new Data();
-                //data.setupData(AllClasses.this, new Intent(AllClasses.this, SelectedCourse.class));
                 startActivity(new Intent(AllClasses.this, SelectedCourse.class));
 
                 return false;
@@ -146,6 +127,7 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         });
     }
 
+    //Reset departments on list
     private void resetDepartments () {
         depart = new ArrayList<Department>();
         for (Department tmpDept : HomeScreen.depart) {
@@ -153,7 +135,7 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         }
     }
 
-
+    //Set correct list of departments
     private void setDepartments (List<String> d) {
 
         depart = new ArrayList<Department>();
@@ -165,7 +147,7 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
             }
         }
     }
-
+    //Retrieve selected departments and courses from list
     private void retrieveSelected(String dept, String course){
         for(Department tempDept : depart){
             if(tempDept.name.equals(dept)){
@@ -181,7 +163,7 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
 
 
     }
-
+    //Load the data for the list
     private void loadData() {
 
         listDataHeader = new ArrayList<String>();
@@ -201,7 +183,6 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
     @Override
     public boolean onClose() {
         listAdapter.filterDate("");
-       // expandAll();
         return false;
     }
 
@@ -210,8 +191,6 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         listAdapter.filterDate(query);
         setDepartments(listAdapter._listDataHeader);
         loadData();
-        //displayList();
-        //expandAll();
         return false;
     }
 
@@ -220,8 +199,6 @@ public class AllClasses extends AppCompatActivity implements SearchView.OnQueryT
         listAdapter.filterDate(newText);
         setDepartments (listAdapter._listDataHeader);
         loadData();
-       // displayList();
-      //  expandAll();
         return false;
     }
 }

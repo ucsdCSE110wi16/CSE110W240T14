@@ -24,7 +24,6 @@ public class Lecture {
     int lectureNum;
     List<Note> notes;
     public int numberOfNotes;
-    int count;
     public Professor parentProfessor;
     public String date;
 

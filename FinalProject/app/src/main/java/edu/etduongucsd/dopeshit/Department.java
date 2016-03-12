@@ -15,9 +15,6 @@ public class Department {
     List<Course> courses; //List of courses within department
     String dataBaseRef;
 
-    //Default constructor
-    public Department(){}
-
     //Constructor with parameters
     public Department(String n){
         name = n;
@@ -40,11 +37,6 @@ public class Department {
     @Override
     public String toString(){
         return getName();
-    }
-
-    public void addDepartmentToFirebase(){
-        Firebase ref = new Firebase(dataBaseRef);
-        ref.child(getName()).setValue(0);
     }
 
     //Add course to list of courses belonging to this department

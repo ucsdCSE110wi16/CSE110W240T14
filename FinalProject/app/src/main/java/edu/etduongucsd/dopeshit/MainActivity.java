@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
 
     Note currentNote;
-    // Note currentNote;
     int index;
 
     int wPixel;
@@ -112,24 +111,8 @@ public class MainActivity extends AppCompatActivity {
             arrayOfPicture.add(picture);
 
         }
-        ///WOrkinf vwersion of loop
-        /*for (int i = 0; i < currentLecture.notes.size(); i++) {
 
-            current = currentLecture.notes.get(i);
-            for(int j = 0; j < current.pictureString.size(); j++) {
-              // byte[] notePicBytes = Base64.decode(current.pictureString.get(j), Base64.DEFAULT);
-              // picture.add(BitmapFactory.decodeByteArray(notePicBytes, 0, notePicBytes.length));
-                int wPixel = this.getWindowManager().getDefaultDisplay().getWidth();
-                int hPixel = this.getWindowManager().getDefaultDisplay().getHeight();
-                picture = current.convertToNoteBitmap(wPixel, hPixel);
-            }
-//                    picture = current.convertToNoteBitmap(100, 100);
-            arrayOfPicture.add(picture);
-
-        }*/
-
-
-        Typeface myType = Typeface.createFromAsset(getAssets(), "AD.ttf");
+        Typeface myType = Typeface.createFromAsset(getAssets(), "Lob.otf");
 
         TextView noteHead = (TextView) findViewById(R.id.noteListTitle);
         TextView noteClass = (TextView) findViewById(R.id.classNote);
@@ -168,14 +151,10 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(currentNote.toString());
 
             TextView numPages = (TextView) noteView.findViewById(R.id.numPages);
-            System.out.println("Testdsayifhiasfhyuas11111111: "+currentNote.pictureString.size());
-            System.out.println(position);
-                System.out.println("Testdsayifhiasfhyuas: "+currentNote.pictureString.size());
             if (currentNote.pictureString == null) {
                 numPages.setText((String.valueOf(currentNote.pictureNote.size()) + " Page(s)").trim());
                 numPages.setTypeface(myType2);
             } else {
-                System.out.println("Testdsayifhiasfhyuas: " + currentNote.pictureString.size());
                 numPages.setText((String.valueOf(currentNote.pictureString.size()) + " Page(s)").trim());
                 numPages.setTypeface(myType2);
             }
@@ -204,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
                     int buttonPosition = (Integer) v.getTag();
                     currentLecture.notes.get(buttonPosition).toggleUpvotes();
                     Intent intent = getIntent();
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     finish();
                     startActivity(intent);
                 }
@@ -219,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
                     currentLecture.notes.get(buttonPosition).toggleFlag();
                     Intent intent = getIntent();
 
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     finish();
                     startActivity(intent);
                 }
@@ -240,19 +217,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                     for (int picCount = 0; picCount < tmp.size(); picCount++) {
-                    //if (picCount % 2 == 0) {
                         intent.putExtra("picture" + picCount + ".png", bm2s(tmp.get(picCount), picCount));
-                    // actualCount++;
                     }
-                 //   }
-                    intent.putExtra("numPics", tmp.size());// tmp.size()/2);
+                    intent.putExtra("numPics", tmp.size());
                     intent.putExtra("rcode", FULL_VIEW);
                     startActivityForResult(intent, FULL_VIEW);
 
                 }
             });
-
-
             return noteView;
         }
     }
@@ -267,7 +239,6 @@ public class MainActivity extends AppCompatActivity {
             FileOutputStream fos = this.openFileOutput(bmapString, Context.MODE_PRIVATE);
             bmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.close();
-            // bmap.recycle();
         }
         catch (Exception e) {
             e.printStackTrace();
